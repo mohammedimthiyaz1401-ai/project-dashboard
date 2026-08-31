@@ -5,159 +5,182 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mohammed Imthiyaz - Project Dashboard</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Rajdhani', 'Segoe UI', sans-serif;
-            background: #050510;
+            font-family: 'Rajdhani', sans-serif;
+            background: #020810;
             color: #e0e0e0;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Cosmic Background */
-        .cosmic-bg {
+        /* Deep Space Background */
+        .space-bg {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 0;
             background:
-                radial-gradient(ellipse at 20% 50%, rgba(0,100,255,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(0,200,255,0.06) 0%, transparent 40%),
-                radial-gradient(ellipse at 50% 80%, rgba(0,150,255,0.05) 0%, transparent 50%),
-                linear-gradient(180deg, #050510 0%, #0a0a20 50%, #0d1530 100%);
+                radial-gradient(ellipse at 50% 30%, rgba(0,80,180,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 70%, rgba(0,120,200,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(0,60,150,0.06) 0%, transparent 40%),
+                linear-gradient(180deg, #020810 0%, #040c18 40%, #061225 100%);
         }
 
-        /* Animated Stars */
-        .stars {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
+        /* Stars */
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
         .star {
             position: absolute;
             width: 2px; height: 2px;
             background: #fff;
             border-radius: 50%;
-            animation: twinkle 3s ease-in-out infinite;
+            animation: twinkle 4s ease-in-out infinite;
         }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
-        }
+        @keyframes twinkle { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.9; } }
 
-        /* Energy Rings */
-        .energy-rings {
+        /* Floating Islands / Cloud Layer */
+        .cloud-layer {
             position: fixed;
-            bottom: -300px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 900px;
-            height: 900px;
-            z-index: 1;
-            pointer-events: none;
-        }
-        .ring {
-            position: absolute;
-            border: 2px solid rgba(0,180,255,0.15);
-            border-radius: 50%;
-            animation: rotateRing 20s linear infinite;
-        }
-        .ring:nth-child(1) { width: 100%; height: 100%; top: 0; left: 0; animation-duration: 25s; }
-        .ring:nth-child(2) { width: 80%; height: 80%; top: 10%; left: 10%; animation-duration: 20s; animation-direction: reverse; border-color: rgba(0,200,255,0.12); }
-        .ring:nth-child(3) { width: 60%; height: 60%; top: 20%; left: 20%; animation-duration: 15s; border-color: rgba(0,220,255,0.1); }
-        .ring:nth-child(4) { width: 40%; height: 40%; top: 30%; left: 30%; animation-duration: 12s; animation-direction: reverse; border-color: rgba(0,240,255,0.08); }
-        @keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* Floating Particles */
-        .particles {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            bottom: 0; left: 0;
+            width: 100%; height: 45%;
             z-index: 2;
             pointer-events: none;
+            overflow: hidden;
         }
+        .cloud {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: cloudDrift linear infinite;
+        }
+        .cloud-1 { width: 600px; height: 200px; background: radial-gradient(ellipse, rgba(0,100,180,0.12), transparent 70%); bottom: 5%; left: -600px; animation-duration: 40s; }
+        .cloud-2 { width: 500px; height: 180px; background: radial-gradient(ellipse, rgba(0,80,160,0.1), transparent 70%); bottom: 15%; left: -500px; animation-duration: 50s; animation-delay: 8s; }
+        .cloud-3 { width: 700px; height: 220px; background: radial-gradient(ellipse, rgba(0,60,140,0.08), transparent 70%); bottom: 25%; left: -700px; animation-duration: 60s; animation-delay: 15s; }
+        .cloud-4 { width: 400px; height: 150px; background: radial-gradient(ellipse, rgba(0,120,200,0.1), transparent 70%); bottom: 8%; left: -400px; animation-duration: 45s; animation-delay: 20s; }
+        @keyframes cloudDrift { from { transform: translateX(0); } to { transform: translateX(calc(100vw + 800px)); } }
+
+        /* Energy Orbits */
+        .orbits {
+            position: fixed;
+            bottom: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 500px;
+            z-index: 2;
+            pointer-events: perspective;
+            perspective: 800px;
+        }
+        .orbit {
+            position: absolute;
+            border: 1.5px solid rgba(0,160,255,0.12);
+            border-radius: 50%;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg);
+            animation: orbitSpin linear infinite;
+        }
+        .orbit:nth-child(1) { width: 800px; height: 800px; animation-duration: 30s; border-color: rgba(0,160,255,0.1); }
+        .orbit:nth-child(2) { width: 650px; height: 650px; animation-duration: 24s; animation-direction: reverse; border-color: rgba(0,180,255,0.08); }
+        .orbit:nth-child(3) { width: 500px; height: 500px; animation-duration: 18s; border-color: rgba(0,200,255,0.06); }
+        .orbit:nth-child(4) { width: 350px; height: 350px; animation-duration: 14s; animation-direction: reverse; border-color: rgba(0,220,255,0.05); }
+        .orbit-glow {
+            position: absolute;
+            width: 12px; height: 12px;
+            background: radial-gradient(circle, rgba(0,200,255,0.9), transparent);
+            border-radius: 50%;
+            top: -6px; left: 50%;
+            box-shadow: 0 0 20px rgba(0,200,255,0.8), 0 0 40px rgba(0,200,255,0.4);
+        }
+        @keyframes orbitSpin { from { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(0deg); } to { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(360deg); } }
+
+        /* Floating Particles */
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
         .particle {
             position: absolute;
             width: 3px; height: 3px;
-            background: radial-gradient(circle, rgba(0,200,255,0.8), transparent);
+            background: radial-gradient(circle, rgba(0,180,255,0.9), transparent);
             border-radius: 50%;
-            animation: rise linear infinite;
+            animation: particleRise linear infinite;
         }
-        @keyframes rise {
+        @keyframes particleRise {
             0% { transform: translateY(100vh) scale(0); opacity: 0; }
             10% { opacity: 1; }
-            90% { opacity: 0.5; }
+            90% { opacity: 0.4; }
             100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
-        /* Header */
-        .header {
+        /* Main Glass Panel - The "Floating Device" */
+        .glass-panel {
             position: relative;
-            z-index: 100;
-            padding: 25px 40px;
-            background: linear-gradient(180deg, rgba(10,15,40,0.95) 0%, rgba(5,10,30,0.8) 100%);
-            border-bottom: 1px solid rgba(0,180,255,0.2);
-            backdrop-filter: blur(20px);
+            z-index: 10;
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0;
+            border-radius: 24px;
+            overflow: hidden;
+            background: rgba(5,15,35,0.5);
+            border: 1.5px solid rgba(0,160,255,0.25);
+            box-shadow:
+                0 0 40px rgba(0,100,200,0.15),
+                0 0 80px rgba(0,80,180,0.08),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+        }
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, rgba(0,180,255,0.3), transparent 40%, transparent 60%, rgba(0,180,255,0.2));
+            z-index: -1;
+            animation: borderGlow 4s ease-in-out infinite;
+        }
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Header inside glass panel */
+        .header {
+            padding: 28px 40px 20px;
+            background: linear-gradient(180deg, rgba(0,40,80,0.3) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(0,160,255,0.15);
+            position: relative;
         }
         .header::after {
             content: '';
             position: absolute;
             bottom: 0; left: 0;
             width: 100%; height: 1px;
-            background: linear-gradient(90deg, transparent, #00b4ff, #00e5ff, #00b4ff, transparent);
-            animation: headerGlow 4s ease-in-out infinite;
+            background: linear-gradient(90deg, transparent 5%, #00b4ff 30%, #00e5ff 50%, #00b4ff 70%, transparent 95%);
+            animation: headerLine 3s ease-in-out infinite;
         }
-        @keyframes headerGlow {
-            0%, 100% { opacity: 0.4; filter: blur(0px); }
-            50% { opacity: 1; filter: blur(1px); }
-        }
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            max-width: 1500px;
-            margin: 0 auto;
-        }
+        @keyframes headerLine { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
         .header h1 {
             font-family: 'Orbitron', monospace;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
             color: #fff;
-            letter-spacing: 5px;
-            text-shadow: 0 0 20px rgba(0,180,255,0.6), 0 0 40px rgba(0,180,255,0.3);
-            animation: titlePulse 3s ease-in-out infinite;
+            letter-spacing: 6px;
+            text-shadow: 0 0 25px rgba(0,180,255,0.7), 0 0 50px rgba(0,180,255,0.3);
         }
-        @keyframes titlePulse {
-            0%, 100% { text-shadow: 0 0 20px rgba(0,180,255,0.6); }
-            50% { text-shadow: 0 0 30px rgba(0,180,255,0.9), 0 0 60px rgba(0,180,255,0.4); }
-        }
-        .header-sub {
-            color: #7eb8d8;
-            font-size: 14px;
-            letter-spacing: 2px;
-        }
-        .header-sub a {
-            color: #00e5ff;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .header-sub a:hover { text-shadow: 0 0 10px rgba(0,229,255,0.8); }
-        .date-display { color: #5a8aa8; font-size: 12px; margin-top: 4px; font-family: 'Orbitron', monospace; letter-spacing: 1px; }
+        .header-sub { color: #5a9ac0; font-size: 13px; letter-spacing: 3px; margin-top: 4px; }
+        .header-sub a { color: #00e5ff; text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .header-sub a:hover { text-shadow: 0 0 12px rgba(0,229,255,0.8); }
+        .date-display { color: #3a7090; font-size: 11px; margin-top: 5px; font-family: 'Orbitron', monospace; letter-spacing: 2px; }
 
-        /* Countdown - Neon Style */
+        /* Countdown - Neon Chip */
         .countdown-section {
-            background: rgba(0,20,50,0.6);
-            border: 1px solid rgba(0,180,255,0.3);
+            background: rgba(0,30,60,0.6);
+            border: 1px solid rgba(0,160,255,0.3);
             border-radius: 12px;
-            padding: 12px 18px;
+            padding: 10px 16px;
             text-align: center;
-            box-shadow: 0 0 20px rgba(0,180,255,0.15), inset 0 0 20px rgba(0,100,200,0.05);
+            box-shadow: 0 0 20px rgba(0,100,200,0.15), inset 0 0 15px rgba(0,80,160,0.05);
+            min-width: 280px;
             position: relative;
             overflow: hidden;
         }
@@ -166,516 +189,351 @@
             position: absolute;
             top: -50%; left: -50%;
             width: 200%; height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(0,180,255,0.1), transparent);
-            animation: rotateGlow 8s linear infinite;
+            background: conic-gradient(from 0deg, transparent, rgba(0,160,255,0.08), transparent);
+            animation: countdownSpin 10s linear infinite;
         }
-        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes countdownSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .countdown-section > * { position: relative; z-index: 1; }
-        .countdown-title { font-family: 'Orbitron', monospace; color: #00e5ff; font-size: 11px; font-weight: 700; margin-bottom: 3px; letter-spacing: 2px; }
-        .countdown-subtitle { color: #5a8aa8; font-size: 9px; margin-bottom: 6px; letter-spacing: 1px; }
-        .countdown-timer { display: flex; justify-content: center; gap: 6px; }
+        .countdown-title { font-family: 'Orbitron', monospace; color: #00e5ff; font-size: 10px; font-weight: 700; letter-spacing: 3px; margin-bottom: 2px; }
+        .countdown-subtitle { color: #3a7090; font-size: 8px; letter-spacing: 1.5px; margin-bottom: 6px; }
+        .countdown-timer { display: flex; justify-content: center; gap: 5px; }
         .countdown-box {
-            background: rgba(0,30,60,0.8);
-            border: 1px solid rgba(0,180,255,0.3);
-            border-radius: 8px;
-            padding: 6px 10px;
-            min-width: 55px;
-            box-shadow: 0 0 10px rgba(0,100,200,0.2);
+            background: rgba(0,20,45,0.8);
+            border: 1px solid rgba(0,160,255,0.25);
+            border-radius: 6px;
+            padding: 5px 8px;
+            min-width: 50px;
         }
-        .countdown-number { font-family: 'Orbitron', monospace; font-size: 20px; font-weight: 900; color: #00e5ff; line-height: 1; text-shadow: 0 0 15px rgba(0,229,255,0.6); }
-        .countdown-label { color: #5a8aa8; font-size: 8px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
-        .countdown-date { color: #00b4ff; font-size: 10px; font-weight: 600; margin-top: 5px; letter-spacing: 1px; }
-        .countdown-status { color: #00e676; font-size: 9px; margin-top: 3px; font-weight: 600; letter-spacing: 1px; }
+        .countdown-number { font-family: 'Orbitron', monospace; font-size: 18px; font-weight: 900; color: #00e5ff; line-height: 1; text-shadow: 0 0 12px rgba(0,229,255,0.5); }
+        .countdown-label { color: #3a7090; font-size: 7px; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
+        .countdown-date { color: #00b4ff; font-size: 9px; font-weight: 600; margin-top: 4px; letter-spacing: 1px; }
+        .countdown-status { color: #00e676; font-size: 8px; margin-top: 2px; font-weight: 600; letter-spacing: 1.5px; }
 
-        /* Main Container */
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 1500px;
-            margin: 0 auto;
-            padding: 30px 25px;
-        }
+        /* Content inside glass panel */
+        .content { padding: 24px 35px 35px; }
 
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-        .stat-card {
-            background: rgba(0,20,50,0.5);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(0,180,255,0.2);
-            border-radius: 16px;
-            padding: 20px;
+        /* Stats Row */
+        .stats-row { display: flex; gap: 14px; margin-bottom: 24px; flex-wrap: wrap; }
+        .stat-pill {
+            flex: 1;
+            min-width: 120px;
+            background: rgba(0,30,60,0.5);
+            border: 1px solid rgba(0,160,255,0.15);
+            border-radius: 14px;
+            padding: 16px 12px;
             text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.35s ease;
             cursor: pointer;
         }
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0,180,255,0.1), transparent);
-            transition: left 0.5s ease;
+        .stat-pill:hover {
+            border-color: rgba(0,200,255,0.4);
+            box-shadow: 0 0 25px rgba(0,120,200,0.2);
+            transform: translateY(-4px);
         }
-        .stat-card:hover::before { left: 100%; }
-        .stat-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(0,229,255,0.5);
-            box-shadow: 0 15px 40px rgba(0,100,200,0.3), 0 0 30px rgba(0,180,255,0.2);
-        }
-        .stat-card:nth-child(1) { border-color: rgba(0,230,118,0.3); }
-        .stat-card:nth-child(1):hover { box-shadow: 0 15px 40px rgba(0,230,118,0.2); border-color: rgba(0,230,118,0.5); }
-        .stat-card:nth-child(2) { border-color: rgba(0,180,255,0.3); }
-        .stat-card:nth-child(3) { border-color: rgba(255,180,0,0.3); }
-        .stat-card:nth-child(3):hover { box-shadow: 0 15px 40px rgba(255,180,0,0.2); border-color: rgba(255,180,0,0.5); }
-        .stat-card:nth-child(4) { border-color: rgba(233,69,96,0.3); }
-        .stat-card:nth-child(4):hover { box-shadow: 0 15px 40px rgba(233,69,96,0.2); border-color: rgba(233,69,96,0.5); }
-        .stat-card:nth-child(5) { border-color: rgba(156,39,176,0.3); }
-        .stat-card:nth-child(5):hover { box-shadow: 0 15px 40px rgba(156,39,176,0.2); border-color: rgba(156,39,176,0.5); }
-        .stat-number { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #00e5ff; text-shadow: 0 0 20px rgba(0,229,255,0.5); }
-        .stat-card:nth-child(1) .stat-number { color: #00e676; text-shadow: 0 0 20px rgba(0,230,118,0.5); }
-        .stat-card:nth-child(3) .stat-number { color: #ffb400; text-shadow: 0 0 20px rgba(255,180,0,0.5); }
-        .stat-card:nth-child(4) .stat-number { color: #e94560; text-shadow: 0 0 20px rgba(233,69,96,0.5); }
-        .stat-card:nth-child(5) .stat-number { color: #ce93d8; text-shadow: 0 0 20px rgba(156,39,176,0.5); }
-        .stat-label { color: #7eb8d8; font-size: 11px; margin-top: 6px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+        .stat-num { font-family: 'Orbitron', monospace; font-size: 28px; font-weight: 900; color: #00e5ff; text-shadow: 0 0 15px rgba(0,229,255,0.4); }
+        .stat-pill:nth-child(1) .stat-num { color: #00e676; text-shadow: 0 0 15px rgba(0,230,118,0.4); }
+        .stat-pill:nth-child(3) .stat-num { color: #ffb400; text-shadow: 0 0 15px rgba(255,180,0,0.4); }
+        .stat-pill:nth-child(4) .stat-num { color: #e94560; text-shadow: 0 0 15px rgba(233,69,96,0.4); }
+        .stat-pill:nth-child(5) .stat-num { color: #ce93d8; text-shadow: 0 0 15px rgba(156,39,176,0.4); }
+        .stat-lbl { color: #5a9ac0; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
 
-        /* Section - Glass Panel */
+        /* Section Card */
         .section {
-            background: rgba(8,18,40,0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0,180,255,0.12);
-            border-radius: 18px;
-            padding: 24px;
-            margin-bottom: 24px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-        .section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(0,180,255,0.3), transparent);
+            background: rgba(8,20,45,0.5);
+            border: 1px solid rgba(0,160,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 18px;
+            transition: all 0.35s ease;
         }
         .section:hover {
-            border-color: rgba(0,180,255,0.25);
-            box-shadow: 0 10px 40px rgba(0,80,160,0.15);
+            border-color: rgba(0,160,255,0.2);
+            box-shadow: 0 8px 30px rgba(0,80,160,0.1);
         }
         .section-title {
             font-family: 'Orbitron', monospace;
             color: #00e5ff;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         .section-title::before {
             content: '';
-            width: 4px;
-            height: 18px;
-            background: linear-gradient(180deg, #00e5ff, #0080ff);
+            width: 3px; height: 16px;
+            background: linear-gradient(180deg, #00e5ff, #0060ff);
             border-radius: 2px;
-            box-shadow: 0 0 10px rgba(0,229,255,0.5);
+            box-shadow: 0 0 8px rgba(0,229,255,0.4);
         }
 
-        /* Project Cards */
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 14px;
-        }
-        .project-card {
+        /* Cards Grid */
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+        .card {
             background: rgba(10,25,55,0.5);
-            border: 1px solid rgba(0,180,255,0.1);
-            border-radius: 14px;
-            padding: 16px;
-            transition: all 0.35s ease;
+            border: 1px solid rgba(0,160,255,0.08);
+            border-radius: 12px;
+            padding: 14px;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-        .project-card::after {
+        .card::after {
             content: '';
             position: absolute;
             bottom: 0; left: 0;
             width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(0,180,255,0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0,180,255,0.5), transparent);
             opacity: 0;
             transition: opacity 0.3s;
         }
-        .project-card:hover::after { opacity: 1; }
-        .project-card:hover {
-            border-color: rgba(0,180,255,0.3);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,80,160,0.2);
-        }
-        .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-        .project-name { font-size: 14px; font-weight: 600; color: #e8f0f8; }
-        .badge { padding: 3px 10px; border-radius: 20px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-family: 'Orbitron', monospace; }
-        .badge-done { background: rgba(0,230,118,0.1); color: #00e676; border: 1px solid rgba(0,230,118,0.3); }
-        .badge-progress { background: rgba(255,180,0,0.1); color: #ffb400; border: 1px solid rgba(255,180,0,0.3); }
-        .badge-hold { background: rgba(233,69,96,0.1); color: #e94560; border: 1px solid rgba(233,69,96,0.3); }
-        .badge-planned { background: rgba(156,39,176,0.1); color: #ce93d8; border: 1px solid rgba(156,39,176,0.3); }
-        .project-desc { color: #7eb8d8; font-size: 12px; line-height: 1.5; margin-bottom: 6px; }
+        .card:hover::after { opacity: 1; }
+        .card:hover { border-color: rgba(0,160,255,0.25); transform: translateY(-2px); }
+        .card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+        .card-name { font-size: 13px; font-weight: 600; color: #e0f0ff; }
+        .badge { padding: 2px 8px; border-radius: 16px; font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-family: 'Orbitron', monospace; }
+        .badge-done { background: rgba(0,230,118,0.1); color: #00e676; border: 1px solid rgba(0,230,118,0.25); }
+        .badge-progress { background: rgba(255,180,0,0.1); color: #ffb400; border: 1px solid rgba(255,180,0,0.25); }
+        .badge-hold { background: rgba(233,69,96,0.1); color: #e94560; border: 1px solid rgba(233,69,96,0.25); }
+        .badge-planned { background: rgba(156,39,176,0.1); color: #ce93d8; border: 1px solid rgba(156,39,176,0.25); }
+        .card-desc { color: #5a9ac0; font-size: 11px; line-height: 1.5; }
+        .card-desc strong { color: #7ab8d8; }
         .email-link { color: #00bcd4; text-decoration: none; font-weight: 600; }
         .email-link:hover { text-decoration: underline; }
-        .github-link { color: #00e676; text-decoration: none; font-weight: 600; word-break: break-all; font-size: 11px; }
+        .github-link { color: #00e676; text-decoration: none; font-weight: 600; word-break: break-all; font-size: 10px; }
         .github-link:hover { text-decoration: underline; }
-        .links { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-        .link {
-            padding: 5px 12px;
-            background: rgba(0,100,200,0.1);
-            border: 1px solid rgba(0,180,255,0.2);
-            border-radius: 8px;
+        .card-links { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+        .card-link {
+            padding: 4px 10px;
+            background: rgba(0,80,160,0.15);
+            border: 1px solid rgba(0,160,255,0.15);
+            border-radius: 6px;
             color: #00e5ff;
             text-decoration: none;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 600;
-            transition: all 0.3s ease;
             letter-spacing: 0.5px;
+            transition: all 0.3s;
         }
-        .link:hover {
-            background: rgba(0,180,255,0.2);
-            border-color: #00e5ff;
-            box-shadow: 0 0 15px rgba(0,180,255,0.3);
-            color: #fff;
-        }
+        .card-link:hover { background: rgba(0,160,255,0.25); border-color: #00e5ff; box-shadow: 0 0 12px rgba(0,160,255,0.3); color: #fff; }
 
-        /* Email Grid */
-        .email-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
-        .email-card {
+        /* Email Mini Cards */
+        .email-mini { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+        .email-chip {
             background: rgba(10,25,55,0.4);
-            border: 1px solid rgba(0,180,255,0.08);
-            border-radius: 12px;
-            padding: 14px;
-            transition: all 0.3s ease;
+            border: 1px solid rgba(0,160,255,0.06);
+            border-radius: 10px;
+            padding: 12px;
+            transition: all 0.3s;
         }
-        .email-card:hover {
-            border-color: rgba(0,180,255,0.2);
-            transform: translateY(-2px);
-        }
-        .email-address { font-weight: 700; color: #00bcd4; font-size: 12px; margin-bottom: 5px; letter-spacing: 0.5px; }
-        .email-services { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
-        .email-service { padding: 2px 8px; border-radius: 5px; font-size: 9px; font-weight: 600; color: #fff; letter-spacing: 0.5px; }
-        .email-card:nth-child(1) .email-service { background: rgba(0,230,118,0.2); color: #00e676; border: 1px solid rgba(0,230,118,0.3); }
-        .email-card:nth-child(2) .email-service { background: rgba(0,180,255,0.2); color: #00b4ff; border: 1px solid rgba(0,180,255,0.3); }
-        .email-card:nth-child(3) .email-service { background: rgba(156,39,176,0.2); color: #ce93d8; border: 1px solid rgba(156,39,176,0.3); }
-        .email-card:nth-child(4) .email-service { background: rgba(255,120,0,0.2); color: #ff7800; border: 1px solid rgba(255,120,0,0.3); }
-        .email-card:nth-child(5) .email-service { background: rgba(233,69,96,0.2); color: #e94560; border: 1px solid rgba(233,69,96,0.3); }
-        .email-card:nth-child(6) .email-service { background: rgba(0,200,200,0.2); color: #00c8c8; border: 1px solid rgba(0,200,200,0.3); }
-        .email-card:nth-child(7) .email-service { background: rgba(100,200,100,0.2); color: #64c864; border: 1px solid rgba(100,200,100,0.3); }
-        .email-card:nth-child(8) .email-service { background: rgba(100,150,255,0.2); color: #6496ff; border: 1px solid rgba(100,150,255,0.3); }
-        .email-card:nth-child(9) .email-service { background: rgba(0,229,255,0.2); color: #00e5ff; border: 1px solid rgba(0,229,255,0.3); }
+        .email-chip:hover { border-color: rgba(0,160,255,0.15); transform: translateY(-2px); }
+        .email-addr { font-weight: 700; color: #00bcd4; font-size: 11px; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .email-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+        .email-tag { padding: 1px 6px; border-radius: 4px; font-size: 8px; font-weight: 600; letter-spacing: 0.5px; }
+        .email-chip:nth-child(1) .email-tag { background: rgba(0,230,118,0.15); color: #00e676; border: 1px solid rgba(0,230,118,0.2); }
+        .email-chip:nth-child(2) .email-tag { background: rgba(0,160,255,0.15); color: #00b4ff; border: 1px solid rgba(0,160,255,0.2); }
+        .email-chip:nth-child(3) .email-tag { background: rgba(156,39,176,0.15); color: #ce93d8; border: 1px solid rgba(156,39,176,0.2); }
+        .email-chip:nth-child(4) .email-tag { background: rgba(255,120,0,0.15); color: #ff7800; border: 1px solid rgba(255,120,0,0.2); }
+        .email-chip:nth-child(5) .email-tag { background: rgba(233,69,96,0.15); color: #e94560; border: 1px solid rgba(233,69,96,0.2); }
+        .email-chip:nth-child(6) .email-tag { background: rgba(0,200,200,0.15); color: #00c8c8; border: 1px solid rgba(0,200,200,0.2); }
+        .email-chip:nth-child(7) .email-tag { background: rgba(100,200,100,0.15); color: #64c864; border: 1px solid rgba(100,200,100,0.2); }
+        .email-chip:nth-child(8) .email-tag { background: rgba(100,150,255,0.15); color: #6496ff; border: 1px solid rgba(100,150,255,0.2); }
+        .email-chip:nth-child(9) .email-tag { background: rgba(0,229,255,0.15); color: #00e5ff; border: 1px solid rgba(0,229,255,0.2); }
 
         /* Footer */
         .footer {
-            position: relative;
-            z-index: 10;
             text-align: center;
-            padding: 24px;
-            color: #3a5a7a;
-            font-size: 11px;
-            letter-spacing: 1px;
-            border-top: 1px solid rgba(0,180,255,0.08);
-            margin-top: 30px;
+            padding: 20px;
+            color: #2a5070;
+            font-size: 10px;
+            letter-spacing: 2px;
+            border-top: 1px solid rgba(0,160,255,0.06);
         }
         .footer a { color: #00e5ff; text-decoration: none; font-weight: 600; }
         .footer a:hover { text-shadow: 0 0 10px rgba(0,229,255,0.5); }
 
         @media (max-width: 768px) {
-            .header { padding: 15px; }
-            .header h1 { font-size: 18px; letter-spacing: 2px; }
-            .container { padding: 15px 10px; }
-            .status-grid { grid-template-columns: 1fr; }
-            .email-grid { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .glass-panel { margin: 10px; border-radius: 16px; }
+            .header { padding: 18px 15px; }
+            .header h1 { font-size: 16px; letter-spacing: 2px; }
+            .content { padding: 15px; }
+            .cards { grid-template-columns: 1fr; }
+            .email-mini { grid-template-columns: 1fr; }
+            .stats-row { gap: 8px; }
+            .stat-pill { min-width: 80px; padding: 12px 8px; }
+            .stat-num { font-size: 20px; }
         }
     </style>
     <script>
         function updateCountdown() {
             const now = new Date();
-            const dayOfWeek = now.getDay();
-            let daysUntilTuesday = (2 - dayOfWeek + 7) % 7;
-            if (daysUntilTuesday === 0 && now.getHours() >= 12) daysUntilTuesday = 7;
-            const nextTuesday = new Date(now);
-            nextTuesday.setDate(now.getDate() + daysUntilTuesday);
-            nextTuesday.setHours(12, 0, 0, 0);
-            const diff = nextTuesday - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            document.getElementById('cd-days').textContent = days;
-            document.getElementById('cd-hours').textContent = hours;
-            document.getElementById('cd-minutes').textContent = minutes;
-            document.getElementById('cd-seconds').textContent = seconds;
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('cd-date').textContent = nextTuesday.toLocaleDateString('en-US', options);
-            const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-            document.getElementById('current-date').textContent = dateStr;
+            const dow = now.getDay();
+            let d = (2 - dow + 7) % 7;
+            if (d === 0 && now.getHours() >= 12) d = 7;
+            const next = new Date(now);
+            next.setDate(now.getDate() + d);
+            next.setHours(12, 0, 0, 0);
+            const diff = next - now;
+            document.getElementById('cd-d').textContent = Math.floor(diff / 864e5);
+            document.getElementById('cd-h').textContent = Math.floor((diff % 864e5) / 36e5);
+            document.getElementById('cd-m').textContent = Math.floor((diff % 36e5) / 6e4);
+            document.getElementById('cd-s').textContent = Math.floor((diff % 6e4) / 1e3);
+            document.getElementById('cd-date').textContent = next.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+            document.getElementById('cur-date').textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
         }
         setInterval(updateCountdown, 1000);
         window.onload = function() {
             updateCountdown();
-            const starsContainer = document.querySelector('.stars');
-            for (let i = 0; i < 80; i++) {
+            const sc = document.querySelector('.stars');
+            for (let i = 0; i < 100; i++) {
                 const s = document.createElement('div');
                 s.className = 'star';
                 s.style.left = Math.random() * 100 + '%';
                 s.style.top = Math.random() * 100 + '%';
-                s.style.animationDuration = (2 + Math.random() * 4) + 's';
-                s.style.animationDelay = Math.random() * 3 + 's';
+                s.style.animationDuration = (2 + Math.random() * 5) + 's';
+                s.style.animationDelay = Math.random() * 4 + 's';
                 s.style.width = s.style.height = (1 + Math.random() * 2) + 'px';
-                starsContainer.appendChild(s);
+                sc.appendChild(s);
             }
-            const particlesContainer = document.querySelector('.particles');
-            for (let i = 0; i < 25; i++) {
+            const pc = document.querySelector('.particles');
+            for (let i = 0; i < 30; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
                 p.style.left = Math.random() * 100 + '%';
-                p.style.animationDuration = (6 + Math.random() * 10) + 's';
-                p.style.animationDelay = Math.random() * 8 + 's';
-                particlesContainer.appendChild(p);
+                p.style.animationDuration = (5 + Math.random() * 12) + 's';
+                p.style.animationDelay = Math.random() * 10 + 's';
+                pc.appendChild(p);
             }
+            // Add glowing dots to orbits
+            document.querySelectorAll('.orbit').forEach(o => {
+                const dot = document.createElement('div');
+                dot.className = 'orbit-glow';
+                o.appendChild(dot);
+            });
         };
     </script>
 </head>
 <body>
-    <div class="cosmic-bg"></div>
+    <div class="space-bg"></div>
     <div class="stars"></div>
     <div class="particles"></div>
-    <div class="energy-rings">
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
-        <div class="ring"></div>
+    <div class="cloud-layer">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+    </div>
+    <div class="orbits">
+        <div class="orbit"></div>
+        <div class="orbit"></div>
+        <div class="orbit"></div>
+        <div class="orbit"></div>
     </div>
 
-    <div class="header">
-        <div class="header-content">
-            <div>
-                <h1>PROJECT DASHBOARD</h1>
-                <div class="header-sub">MOHAMMED IMTHIYAZ A &mdash; HEALTHCARE AI CONTENT NETWORK</div>
-                <div class="header-sub" style="margin-top:4px"><a href="https://myportfolio-seven-ruby-43.vercel.app/" target="_blank">MY PORTFOLIO</a></div>
-                <div class="date-display" id="current-date"></div>
-            </div>
-            <div class="countdown-section" style="min-width:280px">
-                <div class="countdown-title">NEXT BOOK PUBLISH</div>
-                <div class="countdown-subtitle">EVERY TUESDAY &bull; GUMROAD &bull; KDP &bull; GOOGLE PLAY</div>
-                <div class="countdown-timer">
-                    <div class="countdown-box"><div class="countdown-number" id="cd-days">0</div><div class="countdown-label">Days</div></div>
-                    <div class="countdown-box"><div class="countdown-number" id="cd-hours">0</div><div class="countdown-label">Hrs</div></div>
-                    <div class="countdown-box"><div class="countdown-number" id="cd-minutes">0</div><div class="countdown-label">Min</div></div>
-                    <div class="countdown-box"><div class="countdown-number" id="cd-seconds">0</div><div class="countdown-label">Sec</div></div>
+    <div class="glass-panel">
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1>PROJECT DASHBOARD</h1>
+                    <div class="header-sub">MOHAMMED IMTHIYAZ A &mdash; HEALTHCARE AI CONTENT NETWORK</div>
+                    <div class="header-sub" style="margin-top:3px"><a href="https://myportfolio-seven-ruby-43.vercel.app/" target="_blank">MY PORTFOLIO</a></div>
+                    <div class="date-display" id="cur-date"></div>
                 </div>
-                <div class="countdown-date" id="cd-date"></div>
-                <div class="countdown-status">BOOK 3: READY TO UPLOAD</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="stats-grid">
-            <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Books</div></div>
-            <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">Channels</div></div>
-            <div class="stat-card"><div class="stat-number">8</div><div class="stat-label">Repos</div></div>
-            <div class="stat-card"><div class="stat-number">9</div><div class="stat-label">Emails</div></div>
-            <div class="stat-card"><div class="stat-number">1</div><div class="stat-label">Supermarket</div></div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">EMAIL ACCOUNTS</div>
-            <div class="email-grid">
-                <div class="email-card">
-                    <div class="email-address">cybersecurityocean@gmail.com</div>
-                    <div class="email-services"><span class="email-service">Practical AI Healthcare</span><span class="email-service">Gumroad</span><span class="email-service">E-Book Publish</span></div>
-                    <div class="links"><a href="https://gumroad.com/dashboard" class="link" target="_blank">Gumroad Dashboard</a></div>
-                </div>
-                <div class="email-card">
-                    <div class="email-address">imthyazzilaan@gmail.com</div>
-                    <div class="email-services"><span class="email-service">Amazon KDP</span><span class="email-service">Google Play Books</span></div>
-                    <div class="links"><a href="https://kdp.amazon.com/en_US/title-setup/kindle/A18SJ3HHVK8KCL/pricing" class="link" target="_blank">KDP</a><a href="https://play.google.com/books/publish/prelogin/signup" class="link" target="_blank">Google Play</a></div>
-                </div>
-                <div class="email-card">
-                    <div class="email-address">Mohammedimthiyazimi@outlook.com</div>
-                    <div class="email-services"><span class="email-service">Portfolio</span></div>
-                    <div class="links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="link" target="_blank">View Portfolio</a></div>
-                </div>
-                <div class="email-card">
-                    <div class="email-address">mohammedimthiyaz832@gmail.com</div>
-                    <div class="email-services"><span class="email-service">CatHub Podcast</span><span class="email-service">YouTube</span><span class="email-service">Rumble</span></div>
-                </div>
-                <div class="email-card">
-                    <div class="email-address">futureintelligence4@gmail.com</div>
-                    <div class="email-services"><span class="email-service">Future Intelligence</span><span class="email-service">YouTube Channel</span></div>
-                </div>
-                <div class="email-card">
-                    <div class="email-address">mohammedimthiyaz1401@gmail.com</div>
-                    <div class="email-services"><span class="email-service">ARIA Future</span><span class="email-service">YouTube Channel</span></div>
-                </div>
-                <div class="email-card">
-                    <div class="email-address">shafapittu@gmail.com</div>
-                    <div class="email-services"><span class="email-service">Personal</span></div>
-                </div>
-                <div class="email-card">
-                    <div class="email-address">mohammedimthiyaz154@gmail.com</div>
-                    <div class="email-services"><span class="email-service">Personal</span></div>
-                </div>
-                <div class="email-card">
-                    <div class="email-address">mohammedimthiyaz1401-ai (GitHub)</div>
-                    <div class="email-services"><span class="email-service">Dashboard Hosting</span><span class="email-service">AI Content Network</span><span class="email-service">Ebook Builder</span></div>
-                    <div class="links"><a href="https://github.com/mohammedimthiyaz1401-ai" class="link" target="_blank">GitHub Profile</a></div>
+                <div class="countdown-section">
+                    <div class="countdown-title">NEXT BOOK PUBLISH</div>
+                    <div class="countdown-subtitle">TUESDAY &bull; GUMROAD &bull; KDP &bull; GOOGLE PLAY</div>
+                    <div class="countdown-timer">
+                        <div class="countdown-box"><div class="countdown-number" id="cd-d">0</div><div class="countdown-label">Days</div></div>
+                        <div class="countdown-box"><div class="countdown-number" id="cd-h">0</div><div class="countdown-label">Hrs</div></div>
+                        <div class="countdown-box"><div class="countdown-number" id="cd-m">0</div><div class="countdown-label">Min</div></div>
+                        <div class="countdown-box"><div class="countdown-number" id="cd-s">0</div><div class="countdown-label">Sec</div></div>
+                    </div>
+                    <div class="countdown-date" id="cd-date"></div>
+                    <div class="countdown-status">BOOK 3: READY TO UPLOAD</div>
                 </div>
             </div>
         </div>
 
-        <div class="section">
-            <div class="section-title">BOOKS &mdash; PRACTICAL AI IN HEALTHCARE</div>
-            <div class="status-grid">
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">Book 1: AI in Healthcare - The Do's and Don'ts</div><span class="badge badge-done">PUBLISHED</span></div>
-                    <div class="project-desc">Practical guide for hospitals. 18 pages.</div>
-                    <div class="links"><a href="https://cyberwave407.gumroad.com/l/ai-healthcare-dos-donts" class="link" target="_blank">Gumroad</a></div>
+        <div class="content">
+            <div class="stats-row">
+                <div class="stat-pill"><div class="stat-num">3</div><div class="stat-lbl">Books</div></div>
+                <div class="stat-pill"><div class="stat-num">4</div><div class="stat-lbl">Channels</div></div>
+                <div class="stat-pill"><div class="stat-num">8</div><div class="stat-lbl">Repos</div></div>
+                <div class="stat-pill"><div class="stat-num">9</div><div class="stat-lbl">Emails</div></div>
+                <div class="stat-pill"><div class="stat-num">1</div><div class="stat-lbl">Supermarket</div></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">EMAIL ACCOUNTS</div>
+                <div class="email-mini">
+                    <div class="email-chip"><div class="email-addr">cybersecurityocean@gmail.com</div><div class="email-tags"><span class="email-tag">Practical AI Healthcare</span><span class="email-tag">Gumroad</span><span class="email-tag">E-Book</span></div></div>
+                    <div class="email-chip"><div class="email-addr">imthyazzilaan@gmail.com</div><div class="email-tags"><span class="email-tag">Amazon KDP</span><span class="email-tag">Google Play Books</span></div></div>
+                    <div class="email-chip"><div class="email-addr">Mohammedimthiyazimi@outlook.com</div><div class="email-tags"><span class="email-tag">Portfolio</span></div></div>
+                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz832@gmail.com</div><div class="email-tags"><span class="email-tag">CatHub Podcast</span><span class="email-tag">YouTube</span><span class="email-tag">Rumble</span></div></div>
+                    <div class="email-chip"><div class="email-addr">futureintelligence4@gmail.com</div><div class="email-tags"><span class="email-tag">Future Intelligence</span><span class="email-tag">YouTube</span></div></div>
+                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz1401@gmail.com</div><div class="email-tags"><span class="email-tag">ARIA Future</span><span class="email-tag">YouTube</span></div></div>
+                    <div class="email-chip"><div class="email-addr">shafapittu@gmail.com</div><div class="email-tags"><span class="email-tag">Personal</span></div></div>
+                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz154@gmail.com</div><div class="email-tags"><span class="email-tag">Personal</span></div></div>
+                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz1401-ai (GitHub)</div><div class="email-tags"><span class="email-tag">Dashboard</span><span class="email-tag">AI Network</span><span class="email-tag">Ebook Builder</span></div></div>
                 </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">Book 2: Stop AI From Leaking Patient Data</div><span class="badge badge-done">PUBLISHED</span></div>
-                    <div class="project-desc">Data privacy & compliance. 49 pages.</div>
-                    <div class="links"><a href="https://cyberwave407.gumroad.com/l/Stop-AI-From-Leaking-Patient-Data" class="link" target="_blank">Gumroad</a></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">BOOKS &mdash; PRACTICAL AI IN HEALTHCARE</div>
+                <div class="cards">
+                    <div class="card"><div class="card-head"><div class="card-name">Book 1: AI in Healthcare - Do's and Don'ts</div><span class="badge badge-done">PUBLISHED</span></div><div class="card-desc">Practical guide for hospitals. 18 pages.</div><div class="card-links"><a href="https://cyberwave407.gumroad.com/l/ai-healthcare-dos-donts" class="card-link" target="_blank">Gumroad</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">Book 2: Stop AI From Leaking Patient Data</div><span class="badge badge-done">PUBLISHED</span></div><div class="card-desc">Data privacy & compliance. 49 pages.</div><div class="card-links"><a href="https://cyberwave407.gumroad.com/l/Stop-AI-From-Leaking-Patient-Data" class="card-link" target="_blank">Gumroad</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">Book 3: Healthy AI Implementation Roadmap</div><span class="badge badge-progress">READY</span></div><div class="card-desc">14 chapters, EPUB ready.</div></div>
                 </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">Book 3: Healthy AI Implementation Roadmap</div><span class="badge badge-progress">READY TO UPLOAD</span></div>
-                    <div class="project-desc">14 chapters, EPUB ready.</div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">YOUTUBE CHANNELS</div>
+                <div class="cards">
+                    <div class="card"><div class="card-head"><div class="card-name">AI Content Network</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">Automated AI news pipeline.</div><div class="card-desc" style="margin-top:4px"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">CatHub Podcast</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">Cat podcast. Shorts disabled.</div><div class="card-desc" style="margin-top:4px"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">Future Intelligence</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">AI news bot. Voice fixed.</div><div class="card-desc" style="margin-top:4px"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">Stick Cat Academy</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">Daily cat content. Ghibli flashbacks.</div><div class="card-desc" style="margin-top:4px"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div><div class="card-links"><a href="https://www.youtube.com/channel/UCVLn-Z8sP1rvVDmsmqJ5QiQ" class="card-link" target="_blank">YouTube</a></div></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">WEBSITES & PORTFOLIO</div>
+                <div class="cards">
+                    <div class="card"><div class="card-head"><div class="card-name">Portfolio Website</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">Personal & professional portfolio.</div><div class="card-links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="card-link" target="_blank">View Site</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">Supermarket Website</div><span class="badge badge-planned">PLANNED</span></div><div class="card-desc">Virtual supermarket with recipe-based shopping.</div></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">INFRASTRUCTURE</div>
+                <div class="cards">
+                    <div class="card"><div class="card-head"><div class="card-name">Ebook Builder</div><span class="badge badge-done">PUSHED</span></div><div class="card-desc">Gemini &rarr; PDF &rarr; EPUB automation.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">MEOW Assistant</div><span class="badge badge-progress">READY</span></div><div class="card-desc">Offline cat-themed AI assistant.</div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">Rumble Automation</div><span class="badge badge-hold">ON HOLD</span></div><div class="card-desc">Upload step fails.</div></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">GITHUB REPOSITORIES</div>
+                <div class="cards">
+                    <div class="card"><div class="card-head"><div class="card-name">ai-content-network</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="github-link" target="_blank">mohammedimthiyaz1401-ai/ai-content-network</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">portfolio</div><span class="badge badge-done">DONE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:Mohammedimthiyazimi@outlook.com" class="email-link">Mohammedimthiyazimi@outlook.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/imthiyazimi/portfolio" class="github-link" target="_blank">imthiyazimi/portfolio</a></div><div class="card-links"><a href="https://github.com/imthiyazimi/portfolio" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">cat-podcast-voice-gen</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz832@gmail.com" class="email-link">mohammedimthiyaz832@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/imthi92/cat-podcast-voice-gen" class="github-link" target="_blank">imthi92/cat-podcast-voice-gen</a></div><div class="card-links"><a href="https://github.com/imthi92/cat-podcast-voice-gen" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">ai-news-bot</div><span class="badge badge-done">FIXED</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:futureintelligence4@gmail.com" class="email-link">futureintelligence4@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/futureintelligence4-netizen/ai-news-bot" class="github-link" target="_blank">futureintelligence4-netizen/ai-news-bot</a></div><div class="card-links"><a href="https://github.com/futureintelligence4-netizen/ai-news-bot" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">stick-cat-academy</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz832@gmail.com" class="email-link">mohammedimthiyaz832@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/imthi92/stick-cat-academy" class="github-link" target="_blank">imthi92/stick-cat-academy</a></div><div class="card-links"><a href="https://github.com/imthi92/stick-cat-academy" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">practical-ai-healthcare</div><span class="badge badge-progress">BOOK 3</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:cybersecurityocean@gmail.com" class="email-link">cybersecurityocean@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="github-link" target="_blank">cybersecurityocean/practical-ai-healthcare</a></div><div class="card-links"><a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">ebook-builder</div><span class="badge badge-done">DONE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="github-link" target="_blank">mohammedimthiyaz1401-ai/ebook-builder</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">project-dashboard</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="github-link" target="_blank">mohammedimthiyaz1401-ai/project-dashboard</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="card-link" target="_blank">Live</a></div></div>
                 </div>
             </div>
         </div>
 
-        <div class="section">
-            <div class="section-title">YOUTUBE CHANNELS</div>
-            <div class="status-grid">
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">AI Content Network</div><span class="badge badge-done">ACTIVE</span></div>
-                    <div class="project-desc">Automated AI news pipeline.</div>
-                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">CatHub Podcast</div><span class="badge badge-done">ACTIVE</span></div>
-                    <div class="project-desc">Cat podcast. Shorts disabled.</div>
-                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">Future Intelligence</div><span class="badge badge-done">ACTIVE</span></div>
-                    <div class="project-desc">AI news bot. Voice fixed.</div>
-                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">Stick Cat Academy</div><span class="badge badge-done">ACTIVE</span></div>
-                    <div class="project-desc">Daily cat content. Ghibli flashbacks.</div>
-                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div>
-                    <div class="links"><a href="https://www.youtube.com/channel/UCVLn-Z8sP1rvVDmsmqJ5QiQ" class="link" target="_blank">YouTube</a></div>
-                </div>
-            </div>
+        <div class="footer">
+            LAST UPDATED: AUGUST 31, 2026 &bull; MOHAMMED IMTHIYAZ A &bull; <a href="mailto:cybersecurityocean@gmail.com">cybersecurityocean@gmail.com</a>
         </div>
-
-        <div class="section">
-            <div class="section-title">WEBSITES & PORTFOLIO</div>
-            <div class="status-grid">
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">Portfolio Website</div><span class="badge badge-done">LIVE</span></div>
-                    <div class="project-desc">Personal & professional portfolio.</div>
-                    <div class="links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="link" target="_blank">View Site</a></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">Supermarket Website</div><span class="badge badge-planned">PLANNED</span></div>
-                    <div class="project-desc">Virtual supermarket with recipe-based shopping.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">INFRASTRUCTURE</div>
-            <div class="status-grid">
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">Ebook Builder</div><span class="badge badge-done">PUSHED</span></div>
-                    <div class="project-desc">Gemini content &rarr; PDF &rarr; EPUB automation.</div>
-                    <div class="links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="link" target="_blank">GitHub</a></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">MEOW Assistant</div><span class="badge badge-progress">READY</span></div>
-                    <div class="project-desc">Offline cat-themed AI assistant.</div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">Rumble Automation</div><span class="badge badge-hold">ON HOLD</span></div>
-                    <div class="project-desc">Upload step fails. On hold.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">GITHUB REPOSITORIES</div>
-            <div class="status-grid">
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">ai-content-network</div><span class="badge badge-done">ACTIVE</span></div>
-                    <div class="project-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div>
-                    <div class="project-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="github-link" target="_blank">github.com/mohammedimthiyaz1401-ai/ai-content-network</a></div>
-                    <div class="links"><a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="link" target="_blank">GitHub</a></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">portfolio</div><span class="badge badge-done">DONE</span></div>
-                    <div class="project-desc"><strong>Email:</strong> <a href="mailto:Mohammedimthiyazimi@outlook.com" class="email-link">Mohammedimthiyazimi@outlook.com</a></div>
-                    <div class="project-desc"><strong>GitHub:</strong> <a href="https://github.com/imthiyazimi/portfolio" class="github-link" target="_blank">github.com/imthiyazimi/portfolio</a></div>
-                    <div class="links"><a href="https://github.com/imthiyazimi/portfolio" class="link" target="_blank">GitHub</a></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">cat-podcast-voice-gen</div><span class="badge badge-done">ACTIVE</span></div>
-                    <div class="project-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz832@gmail.com" class="email-link">mohammedimthiyaz832@gmail.com</a></div>
-                    <div class="project-desc"><strong>GitHub:</strong> <a href="https://github.com/imthi92/cat-podcast-voice-gen" class="github-link" target="_blank">github.com/imthi92/cat-podcast-voice-gen</a></div>
-                    <div class="links"><a href="https://github.com/imthi92/cat-podcast-voice-gen" class="link" target="_blank">GitHub</a></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">ai-news-bot</div><span class="badge badge-done">FIXED</span></div>
-                    <div class="project-desc"><strong>Email:</strong> <a href="mailto:futureintelligence4@gmail.com" class="email-link">futureintelligence4@gmail.com</a></div>
-                    <div class="project-desc"><strong>GitHub:</strong> <a href="https://github.com/futureintelligence4-netizen/ai-news-bot" class="github-link" target="_blank">github.com/futureintelligence4-netizen/ai-news-bot</a></div>
-                    <div class="links"><a href="https://github.com/futureintelligence4-netizen/ai-news-bot" class="link" target="_blank">GitHub</a></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">stick-cat-academy</div><span class="badge badge-done">ACTIVE</span></div>
-                    <div class="project-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz832@gmail.com" class="email-link">mohammedimthiyaz832@gmail.com</a></div>
-                    <div class="project-desc"><strong>GitHub:</strong> <a href="https://github.com/imthi92/stick-cat-academy" class="github-link" target="_blank">github.com/imthi92/stick-cat-academy</a></div>
-                    <div class="links"><a href="https://github.com/imthi92/stick-cat-academy" class="link" target="_blank">GitHub</a></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">practical-ai-healthcare</div><span class="badge badge-progress">BOOK 3</span></div>
-                    <div class="project-desc"><strong>Email:</strong> <a href="mailto:cybersecurityocean@gmail.com" class="email-link">cybersecurityocean@gmail.com</a></div>
-                    <div class="project-desc"><strong>GitHub:</strong> <a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="github-link" target="_blank">github.com/cybersecurityocean/practical-ai-healthcare</a></div>
-                    <div class="links"><a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="link" target="_blank">GitHub</a></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">ebook-builder</div><span class="badge badge-done">DONE</span></div>
-                    <div class="project-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div>
-                    <div class="project-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="github-link" target="_blank">github.com/mohammedimthiyaz1401-ai/ebook-builder</a></div>
-                    <div class="links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="link" target="_blank">GitHub</a></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header"><div class="project-name">project-dashboard</div><span class="badge badge-done">LIVE</span></div>
-                    <div class="project-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div>
-                    <div class="project-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="github-link" target="_blank">github.com/mohammedimthiyaz1401-ai/project-dashboard</a></div>
-                    <div class="links"><a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="link" target="_blank">Live Site</a></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        <p>LAST UPDATED: AUGUST 31, 2026 &bull; MOHAMMED IMTHIYAZ A &bull; <a href="mailto:cybersecurityocean@gmail.com">cybersecurityocean@gmail.com</a></p>
     </div>
 </body>
 </html>
