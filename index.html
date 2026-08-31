@@ -558,16 +558,89 @@
             .meow-chat { width: calc(100% - 20px); right: 10px; bottom: 90px; height: 450px; }
             .meow-fab { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 24px; }
         }
-            .glass-panel { margin: 10px; border-radius: 16px; }
-            .header { padding: 15px 12px; }
-            .header h1 { font-size: 14px; letter-spacing: 2px; }
-            .content { padding: 12px; }
-            .cards { grid-template-columns: 1fr; }
-            .email-mini { grid-template-columns: 1fr; }
-            .stats-row { gap: 6px; }
-            .stat-pill { min-width: 70px; padding: 10px 6px; }
-            .stat-num { font-size: 18px; }
-            .mountain { display: none; }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #020810;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        .loading-overlay.hidden { opacity: 0; visibility: hidden; }
+        .loading-spinner {
+            width: 60px; height: 60px;
+            border: 3px solid rgba(0,229,255,0.1);
+            border-top-color: #00e5ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(0,229,255,0.2);
+            border: 1px solid rgba(0,229,255,0.3);
+            color: #00e5ff;
+            cursor: pointer;
+            z-index: 9997;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .scroll-top:hover { background: rgba(0,229,255,0.3); transform: translateY(-3px); }
+        .scroll-top.visible { display: flex; }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,20,45,0.95);
+            color: #00e5ff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: none;
+            transition: 0.2s;
+            border: 1px solid rgba(0,229,255,0.2);
+            z-index: 100;
+        }
+        .tooltip:hover::after { opacity: 1; visibility: visible; }
+
+        /* Focus States for Accessibility */
+        button:focus, a:focus, input:focus {
+            outline: 2px solid #00e5ff;
+            outline-offset: 2px;
+        }
+
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Print Styles */
+        @media print {
+            .sky-bg, .stars, .clouds, .birds-container, .mountains, .trees, .leaves, .orbits, .particles, .fireflies, .meow-fab, .meow-chat, .scroll-top { display: none !important; }
+            .glass-panel { background: #fff; color: #000; border: 1px solid #ccc; }
+            .card { border: 1px solid #ccc; }
         }
     </style>
     <script>
@@ -788,7 +861,7 @@
                 <div class="section-title">WEBSITES & PORTFOLIO</div>
                 <div class="cards">
                     <div class="card"><div class="card-head"><div class="card-name">Portfolio Website</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">Personal & professional portfolio.</div><div class="card-links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="card-link" target="_blank">View Site</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">Supermarket Website</div><span class="badge badge-done">DONE</span></div><div class="card-desc">Hyderabad supermarket with virtual store & recipe mode.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">Supermarket Website</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">Hyderabad supermarket with virtual store & recipe mode.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/supermarket-hyderabad/" class="card-link" target="_blank">Website</a><a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="card-link" target="_blank">GitHub</a></div></div>
                 </div>
             </div>
 
@@ -796,7 +869,7 @@
                 <div class="section-title">INFRASTRUCTURE</div>
                 <div class="cards">
                     <div class="card"><div class="card-head"><div class="card-name">Ebook Builder</div><span class="badge badge-done">PUSHED</span></div><div class="card-desc">Gemini &rarr; PDF &rarr; EPUB automation.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">MEOW Assistant</div><span class="badge badge-done">WEB</span></div><div class="card-desc">AI assistant in dashboard. Weather, voice, chat.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a><button class="card-link" onclick="toggleMeowChat()">Chat Now</button></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">MEOW Assistant</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">AI assistant in dashboard. Weather, voice, chat.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/meow-assistant/" class="card-link" target="_blank">Website</a><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a><button class="card-link" onclick="toggleMeowChat()">Chat Now</button></div></div>
                     <div class="card"><div class="card-head"><div class="card-name">Rumble Automation</div><span class="badge badge-hold">ON HOLD</span></div><div class="card-desc">Upload step fails.</div></div>
                 </div>
             </div>
@@ -806,8 +879,8 @@
                 <div class="cards">
                     <div class="card"><div class="card-head"><div class="card-name">🌐 Live Dashboard</div></div><div class="card-desc">This dashboard - live on GitHub Pages.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="card-link" target="_blank">Open</a></div></div>
                     <div class="card"><div class="card-head"><div class="card-name">💼 Portfolio</div></div><div class="card-desc">Personal & professional portfolio.</div><div class="card-links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="card-link" target="_blank">Open</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">🛒 Supermarket</div></div><div class="card-desc">Hyderabad supermarket website.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">🐱 MEOW Assistant</div></div><div class="card-desc">AI assistant in this dashboard.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a><button class="card-link" onclick="toggleMeowChat()">Chat Now</button></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">🛒 Supermarket</div></div><div class="card-desc">Hyderabad supermarket website.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/supermarket-hyderabad/" class="card-link" target="_blank">Website</a><a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">🐱 MEOW Assistant</div></div><div class="card-desc">AI assistant in this dashboard.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/meow-assistant/" class="card-link" target="_blank">Website</a><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a><button class="card-link" onclick="toggleMeowChat()">Chat Now</button></div></div>
                     <div class="card"><div class="card-head"><div class="card-name">📚 Book 1</div></div><div class="card-desc">AI in Healthcare - Do's and Don'ts.</div><div class="card-links"><a href="https://cyberwave407.gumroad.com/l/ai-healthcare-dos-donts" class="card-link" target="_blank">Gumroad</a></div></div>
                     <div class="card"><div class="card-head"><div class="card-name">📚 Book 2</div></div><div class="card-desc">Stop AI From Leaking Patient Data.</div><div class="card-links"><a href="https://cyberwave407.gumroad.com/l/Stop-AI-From-Leaking-Patient-Data" class="card-link" target="_blank">Gumroad</a></div></div>
                     <div class="card"><div class="card-head"><div class="card-name">🤖 AI Content Network</div></div><div class="card-desc">Automated YouTube content.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="card-link" target="_blank">GitHub</a></div></div>
@@ -826,8 +899,8 @@
                     <div class="card"><div class="card-head"><div class="card-name">practical-ai-healthcare</div><span class="badge badge-progress">BOOK 3</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:cybersecurityocean@gmail.com" class="email-link">cybersecurityocean@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="github-link" target="_blank">cybersecurityocean/practical-ai-healthcare</a></div><div class="card-links"><a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="card-link" target="_blank">GitHub</a></div></div>
                     <div class="card"><div class="card-head"><div class="card-name">ebook-builder</div><span class="badge badge-done">DONE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="github-link" target="_blank">mohammedimthiyaz1401-ai/ebook-builder</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="card-link" target="_blank">GitHub</a></div></div>
                     <div class="card"><div class="card-head"><div class="card-name">project-dashboard</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="github-link" target="_blank">mohammedimthiyaz1401-ai/project-dashboard</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="card-link" target="_blank">Live</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">supermarket-hyderabad</div><span class="badge badge-done">DONE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="github-link" target="_blank">mohammedimthiyaz1401-ai/supermarket-hyderabad</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">meow-assistant</div><span class="badge badge-done">DONE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="github-link" target="_blank">mohammedimthiyaz1401-ai/meow-assistant</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">supermarket-hyderabad</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="github-link" target="_blank">mohammedimthiyaz1401-ai/supermarket-hyderabad</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/supermarket-hyderabad/" class="card-link" target="_blank">Website</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">meow-assistant</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="github-link" target="_blank">mohammedimthiyaz1401-ai/meow-assistant</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/meow-assistant/" class="card-link" target="_blank">Website</a></div></div>
                 </div>
             </div>
         </div>
