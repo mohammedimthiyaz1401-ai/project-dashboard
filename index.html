@@ -995,7 +995,7 @@
             <div class="meow-status"></div>
         </div>
         <div class="meow-messages" id="meowMessages">
-            <div class="meow-msg bot">Hello! I'm MEOW, your AI assistant. I can help you with weather, web search, system info, or just chat! 🐱</div>
+            <div class="meow-msg bot">Hello! I'm MEOW, your AI assistant. I can help with tasks, notes, URLs, weather, and more! Type <strong>"help"</strong> or click 🎤 to speak. 🐱</div>
         </div>
         <div class="meow-quick-actions">
             <button class="meow-quick-btn" onclick="meowQuickAction('tasks')">📋 Tasks</button>
@@ -1022,12 +1022,13 @@
         let meowSpeakingQueue = [];
         let meowLastSpoken = '';
         let meowSpeakTimeout = null;
+        let meowProcessing = false;
 
         // Text-to-Speech with Queue Control
         function meowSpeak(text) {
             if (meowMuted || !window.speechSynthesis) return;
             
-            const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^>]+;/g, '').replace(/[#.cat]/g, '').trim();
+            const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, '').trim();
             if (!cleanText || cleanText.length < 2) return;
             
             // Skip if same message repeated
@@ -1059,11 +1060,11 @@
             
             window.speechSynthesis.speak(utterance);
             
-            // Force stop after 10 seconds max
+            // Force stop after 15 seconds max
             meowSpeakTimeout = setTimeout(() => {
                 window.speechSynthesis.cancel();
                 meowSpeaking = false;
-            }, 10000);
+            }, 15000);
         }
 
         function meowStopSpeaking() {
@@ -1222,7 +1223,11 @@
             // Calculator
             calculate: (expr) => {
                 try {
-                    const result = Function('"use strict"; return (' + expr + ')')();
+                    // Sanitize: only allow numbers, operators, parentheses, dots, spaces
+                    const sanitized = expr.replace(/[^0-9+\-*/().%\s]/g, '');
+                    if (sanitized !== expr.replace(/\s/g, '')) return 'Invalid expression';
+                    const result = Function('"use strict"; return (' + sanitized + ')')();
+                    if (typeof result !== 'number' || !isFinite(result)) return 'Invalid result';
                     return `= ${result}`;
                 } catch { return 'Invalid expression'; }
             },
@@ -1498,11 +1503,44 @@
             const name = document.getElementById('urlName').value.trim();
             const url = document.getElementById('urlLink').value.trim();
             if (!name || !url) return;
-            projectUrls.push({ name, url });
+            
+            // Validate URL
+            let finalUrl = url;
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                finalUrl = 'https://' + url;
+            }
+            try {
+                new URL(finalUrl);
+            } catch {
+                const notif = document.createElement('div');
+                notif.style.cssText = 'position:fixed;top:20px;right:20px;background:rgba(255,0,0,0.9);color:#fff;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
+                notif.textContent = 'Invalid URL format!';
+                document.body.appendChild(notif);
+                setTimeout(() => notif.remove(), 2000);
+                return;
+            }
+            
+            // Check for duplicates
+            if (projectUrls.some(u => u.url === finalUrl)) {
+                const notif = document.createElement('div');
+                notif.style.cssText = 'position:fixed;top:20px;right:20px;background:rgba(255,165,0,0.9);color:#000;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
+                notif.textContent = 'URL already exists!';
+                document.body.appendChild(notif);
+                setTimeout(() => notif.remove(), 2000);
+                return;
+            }
+            
+            projectUrls.push({ name, url: finalUrl });
             localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
             document.getElementById('urlName').value = '';
             document.getElementById('urlLink').value = '';
             renderUrls();
+            
+            const notif = document.createElement('div');
+            notif.style.cssText = 'position:fixed;top:20px;right:20px;background:rgba(0,200,100,0.9);color:#000;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
+            notif.textContent = `Added: ${name}`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2000);
         }
         
         function removeUrl(index) {
@@ -1513,7 +1551,20 @@
         
         function exportUrls() {
             const text = projectUrls.map(u => `${u.name}: ${u.url}`).join('\n');
-            navigator.clipboard.writeText(text).then(() => alert('URLs copied to clipboard!'));
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary notification instead of alert
+                const notif = document.createElement('div');
+                notif.style.cssText = 'position:fixed;top:20px;right:20px;background:rgba(0,229,255,0.9);color:#000;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
+                notif.textContent = 'URLs copied to clipboard!';
+                document.body.appendChild(notif);
+                setTimeout(() => notif.remove(), 2000);
+            }).catch(() => {
+                const notif = document.createElement('div');
+                notif.style.cssText = 'position:fixed;top:20px;right:20px;background:rgba(255,0,0,0.9);color:#fff;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
+                notif.textContent = 'Failed to copy. Try manually.';
+                document.body.appendChild(notif);
+                setTimeout(() => notif.remove(), 2000);
+            });
         }
         
         // Initialize URLs on load
@@ -1553,9 +1604,14 @@
                 document.getElementById('meowVoiceBtn').classList.remove('listening');
             };
             
-            meowRecognition.onerror = () => {
+            meowRecognition.onerror = (event) => {
                 meowListening = false;
                 document.getElementById('meowVoiceBtn').classList.remove('listening');
+                if (event.error === 'not-allowed') {
+                    meowAddMsg('bot', '🎤 Microphone access denied. Please allow microphone access.', false);
+                } else if (event.error === 'no-speech') {
+                    meowAddMsg('bot', '🎤 No speech detected. Try again!', false);
+                }
             };
         }
 
@@ -1574,16 +1630,22 @@
                 meowListening = false;
                 document.getElementById('meowVoiceBtn').classList.remove('listening');
             } else {
+                if (meowProcessing) return;
                 meowStopSpeaking();
-                meowRecognition.start();
-                meowListening = true;
-                document.getElementById('meowVoiceBtn').classList.add('listening');
-                meowAddMsg('bot', 'Listening... speak now! 🎤', false);
+                try {
+                    meowRecognition.start();
+                    meowListening = true;
+                    document.getElementById('meowVoiceBtn').classList.add('listening');
+                    meowAddMsg('bot', 'Listening... speak now! 🎤', false);
+                } catch(e) {
+                    meowAddMsg('bot', '🎤 Could not start voice input. Try again!', false);
+                }
             }
         }
 
         function meowAddMsg(type, text, speak = true) {
             const container = document.getElementById('meowMessages');
+            if (!container) return;
             const msg = document.createElement('div');
             msg.className = `meow-msg ${type}`;
             msg.innerHTML = text;
@@ -1594,6 +1656,7 @@
 
         function meowTyping() {
             const container = document.getElementById('meowMessages');
+            if (!container) return;
             const msg = document.createElement('div');
             msg.className = 'meow-msg bot';
             msg.id = 'meowTyping';
@@ -1608,10 +1671,13 @@
         }
 
         function meowSend() {
+            if (meowProcessing) return;
             const input = document.getElementById('meowInput');
+            if (!input) return;
             const text = input.value.trim();
             if (!text) return;
             
+            meowProcessing = true;
             meowStopSpeaking();
             meowAddMsg('user', text);
             input.value = '';
@@ -1619,8 +1685,12 @@
             
             setTimeout(() => {
                 meowRemoveTyping();
-                meowProcessCommand(text);
-            }, 500 + Math.random() * 500);
+                meowProcessCommand(text).then(() => {
+                    meowProcessing = false;
+                }).catch(() => {
+                    meowProcessing = false;
+                });
+            }, 400 + Math.random() * 400);
         }
 
         function meowQuickAction(action) {
@@ -1907,16 +1977,6 @@
                 meowAddMsg('bot', websiteControl.getSystemInfo());
                 return;
             }
-            if (lower.includes('weather')) {
-                const weather = await websiteControl.getWeather();
-                meowAddMsg('bot', `🌤️ ${weather}`);
-                return;
-            }
-            if (lower.includes('joke')) {
-                const joke = await websiteControl.getJoke();
-                meowAddMsg('bot', `😄 ${joke}`);
-                return;
-            }
             if (lower.includes('quote') || lower.includes('inspire')) {
                 const quote = await websiteControl.getQuote();
                 meowAddMsg('bot', `💡 ${quote}`);
@@ -1997,28 +2057,28 @@
             }
             
             // Mute/Unmute
-            if (lower.includes('mute')) {
+            if (lower === 'mute' || lower === 'mute voice') {
                 meowMuted = true;
                 meowStopSpeaking();
                 meowAddMsg('bot', '🔇 Voice muted! I\'ll only show text now.');
                 return;
             }
-            if (lower.includes('unmute')) {
+            if (lower === 'unmute' || lower === 'unmute voice') {
                 meowMuted = false;
                 meowAddMsg('bot', '🔊 Voice unmuted! I\'ll speak again.');
                 return;
             }
             
-            // Stop speaking
-            if (lower.includes('stop') || lower.includes('quiet') || lower.includes('shut up')) {
+            // Stop speaking (must be after stop timer)
+            if (lower === 'stop' || lower === 'quiet' || lower === 'shut up' || lower === 'be quiet') {
                 meowStopSpeaking();
                 meowAddMsg('bot', '🤫 Stopped speaking!');
                 return;
             }
             
-            // Scroll commands
-            if (lower.includes('scroll')) {
-                const targets = ['header', 'stats', 'email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'footer'];
+            // Scroll commands (must be before other commands)
+            if (lower.startsWith('scroll') || lower.includes('scroll to')) {
+                const targets = ['header', 'stats', 'email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'footer', 'urls'];
                 for (const t of targets) {
                     if (lower.includes(t)) {
                         websiteControl.scrollTo(t);
@@ -2045,12 +2105,18 @@
                     meowAddMsg('bot', '👁️ All sections hidden!');
                     return;
                 }
-                const sections = ['email', 'books', 'youtube', 'websites', 'infrastructure', 'github'];
-                for (let i = 0; i < sections.length; i++) {
-                    if (lower.includes(sections[i])) {
-                        document.querySelectorAll('.section')[i].style.display = 'none';
-                        meowAddMsg('bot', `👁️ ${sections[i]} section hidden!`);
-                        return;
+                const sectionMap = {
+                    'email': 0, 'books': 1, 'youtube': 2, 'websites': 3,
+                    'infrastructure': 4, 'github': 5, 'urls': 6
+                };
+                for (const [name, idx] of Object.entries(sectionMap)) {
+                    if (lower.includes(name)) {
+                        const sections = document.querySelectorAll('.section');
+                        if (sections[idx]) {
+                            sections[idx].style.display = 'none';
+                            meowAddMsg('bot', `👁️ ${name} section hidden!`);
+                            return;
+                        }
                     }
                 }
             }
@@ -2061,6 +2127,20 @@
                     websiteControl.showAllSections();
                     meowAddMsg('bot', '👁️ All sections visible!');
                     return;
+                }
+                const sectionMap = {
+                    'email': 0, 'books': 1, 'youtube': 2, 'websites': 3,
+                    'infrastructure': 4, 'github': 5, 'urls': 6
+                };
+                for (const [name, idx] of Object.entries(sectionMap)) {
+                    if (lower.includes(name)) {
+                        const sections = document.querySelectorAll('.section');
+                        if (sections[idx]) {
+                            sections[idx].style.display = 'block';
+                            meowAddMsg('bot', `👁️ ${name} section visible!`);
+                            return;
+                        }
+                    }
                 }
             }
             
@@ -2081,18 +2161,6 @@
                 websiteControl.highlightCards();
                 meowAddMsg('bot', '✨ Highlighting all cards!');
                 return;
-            }
-            
-            // Change card color
-            if (lower.includes('card') && (lower.includes('color') || lower.includes('red') || lower.includes('blue') || lower.includes('green'))) {
-                const colorMap = { 'red': '#e94560', 'blue': '#00e5ff', 'green': '#00e676', 'yellow': '#ffb400', 'purple': '#ce93d8', 'orange': '#ff9800', 'pink': '#e91e63', 'white': '#ffffff' };
-                for (const [name, color] of Object.entries(colorMap)) {
-                    if (lower.includes(name)) {
-                        websiteControl.changeCardColor(color);
-                        meowAddMsg('bot', `🎨 Cards changed to <strong>${name}</strong>!`);
-                        return;
-                    }
-                }
             }
             
             // Change background
@@ -2135,7 +2203,7 @@
             }
             
             // Theme commands
-            if (lower.includes('theme') || lower.includes('color') || lower.includes('appearance')) {
+            if (lower.includes('theme') || lower.includes('appearance')) {
                 meowAddMsg('bot', '🎨 <strong>Available Themes:</strong><br>• <code>theme space</code> - Space Blue (default)<br>• <code>theme ocean</code> - Ocean Teal<br>• <code>theme forest</code> - Forest Green<br>• <code>theme sunset</code> - Sunset Orange<br>• <code>theme purple</code> - Purple Haze<br>• <code>theme cherry</code> - Cherry Red<br>• <code>theme dark</code> - Pure Dark<br>• <code>theme light</code> - Light Mode<br><br>Just say: "apply ocean theme" or "change to sunset"');
                 return;
             }
@@ -2147,6 +2215,18 @@
                     if (lower.includes(name)) {
                         applyTheme(name);
                         meowAddMsg('bot', `✅ Theme changed to <strong>${themes.presets[name].name}</strong>!`);
+                        return;
+                    }
+                }
+            }
+            
+            // Card color (check before generic color)
+            if (lower.includes('card') && (lower.includes('red') || lower.includes('blue') || lower.includes('green') || lower.includes('yellow') || lower.includes('purple') || lower.includes('orange') || lower.includes('pink') || lower.includes('white'))) {
+                const colorMap = { 'red': '#e94560', 'blue': '#00e5ff', 'green': '#00e676', 'yellow': '#ffb400', 'purple': '#ce93d8', 'orange': '#ff9800', 'pink': '#e91e63', 'white': '#ffffff' };
+                for (const [name, color] of Object.entries(colorMap)) {
+                    if (lower.includes(name)) {
+                        websiteControl.changeCardColor(color);
+                        meowAddMsg('bot', `🎨 Cards changed to <strong>${name}</strong>!`);
                         return;
                     }
                 }
@@ -2211,6 +2291,14 @@
             // Thanks
             if (lower.includes('thank') || lower.includes('thanks')) {
                 meowAddMsg('bot', 'You\'re welcome! 🐱 Always happy to help!');
+                return;
+            }
+            
+            // Clear chat
+            if (lower.includes('clear chat') || lower.includes('clear history') || lower === 'clear') {
+                const container = document.getElementById('meowMessages');
+                if (container) container.innerHTML = '';
+                meowAddMsg('bot', '🗑️ Chat cleared!');
                 return;
             }
             
