@@ -61,6 +61,16 @@
         .email-card:nth-child(7) .email-service { background: #33691e; }
         .email-card:nth-child(8) .email-service { background: #1a237e; }
         .email-card:nth-child(9) .email-service { background: #e94560; }
+        .countdown-section { background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); border: 2px solid #e94560; border-radius: 14px; padding: 30px; margin-bottom: 28px; text-align: center; box-shadow: 0 0 20px rgba(233,69,96,0.2); }
+        .countdown-title { color: #e94560; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+        .countdown-subtitle { color: #a0aec0; font-size: 14px; margin-bottom: 20px; }
+        .countdown-timer { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .countdown-box { background: #252525; border: 1px solid #e94560; border-radius: 12px; padding: 15px 25px; min-width: 100px; }
+        .countdown-number { font-size: 42px; font-weight: bold; color: #e94560; line-height: 1; }
+        .countdown-label { color: #a0aec0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+        .countdown-date { color: #00bcd4; font-size: 16px; font-weight: 600; margin-top: 15px; }
+        .countdown-status { color: #4caf50; font-size: 14px; margin-top: 10px; font-weight: 600; }
+        .date-display { color: #a0aec0; font-size: 14px; margin-top: 5px; }
         .footer { text-align: center; padding: 28px; color: #555; font-size: 12px; border-top: 1px solid #333; margin-top: 35px; background: #1a1a1a; }
         .footer a { color: #e94560; text-decoration: none; font-weight: 600; }
         @media (max-width: 768px) {
@@ -70,15 +80,62 @@
             .status-grid { grid-template-columns: 1fr; }
             .email-grid { grid-template-columns: 1fr; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .countdown-timer { gap: 10px; }
+            .countdown-box { min-width: 70px; padding: 10px 15px; }
+            .countdown-number { font-size: 28px; }
         }
     </style>
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const dayOfWeek = now.getDay();
+            let daysUntilTuesday = (2 - dayOfWeek + 7) % 7;
+            if (daysUntilTuesday === 0 && now.getHours() >= 12) daysUntilTuesday = 7;
+            
+            const nextTuesday = new Date(now);
+            nextTuesday.setDate(now.getDate() + daysUntilTuesday);
+            nextTuesday.setHours(12, 0, 0, 0);
+            
+            const diff = nextTuesday - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('cd-days').textContent = days;
+            document.getElementById('cd-hours').textContent = hours;
+            document.getElementById('cd-minutes').textContent = minutes;
+            document.getElementById('cd-seconds').textContent = seconds;
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('cd-date').textContent = 'Next Publish Date: ' + nextTuesday.toLocaleDateString('en-US', options);
+            
+            const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+            document.getElementById('current-date').textContent = dateStr;
+        }
+        setInterval(updateCountdown, 1000);
+        window.onload = updateCountdown;
+    </script>
 </head>
 <body>
     <div class="header">
         <h1>PROJECT DASHBOARD</h1>
         <p>Mohammed Imthiyaz A - Healthcare AI Content Network & Publishing</p>
+        <div class="date-display" id="current-date"></div>
     </div>
     <div class="container">
+        <div class="countdown-section">
+            <div class="countdown-title">BOOK PUBLISHING COUNTDOWN</div>
+            <div class="countdown-subtitle">Every Tuesday — New book published on Gumroad, KDP & Google Play</div>
+            <div class="countdown-timer">
+                <div class="countdown-box"><div class="countdown-number" id="cd-days">0</div><div class="countdown-label">Days</div></div>
+                <div class="countdown-box"><div class="countdown-number" id="cd-hours">0</div><div class="countdown-label">Hours</div></div>
+                <div class="countdown-box"><div class="countdown-number" id="cd-minutes">0</div><div class="countdown-label">Minutes</div></div>
+                <div class="countdown-box"><div class="countdown-number" id="cd-seconds">0</div><div class="countdown-label">Seconds</div></div>
+            </div>
+            <div class="countdown-date" id="cd-date"></div>
+            <div class="countdown-status">Book 3: Healthy AI Implementation Roadmap — READY TO UPLOAD</div>
+        </div>
         <div class="stats-grid">
             <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Books Published</div></div>
             <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">YouTube Channels</div></div>
