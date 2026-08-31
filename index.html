@@ -235,40 +235,40 @@
         .header::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent 5%, #00b4ff 30%, #00e5ff 50%, #00b4ff 70%, transparent 95%); animation: headerLine 3s ease-in-out infinite; }
         @keyframes headerLine { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.9; } }
         .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 18px; }
-        .header h1 { font-family: 'Orbitron', monospace; font-size: 24px; font-weight: 900; color: #fff; letter-spacing: 5px; text-shadow: 0 0 20px rgba(0,180,255,0.6), 0 0 40px rgba(0,180,255,0.25); }
-        .header-sub { color: #5a9ac0; font-size: 12px; letter-spacing: 2px; margin-top: 3px; }
+        .header h1 { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #fff; letter-spacing: 5px; text-shadow: 0 0 20px rgba(0,180,255,0.6), 0 0 40px rgba(0,180,255,0.25); }
+        .header-sub { color: #5a9ac0; font-size: 16px; letter-spacing: 2px; margin-top: 5px; }
         .header-sub a { color: #00e5ff; text-decoration: none; font-weight: 600; transition: 0.3s; }
         .header-sub a:hover { text-shadow: 0 0 10px rgba(0,229,255,0.7); }
-        .date-display { color: #3a7090; font-size: 10px; margin-top: 4px; font-family: 'Orbitron', monospace; letter-spacing: 1.5px; }
+        .date-display { color: #3a7090; font-size: 13px; margin-top: 5px; font-family: 'Orbitron', monospace; letter-spacing: 1.5px; }
 
         .countdown-section { background: rgba(0,30,60,0.5); border: 1px solid rgba(0,160,255,0.25); border-radius: 10px; padding: 8px 14px; text-align: center; box-shadow: 0 0 15px rgba(0,100,200,0.12); min-width: 260px; position: relative; overflow: hidden; }
         .countdown-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(from 0deg, transparent, rgba(0,160,255,0.06), transparent); animation: countdownSpin 10s linear infinite; }
         @keyframes countdownSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .countdown-section > * { position: relative; z-index: 1; }
-        .countdown-title { font-family: 'Orbitron', monospace; color: #00e5ff; font-size: 9px; font-weight: 700; letter-spacing: 2.5px; margin-bottom: 2px; }
-        .countdown-subtitle { color: #3a7090; font-size: 7px; letter-spacing: 1px; margin-bottom: 5px; }
-        .countdown-timer { display: flex; justify-content: center; gap: 4px; }
-        .countdown-box { background: rgba(0,20,45,0.7); border: 1px solid rgba(0,160,255,0.2); border-radius: 5px; padding: 4px 7px; min-width: 48px; }
-        .countdown-number { font-family: 'Orbitron', monospace; font-size: 16px; font-weight: 900; color: #00e5ff; line-height: 1; text-shadow: 0 0 10px rgba(0,229,255,0.4); }
-        .countdown-label { color: #3a7090; font-size: 6px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
-        .countdown-date { color: #00b4ff; font-size: 8px; font-weight: 600; margin-top: 3px; letter-spacing: 0.5px; }
-        .countdown-status { color: #00e676; font-size: 7px; margin-top: 2px; font-weight: 600; letter-spacing: 1px; }
+        .countdown-title { font-family: 'Orbitron', monospace; color: #00e5ff; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; margin-bottom: 3px; }
+        .countdown-subtitle { color: #3a7090; font-size: 10px; letter-spacing: 1px; margin-bottom: 6px; }
+        .countdown-timer { display: flex; justify-content: center; gap: 5px; }
+        .countdown-box { background: rgba(0,20,45,0.7); border: 1px solid rgba(0,160,255,0.2); border-radius: 6px; padding: 5px 8px; min-width: 55px; }
+        .countdown-number { font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900; color: #00e5ff; line-height: 1; text-shadow: 0 0 10px rgba(0,229,255,0.4); }
+        .countdown-label { color: #3a7090; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+        .countdown-date { color: #00b4ff; font-size: 11px; font-weight: 600; margin-top: 4px; letter-spacing: 0.5px; }
+        .countdown-status { color: #00e676; font-size: 10px; margin-top: 3px; font-weight: 600; letter-spacing: 1px; }
 
         .content { padding: 20px 30px 30px; }
         .stats-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
         .stat-pill { flex: 1; min-width: 110px; background: rgba(0,30,60,0.4); border: 1px solid rgba(0,160,255,0.12); border-radius: 12px; padding: 14px 10px; text-align: center; transition: all 0.35s ease; cursor: pointer; }
         .stat-pill:hover { border-color: rgba(0,200,255,0.35); box-shadow: 0 0 20px rgba(0,120,200,0.18); transform: translateY(-3px); }
-        .stat-num { font-family: 'Orbitron', monospace; font-size: 24px; font-weight: 900; color: #00e5ff; text-shadow: 0 0 12px rgba(0,229,255,0.35); }
+        .stat-num { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #00e5ff; text-shadow: 0 0 12px rgba(0,229,255,0.35); }
         .stat-pill:nth-child(1) .stat-num { color: #00e676; text-shadow: 0 0 12px rgba(0,230,118,0.35); }
         .stat-pill:nth-child(3) .stat-num { color: #ffb400; text-shadow: 0 0 12px rgba(255,180,0,0.35); }
         .stat-pill:nth-child(4) .stat-num { color: #e94560; text-shadow: 0 0 12px rgba(233,69,96,0.35); }
         .stat-pill:nth-child(5) .stat-num { color: #ce93d8; text-shadow: 0 0 12px rgba(156,39,176,0.35); }
-        .stat-lbl { color: #5a9ac0; font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 3px; }
+        .stat-lbl { color: #5a9ac0; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
 
         .section { background: rgba(8,20,45,0.4); border: 1px solid rgba(0,160,255,0.08); border-radius: 14px; padding: 18px; margin-bottom: 16px; transition: all 0.35s ease; }
         .section:hover { border-color: rgba(0,160,255,0.18); box-shadow: 0 6px 25px rgba(0,80,160,0.08); }
-        .section-title { font-family: 'Orbitron', monospace; color: #00e5ff; font-size: 11px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .section-title::before { content: ''; width: 3px; height: 14px; background: linear-gradient(180deg, #00e5ff, #0060ff); border-radius: 2px; box-shadow: 0 0 6px rgba(0,229,255,0.35); }
+        .section-title { font-family: 'Orbitron', monospace; color: #00e5ff; font-size: 14px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .section-title::before { content: ''; width: 3px; height: 16px; background: linear-gradient(180deg, #00e5ff, #0060ff); border-radius: 2px; box-shadow: 0 0 6px rgba(0,229,255,0.35); }
 
         .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
         .card { background: rgba(10,25,55,0.4); border: 1px solid rgba(0,160,255,0.06); border-radius: 10px; padding: 12px; transition: all 0.3s ease; position: relative; overflow: hidden; }
@@ -276,33 +276,33 @@
         .card:hover::after { opacity: 1; }
         .card:hover { border-color: rgba(0,160,255,0.2); transform: translateY(-2px); }
         .card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
-        .card-name { font-size: 12px; font-weight: 600; color: #e0f0ff; }
-        .badge { padding: 2px 7px; border-radius: 14px; font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; font-family: 'Orbitron', monospace; }
+        .card-name { font-size: 14px; font-weight: 600; color: #e0f0ff; }
+        .badge { padding: 3px 9px; border-radius: 14px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; font-family: 'Orbitron', monospace; }
         .badge-done { background: rgba(0,230,118,0.1); color: #00e676; border: 1px solid rgba(0,230,118,0.2); }
         .badge-progress { background: rgba(255,180,0,0.1); color: #ffb400; border: 1px solid rgba(255,180,0,0.2); }
         .badge-hold { background: rgba(233,69,96,0.1); color: #e94560; border: 1px solid rgba(233,69,96,0.2); }
         .badge-planned { background: rgba(156,39,176,0.1); color: #ce93d8; border: 1px solid rgba(156,39,176,0.2); }
-        .card-desc { color: #5a9ac0; font-size: 10px; line-height: 1.4; }
+        .card-desc { color: #5a9ac0; font-size: 12px; line-height: 1.4; }
         .card-desc strong { color: #7ab8d8; }
         .email-link { color: #00bcd4; text-decoration: none; font-weight: 600; }
         .email-link:hover { text-decoration: underline; }
-        .github-link { color: #00e676; text-decoration: none; font-weight: 600; word-break: break-all; font-size: 9px; }
+        .github-link { color: #00e676; text-decoration: none; font-weight: 600; word-break: break-all; font-size: 11px; }
         .github-link:hover { text-decoration: underline; }
         .card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
-        .card-link { padding: 3px 8px; background: rgba(0,80,160,0.12); border: 1px solid rgba(0,160,255,0.12); border-radius: 5px; color: #00e5ff; text-decoration: none; font-size: 8px; font-weight: 600; letter-spacing: 0.3px; transition: all 0.3s; }
+        .card-link { padding: 3px 10px; background: rgba(0,80,160,0.12); border: 1px solid rgba(0,160,255,0.12); border-radius: 5px; color: #00e5ff; text-decoration: none; font-size: 10px; font-weight: 600; letter-spacing: 0.3px; transition: all 0.3s; }
         .card-link:hover { background: rgba(0,160,255,0.2); border-color: #00e5ff; box-shadow: 0 0 10px rgba(0,160,255,0.25); color: #fff; }
 
-        .yt-date { display: inline-block; margin-top: 4px; padding: 2px 6px; background: rgba(255,0,0,0.08); border: 1px solid rgba(255,0,0,0.15); border-radius: 4px; font-size: 9px; color: #ff6b6b; font-weight: 600; }
+        .yt-date { display: inline-block; margin-top: 4px; padding: 2px 8px; background: rgba(255,0,0,0.08); border: 1px solid rgba(255,0,0,0.15); border-radius: 4px; font-size: 11px; color: #ff6b6b; font-weight: 600; }
         .yt-date a { color: #ff6b6b; text-decoration: none; }
         .yt-date a:hover { text-decoration: underline; }
-        .yt-loading { color: #3a5070; font-style: italic; font-size: 9px; }
+        .yt-loading { color: #3a5070; font-style: italic; font-size: 11px; }
 
         .email-mini { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px; }
-        .email-chip { background: rgba(10,25,55,0.35); border: 1px solid rgba(0,160,255,0.05); border-radius: 8px; padding: 10px; transition: all 0.3s; }
+        .email-chip { background: rgba(10,25,55,0.35); border: 1px solid rgba(0,160,255,0.05); border-radius: 8px; padding: 12px; transition: all 0.3s; }
         .email-chip:hover { border-color: rgba(0,160,255,0.12); transform: translateY(-1px); }
-        .email-addr { font-weight: 700; color: #00bcd4; font-size: 10px; letter-spacing: 0.3px; margin-bottom: 3px; }
+        .email-addr { font-weight: 700; color: #00bcd4; font-size: 12px; letter-spacing: 0.3px; margin-bottom: 3px; }
         .email-tags { display: flex; flex-wrap: wrap; gap: 2px; }
-        .email-tag { padding: 1px 5px; border-radius: 3px; font-size: 7px; font-weight: 600; letter-spacing: 0.3px; }
+        .email-tag { padding: 2px 6px; border-radius: 3px; font-size: 9px; font-weight: 600; letter-spacing: 0.3px; }
         .email-chip:nth-child(1) .email-tag { background: rgba(0,230,118,0.12); color: #00e676; border: 1px solid rgba(0,230,118,0.15); }
         .email-chip:nth-child(2) .email-tag { background: rgba(0,160,255,0.12); color: #00b4ff; border: 1px solid rgba(0,160,255,0.15); }
         .email-chip:nth-child(3) .email-tag { background: rgba(156,39,176,0.12); color: #ce93d8; border: 1px solid rgba(156,39,176,0.15); }
@@ -313,7 +313,7 @@
         .email-chip:nth-child(8) .email-tag { background: rgba(100,150,255,0.12); color: #6496ff; border: 1px solid rgba(100,150,255,0.15); }
         .email-chip:nth-child(9) .email-tag { background: rgba(0,229,255,0.12); color: #00e5ff; border: 1px solid rgba(0,229,255,0.15); }
 
-        .footer { text-align: center; padding: 18px; color: #2a5070; font-size: 9px; letter-spacing: 1.5px; border-top: 1px solid rgba(0,160,255,0.05); }
+        .footer { text-align: center; padding: 18px; color: #2a5070; font-size: 11px; letter-spacing: 1.5px; border-top: 1px solid rgba(0,160,255,0.05); }
         .footer a { color: #00e5ff; text-decoration: none; font-weight: 600; }
         .footer a:hover { text-shadow: 0 0 8px rgba(0,229,255,0.4); }
 
@@ -367,8 +367,8 @@
                     const now = new Date();
                     const diffDays = Math.floor((now - date) / 864e5);
                     let timeAgo = diffDays === 0 ? 'Today' : diffDays === 1 ? 'Yesterday' : diffDays < 7 ? diffDays + 'd ago' : diffDays < 30 ? Math.floor(diffDays/7) + 'w ago' : Math.floor(diffDays/30) + 'mo ago';
-                    el.innerHTML = `<a href="${link}" target="_blank" title="${title}">${timeAgo}</a><br><span style="font-size:7px;color:#3a5070">${title.substring(0,35)}${title.length>35?'...':''}</span>`;
-                } else { el.innerHTML = '<span style="color:#e94560;font-size:9px">No videos</span>'; }
+                    el.innerHTML = `<a href="${link}" target="_blank" title="${title}">${timeAgo}</a><br><span style="font-size:9px;color:#3a5070">${title.substring(0,35)}${title.length>35?'...':''}</span>`;
+                } else { el.innerHTML = '<span style="color:#e94560;font-size:11px">No videos</span>'; }
             } catch (e) { el.innerHTML = '<span class="yt-loading">Load failed</span>'; }
         }
 
