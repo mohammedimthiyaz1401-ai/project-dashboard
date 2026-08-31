@@ -636,6 +636,68 @@
         /* Smooth Scroll */
         html { scroll-behavior: smooth; }
 
+        /* URL Tracker */
+        .url-tracker {
+            margin-top: 8px;
+        }
+        .url-list {
+            max-height: 150px;
+            overflow-y: auto;
+            margin-bottom: 8px;
+        }
+        .url-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 8px;
+            background: rgba(0,229,255,0.05);
+            border: 1px solid rgba(0,229,255,0.1);
+            border-radius: 6px;
+            margin-bottom: 4px;
+            font-size: 11px;
+        }
+        .url-item .url-name {
+            color: #00e5ff;
+            font-weight: bold;
+            min-width: 100px;
+        }
+        .url-item .url-link {
+            color: #7ec8e3;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .url-item .url-link a {
+            color: #7ec8e3;
+            text-decoration: none;
+        }
+        .url-item .url-link a:hover {
+            text-decoration: underline;
+        }
+        .url-item .url-delete {
+            background: rgba(255,0,0,0.2);
+            border: 1px solid rgba(255,0,0,0.3);
+            color: #ff6666;
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+        .url-add {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .url-add input {
+            background: rgba(0,229,255,0.1);
+            border: 1px solid rgba(0,229,255,0.2);
+            color: #7ec8e3;
+            padding: 5px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+        }
+
         /* Print Styles */
         @media print {
             .sky-bg, .stars, .clouds, .birds-container, .mountains, .trees, .leaves, .orbits, .particles, .fireflies, .meow-fab, .meow-chat, .scroll-top { display: none !important; }
@@ -903,6 +965,19 @@
                     <div class="card"><div class="card-head"><div class="card-name">meow-assistant</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="github-link" target="_blank">mohammedimthiyaz1401-ai/meow-assistant</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/meow-assistant/" class="card-link" target="_blank">Website</a></div></div>
                 </div>
             </div>
+
+            <div class="section">
+                <div class="section-title">🔗 PROJECT URLS</div>
+                <div class="url-tracker" id="urlTracker">
+                    <div class="url-list" id="urlList"></div>
+                    <div class="url-add">
+                        <input type="text" id="urlName" placeholder="Project name" style="width:120px">
+                        <input type="text" id="urlLink" placeholder="URL" style="width:200px">
+                        <button onclick="addProjectUrl()" style="background:rgba(0,229,255,0.2);border:1px solid rgba(0,229,255,0.3);color:#00e5ff;padding:5px 12px;border-radius:6px;cursor:pointer">+ Add</button>
+                        <button onclick="exportUrls()" style="background:rgba(0,200,100,0.2);border:1px solid rgba(0,200,100,0.3);color:#00c864;padding:5px 12px;border-radius:6px;cursor:pointer">📋 Export</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="footer">LAST UPDATED: AUGUST 31, 2026 &bull; MOHAMMED IMTHIYAZ A &bull; <a href="mailto:cybersecurityocean@gmail.com">cybersecurityocean@gmail.com</a></div>
     </div>
@@ -944,31 +1019,58 @@
         let meowRecognition = null;
         let meowSpeaking = false;
         let meowMuted = false;
+        let meowSpeakingQueue = [];
+        let meowLastSpoken = '';
+        let meowSpeakTimeout = null;
 
-        // Text-to-Speech
+        // Text-to-Speech with Queue Control
         function meowSpeak(text) {
             if (meowMuted || !window.speechSynthesis) return;
             
+            const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^>]+;/g, '').replace(/[#.cat]/g, '').trim();
+            if (!cleanText || cleanText.length < 2) return;
+            
+            // Skip if same message repeated
+            if (cleanText === meowLastSpoken) return;
+            meowLastSpoken = cleanText;
+            
+            // Cancel any pending speech
             window.speechSynthesis.cancel();
-            const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, '');
+            clearTimeout(meowSpeakTimeout);
+            
             const utterance = new SpeechSynthesisUtterance(cleanText);
-            utterance.rate = 0.95;
-            utterance.pitch = 1.1;
-            utterance.volume = 1;
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+            utterance.volume = 0.9;
             
             const voices = window.speechSynthesis.getVoices();
-            const preferred = voices.find(v => v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Samantha'));
+            const preferred = voices.find(v => v.name.includes('Google') || v.name.includes('Microsoft'));
             if (preferred) utterance.voice = preferred;
             
             utterance.onstart = () => { meowSpeaking = true; };
-            utterance.onend = () => { meowSpeaking = false; };
+            utterance.onend = () => { 
+                meowSpeaking = false;
+                meowLastSpoken = '';
+            };
+            utterance.onerror = () => { 
+                meowSpeaking = false;
+                meowLastSpoken = '';
+            };
             
             window.speechSynthesis.speak(utterance);
+            
+            // Force stop after 10 seconds max
+            meowSpeakTimeout = setTimeout(() => {
+                window.speechSynthesis.cancel();
+                meowSpeaking = false;
+            }, 10000);
         }
 
         function meowStopSpeaking() {
             window.speechSynthesis.cancel();
             meowSpeaking = false;
+            meowLastSpoken = '';
+            clearTimeout(meowSpeakTimeout);
         }
 
         // Theme Control System
@@ -1356,6 +1458,67 @@
             return value;
         }
 
+        // URL Tracker System
+        let projectUrls = JSON.parse(localStorage.getItem('meow-urls') || '[]');
+        
+        // Default URLs
+        const defaultUrls = [
+            { name: 'Dashboard', url: 'https://mohammedimthiyaz1401-ai.github.io/project-dashboard/' },
+            { name: 'Portfolio', url: 'https://myportfolio-seven-ruby-43.vercel.app/' },
+            { name: 'Supermarket', url: 'https://mohammedimthiyaz1401-ai.github.io/supermarket-hyderabad/' },
+            { name: 'MEOW Assistant', url: 'https://mohammedimthiyaz1401-ai.github.io/meow-assistant/' },
+            { name: 'AI Content Network', url: 'https://github.com/mohammedimthiyaz1401-ai/ai-content-network' },
+            { name: 'Cat Podcast', url: 'https://github.com/imthi92/cat-podcast-voice-gen' },
+            { name: 'Stick Cat Academy', url: 'https://github.com/imthi92/stick-cat-academy' },
+            { name: 'AI News Bot', url: 'https://github.com/futureintelligence4-netizen/ai-news-bot' },
+            { name: 'Practical AI Healthcare', url: 'https://github.com/cybersecurityocean/practical-ai-healthcare' },
+            { name: 'Ebook Builder', url: 'https://github.com/mohammedimthiyaz1401-ai/ebook-builder' },
+            { name: 'Book 1 - Gumroad', url: 'https://cyberwave407.gumroad.com/l/ai-healthcare-dos-donts' },
+            { name: 'Book 2 - Gumroad', url: 'https://cyberwave407.gumroad.com/l/Stop-AI-From-Leaking-Patient-Data' }
+        ];
+        
+        if (projectUrls.length === 0) {
+            projectUrls = defaultUrls;
+            localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
+        }
+        
+        function renderUrls() {
+            const list = document.getElementById('urlList');
+            if (!list) return;
+            list.innerHTML = projectUrls.map((u, i) => `
+                <div class="url-item">
+                    <span class="url-name">${u.name}</span>
+                    <span class="url-link"><a href="${u.url}" target="_blank">${u.url.length > 40 ? u.url.substring(0, 40) + '...' : u.url}</a></span>
+                    <button class="url-delete" onclick="removeUrl(${i})">✕</button>
+                </div>
+            `).join('');
+        }
+        
+        function addProjectUrl() {
+            const name = document.getElementById('urlName').value.trim();
+            const url = document.getElementById('urlLink').value.trim();
+            if (!name || !url) return;
+            projectUrls.push({ name, url });
+            localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
+            document.getElementById('urlName').value = '';
+            document.getElementById('urlLink').value = '';
+            renderUrls();
+        }
+        
+        function removeUrl(index) {
+            projectUrls.splice(index, 1);
+            localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
+            renderUrls();
+        }
+        
+        function exportUrls() {
+            const text = projectUrls.map(u => `${u.name}: ${u.url}`).join('\n');
+            navigator.clipboard.writeText(text).then(() => alert('URLs copied to clipboard!'));
+        }
+        
+        // Initialize URLs on load
+        window.addEventListener('DOMContentLoaded', renderUrls);
+
         // Load saved preferences
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('meow-theme');
@@ -1403,7 +1566,7 @@
 
         function meowVoiceInput() {
             if (!meowRecognition) {
-                meowAddMsg('bot', 'Voice input not supported in this browser. Try Chrome!');
+                meowAddMsg('bot', 'Voice input not supported in this browser. Try Chrome!', false);
                 return;
             }
             if (meowListening) {
@@ -1411,21 +1574,22 @@
                 meowListening = false;
                 document.getElementById('meowVoiceBtn').classList.remove('listening');
             } else {
+                meowStopSpeaking();
                 meowRecognition.start();
                 meowListening = true;
                 document.getElementById('meowVoiceBtn').classList.add('listening');
-                meowAddMsg('bot', 'Listening... speak now! 🎤');
+                meowAddMsg('bot', 'Listening... speak now! 🎤', false);
             }
         }
 
-        function meowAddMsg(type, text) {
+        function meowAddMsg(type, text, speak = true) {
             const container = document.getElementById('meowMessages');
             const msg = document.createElement('div');
             msg.className = `meow-msg ${type}`;
             msg.innerHTML = text;
             container.appendChild(msg);
             container.scrollTop = container.scrollHeight;
-            if (type === 'bot') meowSpeak(text);
+            if (type === 'bot' && speak) meowSpeak(text);
         }
 
         function meowTyping() {
@@ -1448,6 +1612,7 @@
             const text = input.value.trim();
             if (!text) return;
             
+            meowStopSpeaking();
             meowAddMsg('user', text);
             input.value = '';
             meowTyping();
@@ -1455,7 +1620,7 @@
             setTimeout(() => {
                 meowRemoveTyping();
                 meowProcessCommand(text);
-            }, 800 + Math.random() * 700);
+            }, 500 + Math.random() * 500);
         }
 
         function meowQuickAction(action) {
@@ -1532,9 +1697,58 @@
                 return;
             }
             
+            // URL Tracking
+            if (lower.includes('list url') || lower.includes('show url') || lower.includes('my url')) {
+                const urlList = projectUrls.map((u, i) => `${i+1}. <strong>${u.name}</strong>: <a href="${u.url}" target="_blank" style="color:#00e5ff">${u.url.length > 50 ? u.url.substring(0, 50) + '...' : u.url}</a>`).join('<br>');
+                meowAddMsg('bot', `🔗 <strong>Your Project URLs:</strong><br>${urlList || 'No URLs saved yet!'}`);
+                return;
+            }
+            if (lower.includes('add url') || lower.includes('new url')) {
+                const match = text.match(/(?:add|new)\s+url\s+(.+?)\s+(https?:\/\/.+)/i);
+                if (match) {
+                    const name = match[1].trim();
+                    const url = match[2].trim();
+                    projectUrls.push({ name, url });
+                    localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
+                    renderUrls();
+                    meowAddMsg('bot', `✅ URL added: <strong>${name}</strong> → ${url}`);
+                    return;
+                }
+                meowAddMsg('bot', '❓ Say "add url [name] [url]"<br>Example: "add url My Site https://example.com"');
+                return;
+            }
+            if (lower.includes('remove url') || lower.includes('delete url')) {
+                const idx = parseInt(text.match(/(?:remove|delete)\s+url\s+(\d+)/i)?.[1]) - 1;
+                if (!isNaN(idx) && projectUrls[idx]) {
+                    const removed = projectUrls.splice(idx, 1)[0];
+                    localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
+                    renderUrls();
+                    meowAddMsg('bot', `🗑️ Removed: <strong>${removed.name}</strong>`);
+                    return;
+                }
+                meowAddMsg('bot', '❓ Say "remove url [number]". Use "list url" to see numbers.');
+                return;
+            }
+            if (lower.includes('track url') || lower.includes('open url')) {
+                const match = text.match(/(?:track|open)\s+url\s+(.+)/i);
+                if (match) {
+                    const search = match[1].trim().toLowerCase();
+                    const found = projectUrls.find(u => u.name.toLowerCase().includes(search));
+                    if (found) {
+                        meowAddMsg('bot', `🔗 Opening <strong>${found.name}</strong>: <a href="${found.url}" target="_blank" style="color:#00e5ff">${found.url}</a>`);
+                        window.open(found.url, '_blank');
+                        return;
+                    }
+                    meowAddMsg('bot', `❌ URL "${match[1]}" not found. Say "list url" to see all.`);
+                    return;
+                }
+                meowAddMsg('bot', '❓ Say "open url [name]" to track and open a URL');
+                return;
+            }
+            
             // Help
             if (lower.includes('help') || lower.includes('what can you do')) {
-                meowAddMsg('bot', '🐱 <strong>I am MEOW - Your JARVIS-like Work Assistant!</strong><br><br>📋 <strong>Tasks:</strong><br>• "add task buy groceries"<br>• "list tasks"<br>• "complete task 1"<br>• "remove task 1"<br><br>📝 <strong>Notes:</strong><br>• "add note meeting at 3pm"<br>• "list notes"<br>• "delete note 1"<br><br>⏰ <strong>Reminders:</strong><br>• "remind me to call in 30 min"<br>• "list reminders"<br><br>⏱️ <strong>Timer:</strong><br>• "start timer 5 minutes"<br>• "stop timer"<br><br>🧮 <strong>Calculator:</strong><br>• "calculate 2+2*3"<br>• "convert 5 km to miles"<br><br>🔗 <strong>Quick Links:</strong><br>• "open gmail"<br>• "open youtube"<br>• "open github"<br>• "open chatgpt"<br><br>📊 <strong>System:</strong><br>• "system info"<br>• "count elements"<br>• "get weather"<br>• "tell me a joke"<br>• "give me a quote"<br><br>🎨 <strong>Website Control:</strong><br>• "scroll to books"<br>• "hide youtube section"<br>• "change title to X"<br>• "add banner Hello"<br>• "highlight cards"<br><br>🔧 <strong>Text Tools:</strong><br>• "count words in hello world"<br>• "reverse text hello"<br>• "uppercase hello"<br><br>🎲 <strong>Random:</strong><br>• "random number 1 to 100"<br>• "random color"<br>• "pick from [a,b,c]"<br><br>🔐 <strong>Encoding:</strong><br>• "encode hello" (base64)<br>• "decode aGVsbG8="');
+                meowAddMsg('bot', '🐱 <strong>I am MEOW - Your JARVIS-like Work Assistant!</strong><br><br>📋 <strong>Tasks:</strong><br>• "add task buy groceries"<br>• "list tasks"<br>• "complete task 1"<br>• "remove task 1"<br><br>📝 <strong>Notes:</strong><br>• "add note meeting at 3pm"<br>• "list notes"<br>• "delete note 1"<br><br>⏰ <strong>Reminders:</strong><br>• "remind me to call in 30 min"<br>• "list reminders"<br><br>⏱️ <strong>Timer:</strong><br>• "start timer 5 minutes"<br>• "stop timer"<br><br>🧮 <strong>Calculator:</strong><br>• "calculate 2+2*3"<br>• "convert 5 km to miles"<br><br>🔗 <strong>URL Tracking:</strong><br>• "list url" - show all URLs<br>• "add url name url" - add new URL<br>• "remove url 1" - delete URL<br>• "open url name" - open URL<br><br>🔗 <strong>Quick Links:</strong><br>• "open gmail"<br>• "open youtube"<br>• "open github"<br>• "open chatgpt"<br><br>📊 <strong>System:</strong><br>• "system info"<br>• "count elements"<br>• "get weather"<br>• "tell me a joke"<br>• "give me a quote"<br><br>🎨 <strong>Website Control:</strong><br>• "scroll to books"<br>• "hide youtube section"<br>• "change title to X"<br>• "add banner Hello"<br>• "highlight cards"<br><br>🔧 <strong>Text Tools:</strong><br>• "count words in hello world"<br>• "reverse text hello"<br>• "uppercase hello"<br><br>🎲 <strong>Random:</strong><br>• "random number 1 to 100"<br>• "random color"<br>• "pick from [a,b,c]"<br><br>🔐 <strong>Encoding:</strong><br>• "encode hello" (base64)<br>• "decode aGVsbG8="');
                 return;
             }
             
