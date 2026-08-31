@@ -255,7 +255,7 @@
         .countdown-status { color: #00e676; font-size: 10px; margin-top: 3px; font-weight: 600; letter-spacing: 1px; }
 
         .content { padding: 20px 30px 30px; }
-        .stats-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+        .stats-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: nowrap; }
         .stat-pill { flex: 1; min-width: 110px; background: rgba(0,30,60,0.4); border: 1px solid rgba(0,160,255,0.12); border-radius: 12px; padding: 14px 10px; text-align: center; transition: all 0.35s ease; cursor: pointer; }
         .stat-pill:hover { border-color: rgba(0,200,255,0.35); box-shadow: 0 0 20px rgba(0,120,200,0.18); transform: translateY(-3px); }
         .stat-num { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #00e5ff; text-shadow: 0 0 12px rgba(0,229,255,0.35); }
@@ -270,7 +270,8 @@
         .section-title { font-family: 'Orbitron', monospace; color: #00e5ff; font-size: 14px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         .section-title::before { content: ''; width: 3px; height: 16px; background: linear-gradient(180deg, #00e5ff, #0060ff); border-radius: 2px; box-shadow: 0 0 6px rgba(0,229,255,0.35); }
 
-        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+        .cards { display: flex; flex-wrap: wrap; gap: 10px; }
+        .cards .card { flex: 1 1 280px; max-width: calc(33.333% - 7px); min-width: 250px; }
         .card { background: rgba(10,25,55,0.4); border: 1px solid rgba(0,160,255,0.06); border-radius: 10px; padding: 12px; transition: all 0.3s ease; position: relative; overflow: hidden; }
         .card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(0,180,255,0.4), transparent); opacity: 0; transition: opacity 0.3s; }
         .card:hover::after { opacity: 1; }
@@ -297,8 +298,8 @@
         .yt-date a:hover { text-decoration: underline; }
         .yt-loading { color: #3a5070; font-style: italic; font-size: 11px; }
 
-        .email-mini { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px; }
-        .email-chip { background: rgba(10,25,55,0.35); border: 1px solid rgba(0,160,255,0.05); border-radius: 8px; padding: 12px; transition: all 0.3s; }
+        .email-mini { display: flex; flex-wrap: wrap; gap: 8px; }
+        .email-chip { flex: 1 1 260px; max-width: calc(33.333% - 6px); min-width: 240px; background: rgba(10,25,55,0.35); border: 1px solid rgba(0,160,255,0.05); border-radius: 8px; padding: 12px; transition: all 0.3s; }
         .email-chip:hover { border-color: rgba(0,160,255,0.12); transform: translateY(-1px); }
         .email-addr { font-weight: 700; color: #00bcd4; font-size: 12px; letter-spacing: 0.3px; margin-bottom: 3px; }
         .email-tags { display: flex; flex-wrap: wrap; gap: 2px; }
@@ -544,9 +545,11 @@
             .header { padding: 15px 12px; }
             .header h1 { font-size: 14px; letter-spacing: 2px; }
             .content { padding: 12px; }
-            .cards { grid-template-columns: 1fr; }
-            .email-mini { grid-template-columns: 1fr; }
-            .stats-row { gap: 6px; }
+            .cards { flex-direction: column; }
+            .cards .card { max-width: 100%; min-width: 100%; }
+            .email-mini { flex-direction: column; }
+            .email-chip { max-width: 100%; min-width: 100%; }
+            .stats-row { flex-wrap: wrap; }
             .stat-pill { min-width: 70px; padding: 10px 6px; }
             .stat-num { font-size: 18px; }
             .mountain { display: none; }
