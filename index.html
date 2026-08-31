@@ -698,6 +698,259 @@
             font-size: 11px;
         }
 
+        /* Pomodoro Timer */
+        .pomodoro-widget {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,229,255,0.05);
+            border: 1px solid rgba(0,229,255,0.1);
+            border-radius: 10px;
+        }
+        .pomodoro-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: #00e5ff;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px rgba(0,229,255,0.5);
+        }
+        .pomodoro-label {
+            font-size: 12px;
+            color: #7ec8e3;
+            margin: 5px 0;
+        }
+        .pomodoro-controls {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .pom-btn {
+            background: rgba(0,229,255,0.2);
+            border: 1px solid rgba(0,229,255,0.3);
+            color: #00e5ff;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+        .pom-btn:hover { background: rgba(0,229,255,0.3); }
+        .pomodoro-presets {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin: 8px 0;
+        }
+        .pom-preset {
+            background: rgba(0,100,200,0.2);
+            border: 1px solid rgba(0,100,200,0.3);
+            color: #7ec8e3;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+        .pomodoro-stats {
+            font-size: 11px;
+            color: #5a8a9a;
+            margin-top: 8px;
+        }
+
+        /* Goals Tracker */
+        .goals-widget {
+            padding: 10px;
+        }
+        .goals-list {
+            max-height: 150px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .goal-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(0,229,255,0.05);
+            border: 1px solid rgba(0,229,255,0.1);
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+        .goal-item input[type="checkbox"] {
+            accent-color: #00e5ff;
+        }
+        .goal-item.done .goal-text {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        .goal-text {
+            flex: 1;
+            font-size: 12px;
+            color: #7ec8e3;
+        }
+        .goal-delete {
+            background: rgba(255,0,0,0.2);
+            border: none;
+            color: #ff6666;
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+        .goals-add {
+            display: flex;
+            gap: 6px;
+        }
+        .goals-add input {
+            background: rgba(0,229,255,0.1);
+            border: 1px solid rgba(0,229,255,0.2);
+            color: #7ec8e3;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+        }
+        .goals-add button {
+            background: rgba(0,229,255,0.2);
+            border: 1px solid rgba(0,229,255,0.3);
+            color: #00e5ff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Habits Tracker */
+        .habits-widget {
+            padding: 10px;
+        }
+        .habits-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+        .habit-day {
+            text-align: center;
+            padding: 5px;
+            background: rgba(0,229,255,0.05);
+            border: 1px solid rgba(0,229,255,0.1);
+            border-radius: 4px;
+            font-size: 10px;
+            color: #5a8a9a;
+            cursor: pointer;
+        }
+        .habit-day.completed {
+            background: rgba(0,200,100,0.2);
+            border-color: rgba(0,200,100,0.3);
+            color: #00c864;
+        }
+        .habit-day.today {
+            border-color: #00e5ff;
+        }
+        .habits-add {
+            display: flex;
+            gap: 6px;
+        }
+        .habits-add input {
+            background: rgba(0,229,255,0.1);
+            border: 1px solid rgba(0,229,255,0.2);
+            color: #7ec8e3;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+        }
+        .habits-add button {
+            background: rgba(0,229,255,0.2);
+            border: 1px solid rgba(0,229,255,0.3);
+            color: #00e5ff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* Quick Tools */
+        .quick-tools {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .tool-card {
+            background: rgba(0,229,255,0.05);
+            border: 1px solid rgba(0,229,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tool-card:hover {
+            background: rgba(0,229,255,0.1);
+            border-color: rgba(0,229,255,0.3);
+            transform: translateY(-2px);
+        }
+        .tool-icon { font-size: 24px; margin-bottom: 5px; }
+        .tool-name { font-size: 10px; color: #7ec8e3; }
+
+        /* Dashboard Stats */
+        .dash-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .dash-stat {
+            flex: 1;
+            min-width: 100px;
+            background: rgba(0,229,255,0.05);
+            border: 1px solid rgba(0,229,255,0.1);
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+        }
+        .dash-stat-label {
+            display: block;
+            font-size: 10px;
+            color: #5a8a9a;
+            margin-bottom: 5px;
+        }
+        .dash-stat span:last-child {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00e5ff;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        }
+        .modal-content {
+            background: rgba(5,15,35,0.95);
+            border: 1px solid rgba(0,229,255,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 400px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-title {
+            font-size: 16px;
+            color: #00e5ff;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .modal-close {
+            float: right;
+            background: none;
+            border: none;
+            color: #ff6666;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
         /* Print Styles */
         @media print {
             .sky-bg, .stars, .clouds, .birds-container, .mountains, .trees, .leaves, .orbits, .particles, .fireflies, .meow-fab, .meow-chat, .scroll-top { display: none !important; }
@@ -976,6 +1229,88 @@
                         <button onclick="addProjectUrl()" style="background:rgba(0,229,255,0.2);border:1px solid rgba(0,229,255,0.3);color:#00e5ff;padding:5px 12px;border-radius:6px;cursor:pointer">+ Add</button>
                         <button onclick="exportUrls()" style="background:rgba(0,200,100,0.2);border:1px solid rgba(0,200,100,0.3);color:#00c864;padding:5px 12px;border-radius:6px;cursor:pointer">📋 Export</button>
                     </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">⏱️ POMODORO TIMER</div>
+                <div class="pomodoro-widget">
+                    <div class="pomodoro-display" id="pomodoroDisplay">25:00</div>
+                    <div class="pomodoro-label" id="pomodoroLabel">Focus Time</div>
+                    <div class="pomodoro-controls">
+                        <button onclick="pomodoroStart()" class="pom-btn" id="pomStartBtn">▶️ Start</button>
+                        <button onclick="pomodoroPause()" class="pom-btn">⏸️ Pause</button>
+                        <button onclick="pomodoroReset()" class="pom-btn">🔄 Reset</button>
+                    </div>
+                    <div class="pomodoro-presets">
+                        <button onclick="pomodoroSetTime(25)" class="pom-preset">25m Focus</button>
+                        <button onclick="pomodoroSetTime(5)" class="pom-preset">5m Break</button>
+                        <button onclick="pomodoroSetTime(15)" class="pom-preset">15m Long</button>
+                    </div>
+                    <div class="pomodoro-stats">Sessions: <span id="pomSessions">0</span></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🎯 GOALS TRACKER</div>
+                <div class="goals-widget">
+                    <div class="goals-list" id="goalsList"></div>
+                    <div class="goals-add">
+                        <input type="text" id="goalInput" placeholder="Add a goal..." style="flex:1">
+                        <button onclick="addGoal()">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📆 HABITS TRACKER</div>
+                <div class="habits-widget" id="habitsWidget">
+                    <div class="habits-grid" id="habitsGrid"></div>
+                    <div class="habits-add">
+                        <input type="text" id="habitInput" placeholder="Add habit..." style="flex:1">
+                        <button onclick="addHabit()">+ Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🔐 QUICK TOOLS</div>
+                <div class="quick-tools">
+                    <div class="tool-card" onclick="generatePassword()">
+                        <div class="tool-icon">🔑</div>
+                        <div class="tool-name">Password Gen</div>
+                    </div>
+                    <div class="tool-card" onclick="generateQR()">
+                        <div class="tool-icon">📱</div>
+                        <div class="tool-name">QR Code</div>
+                    </div>
+                    <div class="tool-card" onclick="showColorPicker()">
+                        <div class="tool-icon">🎨</div>
+                        <div class="tool-name">Color Picker</div>
+                    </div>
+                    <div class="tool-card" onclick="showNotePad()">
+                        <div class="tool-icon">📝</div>
+                        <div class="tool-name">Quick Note</div>
+                    </div>
+                    <div class="tool-card" onclick="exportAllData()">
+                        <div class="tool-icon">💾</div>
+                        <div class="tool-name">Export Data</div>
+                    </div>
+                    <div class="tool-card" onclick="importData()">
+                        <div class="tool-icon">📂</div>
+                        <div class="tool-name">Import Data</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📊 DASHBOARD STATS</div>
+                <div class="dash-stats">
+                    <div class="dash-stat"><span class="dash-stat-label">Page Views:</span> <span id="pageViews">1</span></div>
+                    <div class="dash-stat"><span class="dash-stat-label">Session Time:</span> <span id="sessionTime">0m</span></div>
+                    <div class="dash-stat"><span class="dash-stat-label">Tasks Done:</span> <span id="tasksDone">0</span></div>
+                    <div class="dash-stat"><span class="dash-stat-label">Goals Hit:</span> <span id="goalsHit">0</span></div>
+                    <div class="dash-stat"><span class="dash-stat-label">Habits Streak:</span> <span id="habitsStreak">0</span></div>
                 </div>
             </div>
         </div>
@@ -1570,6 +1905,325 @@
         // Initialize URLs on load
         window.addEventListener('DOMContentLoaded', renderUrls);
 
+        // ===== POMODORO TIMER =====
+        let pomodoroInterval = null;
+        let pomodoroTime = 25 * 60;
+        let pomodoroRunning = false;
+        let pomodoroSessions = parseInt(localStorage.getItem('pom-sessions') || '0');
+        let pomodoroMode = 'focus'; // focus or break
+
+        function updatePomodoroDisplay() {
+            const mins = Math.floor(pomodoroTime / 60);
+            const secs = pomodoroTime % 60;
+            document.getElementById('pomodoroDisplay').textContent = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+            document.getElementById('pomodoroLabel').textContent = pomodoroMode === 'focus' ? 'Focus Time' : 'Break Time';
+            document.getElementById('pomSessions').textContent = pomodoroSessions;
+        }
+
+        function pomodoroStart() {
+            if (pomodoroRunning) return;
+            pomodoroRunning = true;
+            document.getElementById('pomStartBtn').textContent = '▶️ Running';
+            pomodoroInterval = setInterval(() => {
+                pomodoroTime--;
+                updatePomodoroDisplay();
+                if (pomodoroTime <= 0) {
+                    clearInterval(pomodoroInterval);
+                    pomodoroRunning = false;
+                    document.getElementById('pomStartBtn').textContent = '▶️ Start';
+                    if (pomodoroMode === 'focus') {
+                        pomodoroSessions++;
+                        localStorage.setItem('pom-sessions', pomodoroSessions);
+                        updateDashStats();
+                        meowAddMsg('bot', '⏱️ Pomodoro focus session complete! Take a break.', false);
+                    } else {
+                        meowAddMsg('bot', '⏱️ Break over! Ready to focus?', false);
+                    }
+                    // Play sound
+                    try { new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3').play(); } catch(e) {}
+                }
+            }, 1000);
+        }
+
+        function pomodoroPause() {
+            clearInterval(pomodoroInterval);
+            pomodoroRunning = false;
+            document.getElementById('pomStartBtn').textContent = '▶️ Start';
+        }
+
+        function pomodoroReset() {
+            pomodoroPause();
+            pomodoroTime = 25 * 60;
+            pomodoroMode = 'focus';
+            updatePomodoroDisplay();
+        }
+
+        function pomodoroSetTime(mins) {
+            pomodoroPause();
+            pomodoroTime = mins * 60;
+            pomodoroMode = mins <= 5 ? 'break' : 'focus';
+            updatePomodoroDisplay();
+        }
+
+        // ===== GOALS TRACKER =====
+        let goals = JSON.parse(localStorage.getItem('dash-goals') || '[]');
+
+        function renderGoals() {
+            const list = document.getElementById('goalsList');
+            if (!list) return;
+            list.innerHTML = goals.map((g, i) => `
+                <div class="goal-item ${g.done ? 'done' : ''}">
+                    <input type="checkbox" ${g.done ? 'checked' : ''} onchange="toggleGoal(${i})">
+                    <span class="goal-text">${g.text}</span>
+                    <button class="goal-delete" onclick="deleteGoal(${i})">✕</button>
+                </div>
+            `).join('');
+            updateDashStats();
+        }
+
+        function addGoal() {
+            const input = document.getElementById('goalInput');
+            if (!input || !input.value.trim()) return;
+            goals.push({ text: input.value.trim(), done: false, created: new Date().toISOString() });
+            localStorage.setItem('dash-goals', JSON.stringify(goals));
+            input.value = '';
+            renderGoals();
+        }
+
+        function toggleGoal(index) {
+            goals[index].done = !goals[index].done;
+            localStorage.setItem('dash-goals', JSON.stringify(goals));
+            renderGoals();
+        }
+
+        function deleteGoal(index) {
+            goals.splice(index, 1);
+            localStorage.setItem('dash-goals', JSON.stringify(goals));
+            renderGoals();
+        }
+
+        // ===== HABITS TRACKER =====
+        let habits = JSON.parse(localStorage.getItem('dash-habits') || '[]');
+        const dayNames = ['S','M','T','W','T','F','S'];
+
+        function renderHabits() {
+            const grid = document.getElementById('habitsGrid');
+            if (!grid) return;
+            const today = new Date();
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - today.getDay());
+            
+            let html = '';
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(startOfWeek);
+                d.setDate(startOfWeek.getDate() + i);
+                const dateStr = d.toISOString().split('T')[0];
+                const isToday = d.toDateString() === today.toDateString();
+                const completed = habits.some(h => h.dates && h.dates.includes(dateStr));
+                html += `<div class="habit-day ${isToday ? 'today' : ''} ${completed ? 'completed' : ''}" onclick="toggleHabitDay('${dateStr}')">${dayNames[i]}<br>${d.getDate()}</div>`;
+            }
+            grid.innerHTML = html;
+            updateDashStats();
+        }
+
+        function addHabit() {
+            const input = document.getElementById('habitInput');
+            if (!input || !input.value.trim()) return;
+            habits.push({ name: input.value.trim(), dates: [] });
+            localStorage.setItem('dash-habits', JSON.stringify(habits));
+            input.value = '';
+            renderHabits();
+        }
+
+        function toggleHabitDay(dateStr) {
+            if (habits.length === 0) {
+                habits.push({ name: 'Daily Habit', dates: [] });
+            }
+            const habit = habits[0];
+            if (!habit.dates) habit.dates = [];
+            const idx = habit.dates.indexOf(dateStr);
+            if (idx > -1) {
+                habit.dates.splice(idx, 1);
+            } else {
+                habit.dates.push(dateStr);
+            }
+            localStorage.setItem('dash-habits', JSON.stringify(habits));
+            renderHabits();
+        }
+
+        // ===== QUICK TOOLS =====
+        function generatePassword() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+            let pass = '';
+            for (let i = 0; i < 16; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
+            showToolModal('🔑 Password Generator', `
+                <div style="text-align:center">
+                    <div style="background:rgba(0,229,255,0.1);padding:15px;border-radius:8px;font-family:monospace;font-size:16px;color:#00e5ff;margin:10px 0;word-break:break-all">${pass}</div>
+                    <button onclick="navigator.clipboard.writeText('${pass}');this.textContent='Copied!'" style="background:rgba(0,200,100,0.2);border:1px solid rgba(0,200,100,0.3);color:#00c864;padding:8px 20px;border-radius:6px;cursor:pointer">📋 Copy</button>
+                    <button onclick="generatePassword()" style="background:rgba(0,229,255,0.2);border:1px solid rgba(0,229,255,0.3);color:#00e5ff;padding:8px 20px;border-radius:6px;cursor:pointer;margin-left:8px">🔄 New</button>
+                </div>
+            `);
+        }
+
+        function generateQR() {
+            showToolModal('📱 QR Code Generator', `
+                <div style="text-align:center">
+                    <input type="text" id="qrInput" placeholder="Enter URL or text..." style="width:100%;background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.2);color:#7ec8e3;padding:10px;border-radius:6px;margin-bottom:10px">
+                    <button onclick="showQRCode()" style="background:rgba(0,229,255,0.2);border:1px solid rgba(0,229,255,0.3);color:#00e5ff;padding:8px 20px;border-radius:6px;cursor:pointer">Generate</button>
+                    <div id="qrOutput" style="margin-top:15px"></div>
+                </div>
+            `);
+        }
+
+        function showQRCode() {
+            const text = document.getElementById('qrInput').value;
+            if (!text) return;
+            document.getElementById('qrOutput').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}" alt="QR Code" style="border-radius:8px">`;
+        }
+
+        function showColorPicker() {
+            showToolModal('🎨 Color Picker', `
+                <div style="text-align:center">
+                    <input type="color" id="colorPickerInput" value="#00e5ff" style="width:100px;height:50px;border:none;cursor:pointer">
+                    <div id="colorValue" style="margin:10px;font-family:monospace;color:#00e5ff">#00e5ff</div>
+                    <button onclick="navigator.clipboard.writeText(document.getElementById('colorValue').textContent);this.textContent='Copied!'" style="background:rgba(0,229,255,0.2);border:1px solid rgba(0,229,255,0.3);color:#00e5ff;padding:8px 20px;border-radius:6px;cursor:pointer">📋 Copy</button>
+                </div>
+            `);
+            document.getElementById('colorPickerInput').addEventListener('input', (e) => {
+                document.getElementById('colorValue').textContent = e.target.value;
+            });
+        }
+
+        function showNotePad() {
+            const saved = localStorage.getItem('quick-notepad') || '';
+            showToolModal('📝 Quick Notepad', `
+                <textarea id="notepadArea" style="width:100%;height:200px;background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.2);color:#7ec8e3;padding:10px;border-radius:6px;font-family:monospace;resize:vertical">${saved}</textarea>
+                <div style="margin-top:10px;text-align:right">
+                    <button onclick="localStorage.setItem('quick-notepad',document.getElementById('notepadArea').value);showNotification('Saved!')" style="background:rgba(0,200,100,0.2);border:1px solid rgba(0,200,100,0.3);color:#00c864;padding:8px 20px;border-radius:6px;cursor:pointer">💾 Save</button>
+                </div>
+            `);
+        }
+
+        function exportAllData() {
+            const data = {
+                urls: projectUrls,
+                goals: goals,
+                habits: habits,
+                tasks: websiteControl.tasks,
+                notes: websiteControl.notes,
+                pomSessions: pomodoroSessions,
+                quickNotepad: localStorage.getItem('quick-notepad') || '',
+                exportDate: new Date().toISOString()
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `dashboard-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('Data exported!');
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    try {
+                        const data = JSON.parse(ev.target.result);
+                        if (data.urls) { projectUrls = data.urls; localStorage.setItem('meow-urls', JSON.stringify(projectUrls)); renderUrls(); }
+                        if (data.goals) { goals = data.goals; localStorage.setItem('dash-goals', JSON.stringify(goals)); renderGoals(); }
+                        if (data.habits) { habits = data.habits; localStorage.setItem('dash-habits', JSON.stringify(habits)); renderHabits(); }
+                        if (data.tasks) { websiteControl.tasks = data.tasks; localStorage.setItem('meow-tasks', JSON.stringify(data.tasks)); }
+                        if (data.notes) { websiteControl.notes = data.notes; localStorage.setItem('meow-notes', JSON.stringify(data.notes)); }
+                        if (data.pomSessions !== undefined) { pomodoroSessions = data.pomSessions; localStorage.setItem('pom-sessions', pomodoroSessions); updatePomodoroDisplay(); }
+                        if (data.quickNotepad) { localStorage.setItem('quick-notepad', data.quickNotepad); }
+                        showNotification('Data imported!');
+                    } catch(e) { showNotification('Invalid file!', true); }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function showToolModal(title, content) {
+            const existing = document.querySelector('.modal-overlay');
+            if (existing) existing.remove();
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+            modal.innerHTML = `<div class="modal-content"><button class="modal-close" onclick="this.closest('.modal-overlay').remove()">✕</button><div class="modal-title">${title}</div>${content}</div>`;
+            document.body.appendChild(modal);
+        }
+
+        function showNotification(msg, isError = false) {
+            const notif = document.createElement('div');
+            notif.style.cssText = `position:fixed;top:20px;right:20px;background:${isError ? 'rgba(255,0,0,0.9)' : 'rgba(0,200,100,0.9)'};color:#fff;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;`;
+            notif.textContent = msg;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2000);
+        }
+
+        // ===== DASHBOARD STATS =====
+        function updateDashStats() {
+            // Page views
+            let views = parseInt(localStorage.getItem('dash-views') || '0');
+            views++;
+            localStorage.setItem('dash-views', views);
+            document.getElementById('pageViews').textContent = views;
+
+            // Tasks done
+            const tasksDone = websiteControl.tasks.filter(t => t.done).length;
+            document.getElementById('tasksDone').textContent = tasksDone;
+
+            // Goals hit
+            const goalsHit = goals.filter(g => g.done).length;
+            document.getElementById('goalsHit').textContent = goalsHit;
+
+            // Habits streak
+            const today = new Date();
+            let streak = 0;
+            for (let i = 0; i < 365; i++) {
+                const d = new Date(today);
+                d.setDate(today.getDate() - i);
+                const dateStr = d.toISOString().split('T')[0];
+                if (habits.some(h => h.dates && h.dates.includes(dateStr))) {
+                    streak++;
+                } else if (i > 0) {
+                    break;
+                }
+            }
+            document.getElementById('habitsStreak').textContent = streak;
+        }
+
+        // Session time tracker
+        let sessionStart = Date.now();
+        setInterval(() => {
+            const mins = Math.floor((Date.now() - sessionStart) / 60000);
+            const hrs = Math.floor(mins / 60);
+            document.getElementById('sessionTime').textContent = hrs > 0 ? `${hrs}h ${mins % 60}m` : `${mins}m`;
+        }, 60000);
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+K = Open MEOW chat
+            if (e.ctrlKey && e.key === 'k') { e.preventDefault(); toggleMeowChat(); }
+            // Ctrl+P = Pomodoro start/pause
+            if (e.ctrlKey && e.key === 'p') { e.preventDefault(); pomodoroRunning ? pomodoroPause() : pomodoroStart(); }
+            // Ctrl+M = Mute/unmute
+            if (e.ctrlKey && e.key === 'm') { e.preventDefault(); meowMuted = !meowMuted; meowStopSpeaking(); }
+            // Escape = Close modals
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(m => m.remove());
+                if (meowChatOpen) toggleMeowChat();
+            }
+        });
+
         // Load saved preferences
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('meow-theme');
@@ -1583,6 +2237,12 @@
             
             const savedOpacity = localStorage.getItem('meow-opacity');
             if (savedOpacity) changePanelOpacity(savedOpacity);
+
+            // Initialize new widgets
+            updatePomodoroDisplay();
+            renderGoals();
+            renderHabits();
+            updateDashStats();
         });
 
         // Initialize Speech Recognition
