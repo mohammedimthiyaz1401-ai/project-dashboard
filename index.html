@@ -298,9 +298,11 @@
         .yt-date a:hover { text-decoration: underline; }
         .yt-loading { color: #3a5070; font-style: italic; font-size: 11px; }
 
-        .email-mini { display: flex; flex-wrap: wrap; gap: 8px; }
-        .email-chip { flex: 1 1 260px; max-width: calc(33.333% - 6px); min-width: 240px; background: rgba(10,25,55,0.35); border: 1px solid rgba(0,160,255,0.05); border-radius: 8px; padding: 12px; transition: all 0.3s; }
-        .email-chip:hover { border-color: rgba(0,160,255,0.12); transform: translateY(-1px); }
+        .email-mini { display: flex; flex-wrap: wrap; gap: 10px; }
+        .email-chip { flex: 1 1 280px; max-width: calc(33.333% - 7px); min-width: 250px; background: rgba(10,25,55,0.4); border: 1px solid rgba(0,160,255,0.06); border-radius: 10px; padding: 12px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .email-chip::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(0,180,255,0.4), transparent); opacity: 0; transition: opacity 0.3s; }
+        .email-chip:hover::after { opacity: 1; }
+        .email-chip:hover { border-color: rgba(0,160,255,0.2); transform: translateY(-2px); }
         .email-addr { font-weight: 700; color: #00bcd4; font-size: 12px; letter-spacing: 0.3px; margin-bottom: 3px; }
         .email-tags { display: flex; flex-wrap: wrap; gap: 2px; }
         .email-tag { padding: 2px 6px; border-radius: 3px; font-size: 9px; font-weight: 600; letter-spacing: 0.3px; }
@@ -832,10 +834,11 @@
             <div class="meow-msg bot">Hello! I'm MEOW, your AI assistant. I can help you with weather, web search, system info, or just chat! 🐱</div>
         </div>
         <div class="meow-quick-actions">
+            <button class="meow-quick-btn" onclick="meowQuickAction('tasks')">📋 Tasks</button>
+            <button class="meow-quick-btn" onclick="meowQuickAction('notes')">📝 Notes</button>
+            <button class="meow-quick-btn" onclick="meowQuickAction('timer')">⏱️ Timer</button>
             <button class="meow-quick-btn" onclick="meowQuickAction('weather')">🌤️ Weather</button>
-            <button class="meow-quick-btn" onclick="meowQuickAction('time')">🕐 Time</button>
-            <button class="meow-quick-btn" onclick="meowQuickAction('joke')">😄 Joke</button>
-            <button class="meow-quick-btn" onclick="meowQuickAction('theme')">🎨 Theme</button>
+            <button class="meow-quick-btn" onclick="meowQuickAction('quote')">💡 Quote</button>
             <button class="meow-quick-btn" onclick="meowQuickAction('help')">❓ Help</button>
         </div>
         <div class="meow-input-area">
@@ -896,6 +899,231 @@
 
         // Website Control Functions
         const websiteControl = {
+            // Task Management
+            tasks: JSON.parse(localStorage.getItem('meow-tasks') || '[]'),
+            
+            addTask: (task) => {
+                websiteControl.tasks.push({ id: Date.now(), text: task, done: false, created: new Date().toISOString() });
+                localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks));
+                return true;
+            },
+            
+            completeTask: (index) => {
+                if (websiteControl.tasks[index]) {
+                    websiteControl.tasks[index].done = true;
+                    localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks));
+                    return true;
+                }
+                return false;
+            },
+            
+            removeTask: (index) => {
+                if (websiteControl.tasks[index]) {
+                    websiteControl.tasks.splice(index, 1);
+                    localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks));
+                    return true;
+                }
+                return false;
+            },
+            
+            listTasks: () => {
+                return websiteControl.tasks.map((t, i) => `${i+1}. ${t.done ? '✅' : '⏳'} ${t.text}`).join('<br>') || 'No tasks yet!';
+            },
+            
+            clearCompletedTasks: () => {
+                websiteControl.tasks = websiteControl.tasks.filter(t => !t.done);
+                localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks));
+                return true;
+            },
+            
+            // Notes System
+            notes: JSON.parse(localStorage.getItem('meow-notes') || '[]'),
+            
+            addNote: (text) => {
+                websiteControl.notes.push({ id: Date.now(), text, created: new Date().toISOString() });
+                localStorage.setItem('meow-notes', JSON.stringify(websiteControl.notes));
+                return true;
+            },
+            
+            listNotes: () => {
+                return websiteControl.notes.map((n, i) => `${i+1}. ${n.text.substring(0, 50)}${n.text.length > 50 ? '...' : ''}`).join('<br>') || 'No notes yet!';
+            },
+            
+            deleteNote: (index) => {
+                if (websiteControl.notes[index]) {
+                    websiteControl.notes.splice(index, 1);
+                    localStorage.setItem('meow-notes', JSON.stringify(websiteControl.notes));
+                    return true;
+                }
+                return false;
+            },
+            
+            // Reminders
+            reminders: JSON.parse(localStorage.getItem('meow-reminders') || '[]'),
+            
+            addReminder: (text, minutes) => {
+                const time = new Date(Date.now() + minutes * 60000);
+                websiteControl.reminders.push({ id: Date.now(), text, time: time.toISOString(), fired: false });
+                localStorage.setItem('meow-reminders', JSON.stringify(websiteControl.reminders));
+                return time;
+            },
+            
+            listReminders: () => {
+                const pending = websiteControl.reminders.filter(r => !r.fired);
+                return pending.map((r, i) => {
+                    const time = new Date(r.time);
+                    const diff = Math.round((time - new Date()) / 60000);
+                    return `${i+1}. ${r.text} - in ${diff} min`;
+                }).join('<br>') || 'No pending reminders!';
+            },
+            
+            // Timer
+            timerInterval: null,
+            timerSeconds: 0,
+            
+            startTimer: (minutes) => {
+                websiteControl.timerSeconds = minutes * 60;
+                if (websiteControl.timerInterval) clearInterval(websiteControl.timerInterval);
+                websiteControl.timerInterval = setInterval(() => {
+                    websiteControl.timerSeconds--;
+                    if (websiteControl.timerSeconds <= 0) {
+                        clearInterval(websiteControl.timerInterval);
+                        meowAddMsg('bot', '⏰ Timer finished!');
+                        if (!meowMuted) new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3').play();
+                    }
+                }, 1000);
+                return true;
+            },
+            
+            stopTimer: () => {
+                if (websiteControl.timerInterval) {
+                    clearInterval(websiteControl.timerInterval);
+                    websiteControl.timerInterval = null;
+                }
+                return true;
+            },
+            
+            // Clipboard
+            copyToClipboard: async (text) => {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                } catch { return false; }
+            },
+            
+            readClipboard: async () => {
+                try {
+                    return await navigator.clipboard.readText();
+                } catch { return 'Could not read clipboard'; }
+            },
+            
+            // Navigation
+            openUrl: (url) => {
+                if (!url.startsWith('http')) url = 'https://' + url;
+                window.open(url, '_blank');
+                return true;
+            },
+            
+            goToDashboard: () => { window.scrollTo({ top: 0, behavior: 'smooth' }); return true; },
+            goToGithub: () => { websiteControl.scrollTo('github'); return true; },
+            goToBooks: () => { websiteControl.scrollTo('books'); return true; },
+            
+            // Calculator
+            calculate: (expr) => {
+                try {
+                    const result = Function('"use strict"; return (' + expr + ')')();
+                    return `= ${result}`;
+                } catch { return 'Invalid expression'; }
+            },
+            
+            // Unit Converter
+            convert: (value, from, to) => {
+                const conversions = {
+                    'kg-g': value * 1000,
+                    'g-kg': value / 1000,
+                    'km-m': value * 1000,
+                    'm-km': value / 1000,
+                    'l-ml': value * 1000,
+                    'ml-l': value / 1000,
+                    'c-f': (value * 9/5) + 32,
+                    'f-c': (value - 32) * 5/9,
+                    'inch-cm': value * 2.54,
+                    'cm-inch': value / 2.54,
+                    'mph-kmh': value * 1.609,
+                    'kmh-mph': value / 1.609
+                };
+                const key = `${from.toLowerCase()}-${to.toLowerCase()}`;
+                return conversions[key] ? `${value} ${from} = ${conversions[key].toFixed(2)} ${to}` : 'Unknown conversion';
+            },
+            
+            // Quick Links
+            openGmail: () => window.open('https://mail.google.com', '_blank'),
+            openCalendar: () => window.open('https://calendar.google.com', '_blank'),
+            openDrive: () => window.open('https://drive.google.com', '_blank'),
+            openYouTube: () => window.open('https://youtube.com', '_blank'),
+            openGitHub: () => window.open('https://github.com', '_blank'),
+            openChatGPT: () => window.open('https://chat.openai.com', '_blank'),
+            openNotion: () => window.open('https://notion.so', '_blank'),
+            
+            // System
+            getSystemInfo: () => {
+                return `🖥️ <strong>System:</strong><br>Platform: ${navigator.platform}<br>Language: ${navigator.language}<br>Screen: ${screen.width}x${screen.height}<br>Cores: ${navigator.hardwareConcurrency || 'N/A'}<br>Memory: ${navigator.deviceMemory || 'N/A'}GB`;
+            },
+            
+            // Weather
+            getWeather: async () => {
+                try {
+                    const pos = await fetch('https://ipapi.co/json/').then(r => r.json());
+                    const weather = await fetch(`https://wttr.in/${pos.city}?format=%l:+%C+%t+%h+%w`).then(r => r.text());
+                    return weather;
+                } catch { return 'Could not fetch weather'; }
+            },
+            
+            // Joke
+            getJoke: async () => {
+                try {
+                    const joke = await fetch('https://official-joke-api.appspot.com/random_joke').then(r => r.json());
+                    return `${joke.setup} - ${joke.punchline}`;
+                } catch { return 'Why did the cat join Instagram? To get more followers!'; }
+            },
+            
+            // Quote
+            getQuote: async () => {
+                try {
+                    const quote = await fetch('https://zenquotes.io/api/random').then(r => r.json());
+                    return `"${quote[0].q}" - ${quote[0].a}`;
+                } catch { return '"The only way to do great work is to love what you do." - Steve Jobs'; }
+            },
+            
+            // Color Operations
+            hexToRgb: (hex) => {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? `R: ${parseInt(result[1], 16)}, G: ${parseInt(result[2], 16)}, B: ${parseInt(result[3], 16)}` : 'Invalid hex';
+            },
+            
+            rgbToHex: (r, g, b) => {
+                return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+            },
+            
+            // Text Operations
+            countWords: (text) => text.split(/\s+/).length,
+            countChars: (text) => text.length,
+            reverseText: (text) => text.split('').reverse().join(''),
+            uppercase: (text) => text.toUpperCase(),
+            lowercase: (text) => text.toLowerCase(),
+            
+            // Random
+            randomNumber: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
+            randomColor: () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0'),
+            randomChoice: (arr) => arr[Math.floor(Math.random() * arr.length)],
+            
+            // Base64
+            encode64: (text) => btoa(text),
+            decode64: (text) => {
+                try { return atob(text); } catch { return 'Invalid base64'; }
+            },
+            
+            // Show/Hide
             scrollTo: (section) => {
                 const sections = {
                     'header': '.header',
@@ -986,7 +1214,7 @@
             
             addBanner: (text) => {
                 const banner = document.createElement('div');
-                banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:rgba(233,69,96,0.9);color:#fff;text-align:center;padding:10px;z-index:9999;font-weight:bold;';
+                banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:rgba(233,69,96,0.9);color:#fff;text-align:center;padding:10px;z-index:9999;font-weight:bold;cursor:pointer;';
                 banner.textContent = text;
                 banner.onclick = () => banner.remove();
                 document.body.appendChild(banner);
@@ -998,12 +1226,6 @@
                 const sections = document.querySelectorAll('.section').length;
                 const emails = document.querySelectorAll('.email-chip').length;
                 return `Found ${cards} cards, ${sections} sections, ${emails} email chips`;
-            },
-            
-            focusSearch: () => {
-                const input = document.querySelector('.meow-input');
-                if (input) input.focus();
-                return true;
             }
         };
 
@@ -1149,11 +1371,12 @@
 
         function meowQuickAction(action) {
             const actions = {
-                'weather': 'What is the weather?',
-                'time': 'What time is it?',
-                'joke': 'Tell me a joke',
-                'theme': 'Show me available themes',
-                'help': 'What can you do?'
+                'tasks': 'list tasks',
+                'notes': 'list notes',
+                'timer': 'start timer 5 minutes',
+                'weather': 'what is the weather',
+                'quote': 'give me a quote',
+                'help': 'what can you do'
             };
             document.getElementById('meowInput').value = actions[action] || action;
             meowSend();
@@ -1222,8 +1445,252 @@
             
             // Help
             if (lower.includes('help') || lower.includes('what can you do')) {
-                meowAddMsg('bot', '🐱 <strong>I can control this entire website!</strong><br><br>🎨 <strong>Themes:</strong> "apply ocean theme"<br>🔤 <strong>Font:</strong> "make font bigger"<br>✨ <strong>Animations:</strong> "disable animations"<br>🔇 <strong>Mute voice:</strong> "mute meow"<br>🔊 <strong>Unmute:</strong> "unmute meow"<br><br>📜 <strong>Navigation:</strong><br>• "scroll to books"<br>• "scroll to youtube"<br>• "scroll to github"<br><br>👁️ <strong>Visibility:</strong><br>• "hide books section"<br>• "show all sections"<br>• "minimize all"<br>• "expand all"<br><br>🎨 <strong>Styling:</strong><br>• "change cards to red"<br>• "change background to blue"<br>• "highlight all cards"<br><br>📊 <strong>Info:</strong><br>• "count elements"<br>• "change title to My Dashboard"<br>• "add banner Hello World"');
+                meowAddMsg('bot', '🐱 <strong>I am MEOW - Your JARVIS-like Work Assistant!</strong><br><br>📋 <strong>Tasks:</strong><br>• "add task buy groceries"<br>• "list tasks"<br>• "complete task 1"<br>• "remove task 1"<br><br>📝 <strong>Notes:</strong><br>• "add note meeting at 3pm"<br>• "list notes"<br>• "delete note 1"<br><br>⏰ <strong>Reminders:</strong><br>• "remind me to call in 30 min"<br>• "list reminders"<br><br>⏱️ <strong>Timer:</strong><br>• "start timer 5 minutes"<br>• "stop timer"<br><br>🧮 <strong>Calculator:</strong><br>• "calculate 2+2*3"<br>• "convert 5 km to miles"<br><br>🔗 <strong>Quick Links:</strong><br>• "open gmail"<br>• "open youtube"<br>• "open github"<br>• "open chatgpt"<br><br>📊 <strong>System:</strong><br>• "system info"<br>• "count elements"<br>• "get weather"<br>• "tell me a joke"<br>• "give me a quote"<br><br>🎨 <strong>Website Control:</strong><br>• "scroll to books"<br>• "hide youtube section"<br>• "change title to X"<br>• "add banner Hello"<br>• "highlight cards"<br><br>🔧 <strong>Text Tools:</strong><br>• "count words in hello world"<br>• "reverse text hello"<br>• "uppercase hello"<br><br>🎲 <strong>Random:</strong><br>• "random number 1 to 100"<br>• "random color"<br>• "pick from [a,b,c]"<br><br>🔐 <strong>Encoding:</strong><br>• "encode hello" (base64)<br>• "decode aGVsbG8="');
                 return;
+            }
+            
+            // ===== TASK MANAGEMENT =====
+            if (lower.includes('add task') || lower.includes('new task')) {
+                const task = text.replace(/.*(?:add|new)\s+task\s*/i, '').trim();
+                if (task) {
+                    websiteControl.addTask(task);
+                    meowAddMsg('bot', `✅ Task added: "<strong>${task}</strong>"`);
+                    return;
+                }
+                meowAddMsg('bot', '❓ What task should I add? Say "add task [task name]"');
+                return;
+            }
+            if (lower.includes('list task') || lower.includes('show task') || lower.includes('my task')) {
+                meowAddMsg('bot', `📋 <strong>Your Tasks:</strong><br>${websiteControl.listTasks()}`);
+                return;
+            }
+            if (lower.includes('complete task')) {
+                const idx = parseInt(text.match(/\d+/)?.[0]) - 1;
+                if (!isNaN(idx) && websiteControl.completeTask(idx)) {
+                    meowAddMsg('bot', '✅ Task completed!');
+                } else {
+                    meowAddMsg('bot', '❓ Task not found. Say "list tasks" to see them.');
+                }
+                return;
+            }
+            if (lower.includes('remove task') || lower.includes('delete task')) {
+                const idx = parseInt(text.match(/\d+/)?.[0]) - 1;
+                if (!isNaN(idx) && websiteControl.removeTask(idx)) {
+                    meowAddMsg('bot', '🗑️ Task removed!');
+                } else {
+                    meowAddMsg('bot', '❓ Task not found.');
+                }
+                return;
+            }
+            if (lower.includes('clear completed') || lower.includes('clear done')) {
+                websiteControl.clearCompletedTasks();
+                meowAddMsg('bot', '🧹 Completed tasks cleared!');
+                return;
+            }
+            
+            // ===== NOTES =====
+            if (lower.includes('add note') || lower.includes('new note') || lower.includes('take note')) {
+                const note = text.replace(/.*(?:add|new|take)\s+note\s*/i, '').trim();
+                if (note) {
+                    websiteControl.addNote(note);
+                    meowAddMsg('bot', `📝 Note saved: "<strong>${note}</strong>"`);
+                    return;
+                }
+                meowAddMsg('bot', '❓ What should I note down? Say "add note [text]"');
+                return;
+            }
+            if (lower.includes('list note') || lower.includes('show note') || lower.includes('my note')) {
+                meowAddMsg('bot', `📝 <strong>Your Notes:</strong><br>${websiteControl.listNotes()}`);
+                return;
+            }
+            if (lower.includes('delete note')) {
+                const idx = parseInt(text.match(/\d+/)?.[0]) - 1;
+                if (!isNaN(idx) && websiteControl.deleteNote(idx)) {
+                    meowAddMsg('bot', '🗑️ Note deleted!');
+                } else {
+                    meowAddMsg('bot', '❓ Note not found.');
+                }
+                return;
+            }
+            
+            // ===== REMINDERS =====
+            if (lower.includes('remind me') || lower.includes('reminder')) {
+                const timeMatch = text.match(/(\d+)\s*(min|minute|hour|hr)/i);
+                if (timeMatch) {
+                    let mins = parseInt(timeMatch[1]);
+                    if (timeMatch[2].toLowerCase().startsWith('hour') || timeMatch[2].toLowerCase().startsWith('hr')) mins *= 60;
+                    const reminderText = text.replace(/.*(?:remind|reminder).*?(?:in\s*\d+\s*(?:min|minute|hour|hr))?\s*/i, '').trim() || 'something';
+                    const time = websiteControl.addReminder(reminderText, mins);
+                    meowAddMsg('bot', `⏰ Reminder set for <strong>${mins} minutes</strong>: "${reminderText}"`);
+                    return;
+                }
+                meowAddMsg('bot', '❓ Say "remind me to [task] in [time] min"');
+                return;
+            }
+            if (lower.includes('list reminder') || lower.includes('show reminder')) {
+                meowAddMsg('bot', `⏰ <strong>Reminders:</strong><br>${websiteControl.listReminders()}`);
+                return;
+            }
+            
+            // ===== TIMER =====
+            if (lower.includes('start timer') || lower.includes('set timer')) {
+                const mins = parseInt(text.match(/\d+/)?.[0]) || 5;
+                websiteControl.startTimer(mins);
+                meowAddMsg('bot', `⏱️ Timer started for <strong>${mins} minutes</strong>!`);
+                return;
+            }
+            if (lower.includes('stop timer')) {
+                websiteControl.stopTimer();
+                meowAddMsg('bot', '⏱️ Timer stopped!');
+                return;
+            }
+            
+            // ===== CALCULATOR =====
+            if (lower.includes('calculate') || lower.includes('compute') || lower.includes('math')) {
+                const expr = text.replace(/.*(?:calculate|compute|math)\s*/i, '').trim();
+                if (expr) {
+                    const result = websiteControl.calculate(expr);
+                    meowAddMsg('bot', `🧮 ${expr} = <strong>${result}</strong>`);
+                    return;
+                }
+            }
+            
+            // ===== UNIT CONVERTER =====
+            if (lower.includes('convert')) {
+                const match = text.match(/(\d+\.?\d*)\s*(\w+)\s*(?:to|in)\s*(\w+)/i);
+                if (match) {
+                    const result = websiteControl.convert(parseFloat(match[1]), match[2], match[3]);
+                    meowAddMsg('bot', `🔄 ${result}`);
+                    return;
+                }
+                meowAddMsg('bot', '❓ Say "convert [value] [from] to [to]" (e.g., "convert 5 km to miles")');
+                return;
+            }
+            
+            // ===== QUICK LINKS =====
+            if (lower.includes('open gmail') || lower.includes('open email')) {
+                websiteControl.openGmail();
+                meowAddMsg('bot', '📧 Opening Gmail!');
+                return;
+            }
+            if (lower.includes('open youtube')) {
+                websiteControl.openYouTube();
+                meowAddMsg('bot', '📺 Opening YouTube!');
+                return;
+            }
+            if (lower.includes('open github')) {
+                websiteControl.openGitHub();
+                meowAddMsg('bot', '💻 Opening GitHub!');
+                return;
+            }
+            if (lower.includes('open chatgpt') || lower.includes('open ai')) {
+                websiteControl.openChatGPT();
+                meowAddMsg('bot', '🤖 Opening ChatGPT!');
+                return;
+            }
+            if (lower.includes('open calendar')) {
+                websiteControl.openCalendar();
+                meowAddMsg('bot', '📅 Opening Calendar!');
+                return;
+            }
+            if (lower.includes('open drive')) {
+                websiteControl.openDrive();
+                meowAddMsg('bot', '📁 Opening Google Drive!');
+                return;
+            }
+            
+            // ===== SYSTEM =====
+            if (lower.includes('system info') || lower.includes('device info')) {
+                meowAddMsg('bot', websiteControl.getSystemInfo());
+                return;
+            }
+            if (lower.includes('weather')) {
+                const weather = await websiteControl.getWeather();
+                meowAddMsg('bot', `🌤️ ${weather}`);
+                return;
+            }
+            if (lower.includes('joke')) {
+                const joke = await websiteControl.getJoke();
+                meowAddMsg('bot', `😄 ${joke}`);
+                return;
+            }
+            if (lower.includes('quote') || lower.includes('inspire')) {
+                const quote = await websiteControl.getQuote();
+                meowAddMsg('bot', `💡 ${quote}`);
+                return;
+            }
+            
+            // ===== TEXT TOOLS =====
+            if (lower.includes('count words')) {
+                const textToCount = text.replace(/.*count words\s*(in)?\s*/i, '').trim();
+                const count = websiteControl.countWords(textToCount);
+                meowAddMsg('bot', `📝 Word count: <strong>${count}</strong>`);
+                return;
+            }
+            if (lower.includes('count char')) {
+                const textToCount = text.replace(/.*count char\s*(in)?\s*/i, '').trim();
+                const count = websiteControl.countChars(textToCount);
+                meowAddMsg('bot', `📝 Character count: <strong>${count}</strong>`);
+                return;
+            }
+            if (lower.includes('reverse')) {
+                const textToReverse = text.replace(/.*reverse\s*/i, '').trim();
+                const reversed = websiteControl.reverseText(textToReverse);
+                meowAddMsg('bot', `🔄 Reversed: <strong>${reversed}</strong>`);
+                return;
+            }
+            if (lower.includes('uppercase')) {
+                const textToUpper = text.replace(/.*uppercase\s*/i, '').trim();
+                meowAddMsg('bot', `🔠 <strong>${websiteControl.uppercase(textToUpper)}</strong>`);
+                return;
+            }
+            if (lower.includes('lowercase')) {
+                const textToLower = text.replace(/.*lowercase\s*/i, '').trim();
+                meowAddMsg('bot', `🔡 <strong>${websiteControl.lowercase(textToLower)}</strong>`);
+                return;
+            }
+            
+            // ===== RANDOM =====
+            if (lower.includes('random number') || lower.includes('random between')) {
+                const nums = text.match(/\d+/g);
+                const min = nums?.[0] || 1;
+                const max = nums?.[1] || 100;
+                meowAddMsg('bot', `🎲 Random number: <strong>${websiteControl.randomNumber(parseInt(min), parseInt(max))}</strong>`);
+                return;
+            }
+            if (lower.includes('random color')) {
+                const color = websiteControl.randomColor();
+                meowAddMsg('bot', `🎨 Random color: <strong>${color}</strong>`);
+                return;
+            }
+            if (lower.includes('pick from') || lower.includes('choose from')) {
+                const items = text.replace(/.*(?:pick|choose)\s+from\s*/i, '').split(',').map(i => i.trim());
+                const picked = websiteControl.randomChoice(items);
+                meowAddMsg('bot', `🎲 I pick: <strong>${picked}</strong>`);
+                return;
+            }
+            
+            // ===== ENCODING =====
+            if (lower.includes('encode')) {
+                const textToEncode = text.replace(/.*encode\s*/i, '').trim();
+                const encoded = websiteControl.encode64(textToEncode);
+                meowAddMsg('bot', `🔐 Base64: <strong>${encoded}</strong>`);
+                return;
+            }
+            if (lower.includes('decode')) {
+                const textToDecode = text.replace(/.*decode\s*/i, '').trim();
+                const decoded = websiteControl.decode64(textToDecode);
+                meowAddMsg('bot', `🔓 Decoded: <strong>${decoded}</strong>`);
+                return;
+            }
+            
+            // ===== COLOR TOOLS =====
+            if (lower.includes('hex to rgb')) {
+                const hex = text.match(/#[a-f0-9]{6}/i)?.[0];
+                if (hex) {
+                    meowAddMsg('bot', `🎨 ${websiteControl.hexToRgb(hex)}`);
+                    return;
+                }
             }
             
             // Mute/Unmute
