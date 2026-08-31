@@ -61,7 +61,7 @@
         .email-card:nth-child(7) .email-service { background: #33691e; }
         .email-card:nth-child(8) .email-service { background: #1a237e; }
         .email-card:nth-child(9) .email-service { background: #e94560; }
-        .countdown-section { background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); border: 2px solid #e94560; border-radius: 14px; padding: 25px 35px; margin: 20px auto; max-width: 1500px; text-align: center; box-shadow: 0 0 20px rgba(233,69,96,0.2); }
+        .countdown-section { background: rgba(15,52,96,0.8); border: 2px solid #e94560; border-radius: 14px; padding: 18px 22px; text-align: center; box-shadow: 0 0 15px rgba(233,69,96,0.3); }
         .countdown-title { color: #e94560; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
         .countdown-subtitle { color: #a0aec0; font-size: 14px; margin-bottom: 20px; }
         .countdown-timer { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -120,22 +120,26 @@
 </head>
 <body>
     <div class="header">
-        <h1>PROJECT DASHBOARD</h1>
-        <p>Mohammed Imthiyaz A - Healthcare AI Content Network & Publishing</p>
-        <p style="margin-top:5px"><a href="https://myportfolio-seven-ruby-43.vercel.app/" style="color:#e94560;text-decoration:none;font-weight:600" target="_blank">My Portfolio</a></p>
-        <div class="date-display" id="current-date"></div>
-    </div>
-    <div class="countdown-section">
-        <div class="countdown-title">BOOK PUBLISHING COUNTDOWN</div>
-        <div class="countdown-subtitle">Every Tuesday — New book published on Gumroad, KDP & Google Play</div>
-        <div class="countdown-timer">
-            <div class="countdown-box"><div class="countdown-number" id="cd-days">0</div><div class="countdown-label">Days</div></div>
-            <div class="countdown-box"><div class="countdown-number" id="cd-hours">0</div><div class="countdown-label">Hours</div></div>
-            <div class="countdown-box"><div class="countdown-number" id="cd-minutes">0</div><div class="countdown-label">Minutes</div></div>
-            <div class="countdown-box"><div class="countdown-number" id="cd-seconds">0</div><div class="countdown-label">Seconds</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+            <div>
+                <h1>PROJECT DASHBOARD</h1>
+                <p>Mohammed Imthiyaz A - Healthcare AI Content Network & Publishing</p>
+                <p style="margin-top:5px"><a href="https://myportfolio-seven-ruby-43.vercel.app/" style="color:#e94560;text-decoration:none;font-weight:600" target="_blank">My Portfolio</a></p>
+                <div class="date-display" id="current-date"></div>
+            </div>
+            <div class="countdown-section" style="margin:0;min-width:320px">
+                <div class="countdown-title">NEXT BOOK PUBLISH</div>
+                <div class="countdown-subtitle">Every Tuesday on Gumroad, KDP & Google Play</div>
+                <div class="countdown-timer">
+                    <div class="countdown-box"><div class="countdown-number" id="cd-days">0</div><div class="countdown-label">Days</div></div>
+                    <div class="countdown-box"><div class="countdown-number" id="cd-hours">0</div><div class="countdown-label">Hours</div></div>
+                    <div class="countdown-box"><div class="countdown-number" id="cd-minutes">0</div><div class="countdown-label">Min</div></div>
+                    <div class="countdown-box"><div class="countdown-number" id="cd-seconds">0</div><div class="countdown-label">Sec</div></div>
+                </div>
+                <div class="countdown-date" id="cd-date"></div>
+                <div class="countdown-status">Book 3: READY TO UPLOAD</div>
+            </div>
         </div>
-        <div class="countdown-date" id="cd-date"></div>
-        <div class="countdown-status">Book 3: Healthy AI Implementation Roadmap — READY TO UPLOAD</div>
     </div>
     <div class="container">
         <div class="stats-grid">
