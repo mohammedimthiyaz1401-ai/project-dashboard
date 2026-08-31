@@ -5,88 +5,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mohammed Imthiyaz - Project Dashboard</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a1a 0%, #0d1b2a 50%, #1b2838 100%);
+            font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+            background: #050510;
             color: #e0e0e0;
             min-height: 100vh;
             overflow-x: hidden;
-            perspective: 1000px;
         }
 
-        /* Floating Clouds */
-        .clouds {
+        /* Cosmic Background */
+        .cosmic-bg {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            pointer-events: none;
             z-index: 0;
-            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(0,100,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0,200,255,0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 80%, rgba(0,150,255,0.05) 0%, transparent 50%),
+                linear-gradient(180deg, #050510 0%, #0a0a20 50%, #0d1530 100%);
         }
-        .cloud {
+
+        /* Animated Stars */
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .star {
             position: absolute;
-            background: radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 70%);
+            width: 2px; height: 2px;
+            background: #fff;
             border-radius: 50%;
-            filter: blur(40px);
-            animation: floatCloud linear infinite;
+            animation: twinkle 3s ease-in-out infinite;
         }
-        .cloud:nth-child(1) { width: 400px; height: 200px; top: 10%; left: -400px; animation-duration: 35s; opacity: 0.6; }
-        .cloud:nth-child(2) { width: 300px; height: 150px; top: 30%; left: -300px; animation-duration: 45s; animation-delay: 5s; opacity: 0.4; }
-        .cloud:nth-child(3) { width: 500px; height: 250px; top: 60%; left: -500px; animation-duration: 55s; animation-delay: 10s; opacity: 0.5; }
-        .cloud:nth-child(4) { width: 350px; height: 180px; top: 80%; left: -350px; animation-duration: 40s; animation-delay: 15s; opacity: 0.3; }
-        .cloud:nth-child(5) { width: 250px; height: 120px; top: 45%; left: -250px; animation-duration: 50s; animation-delay: 8s; opacity: 0.45; }
-
-        @keyframes floatCloud {
-            from { transform: translateX(0); }
-            to { transform: translateX(calc(100vw + 600px)); }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
         }
 
-        /* Glassmorphism Base */
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+        /* Energy Rings */
+        .energy-rings {
+            position: fixed;
+            bottom: -300px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 900px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .ring {
+            position: absolute;
+            border: 2px solid rgba(0,180,255,0.15);
+            border-radius: 50%;
+            animation: rotateRing 20s linear infinite;
+        }
+        .ring:nth-child(1) { width: 100%; height: 100%; top: 0; left: 0; animation-duration: 25s; }
+        .ring:nth-child(2) { width: 80%; height: 80%; top: 10%; left: 10%; animation-duration: 20s; animation-direction: reverse; border-color: rgba(0,200,255,0.12); }
+        .ring:nth-child(3) { width: 60%; height: 60%; top: 20%; left: 20%; animation-duration: 15s; border-color: rgba(0,220,255,0.1); }
+        .ring:nth-child(4) { width: 40%; height: 40%; top: 30%; left: 30%; animation-duration: 12s; animation-direction: reverse; border-color: rgba(0,240,255,0.08); }
+        @keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: radial-gradient(circle, rgba(0,200,255,0.8), transparent);
+            border-radius: 50%;
+            animation: rise linear infinite;
+        }
+        @keyframes rise {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
+        /* Header */
         .header {
             position: relative;
-            z-index: 10;
-            background: linear-gradient(135deg, rgba(26,26,46,0.7) 0%, rgba(22,33,62,0.7) 50%, rgba(15,52,96,0.7) 100%);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-bottom: 1px solid rgba(233,69,96,0.3);
-            padding: 30px 50px;
-            box-shadow: 0 4px 30px rgba(233,69,96,0.1);
+            z-index: 100;
+            padding: 25px 40px;
+            background: linear-gradient(180deg, rgba(10,15,40,0.95) 0%, rgba(5,10,30,0.8) 100%);
+            border-bottom: 1px solid rgba(0,180,255,0.2);
+            backdrop-filter: blur(20px);
         }
         .header::after {
             content: '';
             position: absolute;
             bottom: 0; left: 0;
-            width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, #e94560, #4FD1C5, #e94560, transparent);
-            animation: shimmer 3s ease-in-out infinite;
+            width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, #00b4ff, #00e5ff, #00b4ff, transparent);
+            animation: headerGlow 4s ease-in-out infinite;
         }
-        @keyframes shimmer {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+        @keyframes headerGlow {
+            0%, 100% { opacity: 0.4; filter: blur(0px); }
+            50% { opacity: 1; filter: blur(1px); }
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1500px;
+            margin: 0 auto;
         }
         .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 28px;
+            font-weight: 900;
             color: #fff;
-            font-size: 32px;
-            letter-spacing: 4px;
-            text-shadow: 0 0 20px rgba(233,69,96,0.5), 0 0 40px rgba(233,69,96,0.2);
-            animation: glowText 3s ease-in-out infinite alternate;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px rgba(0,180,255,0.6), 0 0 40px rgba(0,180,255,0.3);
+            animation: titlePulse 3s ease-in-out infinite;
         }
-        @keyframes glowText {
-            from { text-shadow: 0 0 20px rgba(233,69,96,0.5); }
-            to { text-shadow: 0 0 30px rgba(233,69,96,0.8), 0 0 60px rgba(233,69,96,0.3); }
+        @keyframes titlePulse {
+            0%, 100% { text-shadow: 0 0 20px rgba(0,180,255,0.6); }
+            50% { text-shadow: 0 0 30px rgba(0,180,255,0.9), 0 0 60px rgba(0,180,255,0.4); }
         }
-        .header p { color: #a0aec0; margin-top: 6px; font-size: 14px; }
+        .header-sub {
+            color: #7eb8d8;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+        .header-sub a {
+            color: #00e5ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .header-sub a:hover { text-shadow: 0 0 10px rgba(0,229,255,0.8); }
+        .date-display { color: #5a8aa8; font-size: 12px; margin-top: 4px; font-family: 'Orbitron', monospace; letter-spacing: 1px; }
 
+        /* Countdown - Neon Style */
+        .countdown-section {
+            background: rgba(0,20,50,0.6);
+            border: 1px solid rgba(0,180,255,0.3);
+            border-radius: 12px;
+            padding: 12px 18px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0,180,255,0.15), inset 0 0 20px rgba(0,100,200,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .countdown-section::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0,180,255,0.1), transparent);
+            animation: rotateGlow 8s linear infinite;
+        }
+        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .countdown-section > * { position: relative; z-index: 1; }
+        .countdown-title { font-family: 'Orbitron', monospace; color: #00e5ff; font-size: 11px; font-weight: 700; margin-bottom: 3px; letter-spacing: 2px; }
+        .countdown-subtitle { color: #5a8aa8; font-size: 9px; margin-bottom: 6px; letter-spacing: 1px; }
+        .countdown-timer { display: flex; justify-content: center; gap: 6px; }
+        .countdown-box {
+            background: rgba(0,30,60,0.8);
+            border: 1px solid rgba(0,180,255,0.3);
+            border-radius: 8px;
+            padding: 6px 10px;
+            min-width: 55px;
+            box-shadow: 0 0 10px rgba(0,100,200,0.2);
+        }
+        .countdown-number { font-family: 'Orbitron', monospace; font-size: 20px; font-weight: 900; color: #00e5ff; line-height: 1; text-shadow: 0 0 15px rgba(0,229,255,0.6); }
+        .countdown-label { color: #5a8aa8; font-size: 8px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+        .countdown-date { color: #00b4ff; font-size: 10px; font-weight: 600; margin-top: 5px; letter-spacing: 1px; }
+        .countdown-status { color: #00e676; font-size: 9px; margin-top: 3px; font-weight: 600; letter-spacing: 1px; }
+
+        /* Main Container */
         .container {
             position: relative;
             z-index: 10;
@@ -95,7 +196,7 @@
             padding: 30px 25px;
         }
 
-        /* Stats Grid with 3D tilt */
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -103,157 +204,177 @@
             margin-bottom: 30px;
         }
         .stat-card {
+            background: rgba(0,20,50,0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0,180,255,0.2);
             border-radius: 16px;
             padding: 20px;
             text-align: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            transform-style: preserve-3d;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
             cursor: pointer;
         }
-        .stat-card:hover {
-            transform: translateY(-8px) rotateX(5deg) rotateY(-3deg);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(233,69,96,0.2);
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,180,255,0.1), transparent);
+            transition: left 0.5s ease;
         }
-        .stat-card:nth-child(1) { background: linear-gradient(135deg, rgba(26,58,42,0.6), rgba(13,64,37,0.6)); border: 1px solid rgba(46,125,90,0.4); }
-        .stat-card:nth-child(2) { background: linear-gradient(135deg, rgba(26,42,58,0.6), rgba(13,37,64,0.6)); border: 1px solid rgba(33,150,243,0.4); }
-        .stat-card:nth-child(3) { background: linear-gradient(135deg, rgba(58,42,26,0.6), rgba(64,40,13,0.6)); border: 1px solid rgba(255,152,0,0.4); }
-        .stat-card:nth-child(4) { background: linear-gradient(135deg, rgba(58,26,42,0.6), rgba(64,13,37,0.6)); border: 1px solid rgba(233,69,96,0.4); }
-        .stat-card:nth-child(5) { background: linear-gradient(135deg, rgba(42,26,58,0.6), rgba(37,13,64,0.6)); border: 1px solid rgba(156,39,176,0.4); }
-        .stat-number { font-size: 32px; font-weight: bold; color: #e94560; text-shadow: 0 0 15px rgba(233,69,96,0.4); }
-        .stat-label { color: #a0aec0; font-size: 11px; margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .stat-card:hover::before { left: 100%; }
+        .stat-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0,229,255,0.5);
+            box-shadow: 0 15px 40px rgba(0,100,200,0.3), 0 0 30px rgba(0,180,255,0.2);
+        }
+        .stat-card:nth-child(1) { border-color: rgba(0,230,118,0.3); }
+        .stat-card:nth-child(1):hover { box-shadow: 0 15px 40px rgba(0,230,118,0.2); border-color: rgba(0,230,118,0.5); }
+        .stat-card:nth-child(2) { border-color: rgba(0,180,255,0.3); }
+        .stat-card:nth-child(3) { border-color: rgba(255,180,0,0.3); }
+        .stat-card:nth-child(3):hover { box-shadow: 0 15px 40px rgba(255,180,0,0.2); border-color: rgba(255,180,0,0.5); }
+        .stat-card:nth-child(4) { border-color: rgba(233,69,96,0.3); }
+        .stat-card:nth-child(4):hover { box-shadow: 0 15px 40px rgba(233,69,96,0.2); border-color: rgba(233,69,96,0.5); }
+        .stat-card:nth-child(5) { border-color: rgba(156,39,176,0.3); }
+        .stat-card:nth-child(5):hover { box-shadow: 0 15px 40px rgba(156,39,176,0.2); border-color: rgba(156,39,176,0.5); }
+        .stat-number { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #00e5ff; text-shadow: 0 0 20px rgba(0,229,255,0.5); }
+        .stat-card:nth-child(1) .stat-number { color: #00e676; text-shadow: 0 0 20px rgba(0,230,118,0.5); }
+        .stat-card:nth-child(3) .stat-number { color: #ffb400; text-shadow: 0 0 20px rgba(255,180,0,0.5); }
+        .stat-card:nth-child(4) .stat-number { color: #e94560; text-shadow: 0 0 20px rgba(233,69,96,0.5); }
+        .stat-card:nth-child(5) .stat-number { color: #ce93d8; text-shadow: 0 0 20px rgba(156,39,176,0.5); }
+        .stat-label { color: #7eb8d8; font-size: 11px; margin-top: 6px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
 
-        /* Sections with glass effect */
+        /* Section - Glass Panel */
         .section {
-            background: rgba(30, 30, 30, 0.4);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(8,18,40,0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,180,255,0.12);
             border-radius: 18px;
             padding: 24px;
             margin-bottom: 24px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,180,255,0.3), transparent);
         }
         .section:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 15px rgba(233,69,96,0.1);
+            border-color: rgba(0,180,255,0.25);
+            box-shadow: 0 10px 40px rgba(0,80,160,0.15);
         }
         .section-title {
-            color: #e94560;
-            font-size: 17px;
+            font-family: 'Orbitron', monospace;
+            color: #00e5ff;
+            font-size: 14px;
             font-weight: 700;
             margin-bottom: 16px;
+            letter-spacing: 3px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         .section-title::before {
             content: '';
             width: 4px;
-            height: 20px;
-            border-radius: 3px;
-            background: linear-gradient(180deg, #e94560, #4FD1C5);
+            height: 18px;
+            background: linear-gradient(180deg, #00e5ff, #0080ff);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0,229,255,0.5);
         }
 
-        /* Project Cards - 3D flip */
+        /* Project Cards */
         .status-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 14px;
         }
         .project-card {
-            background: rgba(37, 37, 37, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(10,25,55,0.5);
+            border: 1px solid rgba(0,180,255,0.1);
             border-radius: 14px;
             padding: 16px;
             transition: all 0.35s ease;
-            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
         }
+        .project-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0,180,255,0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .project-card:hover::after { opacity: 1; }
         .project-card:hover {
-            border-color: rgba(233,69,96,0.5);
-            box-shadow: 0 10px 30px rgba(233,69,96,0.15), 0 0 20px rgba(79,209,197,0.1);
-            transform: translateY(-5px) scale(1.01);
+            border-color: rgba(0,180,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,80,160,0.2);
         }
         .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-        .project-name { font-size: 14px; font-weight: 600; color: #f0f0f0; }
-        .badge { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        .badge-done { background: rgba(27,58,42,0.7); color: #4caf50; border: 1px solid rgba(76,175,80,0.5); }
-        .badge-progress { background: rgba(58,42,26,0.7); color: #ff9800; border: 1px solid rgba(255,152,0,0.5); }
-        .badge-hold { background: rgba(58,26,26,0.7); color: #f44336; border: 1px solid rgba(244,67,54,0.5); }
-        .badge-planned { background: rgba(42,26,58,0.7); color: #ce93d8; border: 1px solid rgba(156,39,176,0.5); }
-        .project-desc { color: #a0aec0; font-size: 12px; line-height: 1.5; margin-bottom: 6px; }
+        .project-name { font-size: 14px; font-weight: 600; color: #e8f0f8; }
+        .badge { padding: 3px 10px; border-radius: 20px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-family: 'Orbitron', monospace; }
+        .badge-done { background: rgba(0,230,118,0.1); color: #00e676; border: 1px solid rgba(0,230,118,0.3); }
+        .badge-progress { background: rgba(255,180,0,0.1); color: #ffb400; border: 1px solid rgba(255,180,0,0.3); }
+        .badge-hold { background: rgba(233,69,96,0.1); color: #e94560; border: 1px solid rgba(233,69,96,0.3); }
+        .badge-planned { background: rgba(156,39,176,0.1); color: #ce93d8; border: 1px solid rgba(156,39,176,0.3); }
+        .project-desc { color: #7eb8d8; font-size: 12px; line-height: 1.5; margin-bottom: 6px; }
         .email-link { color: #00bcd4; text-decoration: none; font-weight: 600; }
         .email-link:hover { text-decoration: underline; }
-        .github-link { color: #4caf50; text-decoration: none; font-weight: 600; word-break: break-all; }
+        .github-link { color: #00e676; text-decoration: none; font-weight: 600; word-break: break-all; font-size: 11px; }
         .github-link:hover { text-decoration: underline; }
         .links { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
         .link {
             padding: 5px 12px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,100,200,0.1);
+            border: 1px solid rgba(0,180,255,0.2);
             border-radius: 8px;
-            color: #00bcd4;
+            color: #00e5ff;
             text-decoration: none;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
-            transition: all 0.25s ease;
-            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
         }
-        .link:hover { background: rgba(233,69,96,0.3); color: #fff; border-color: #e94560; box-shadow: 0 0 12px rgba(233,69,96,0.3); }
+        .link:hover {
+            background: rgba(0,180,255,0.2);
+            border-color: #00e5ff;
+            box-shadow: 0 0 15px rgba(0,180,255,0.3);
+            color: #fff;
+        }
 
         /* Email Grid */
         .email-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
         .email-card {
-            background: rgba(37, 37, 37, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(10,25,55,0.4);
+            border: 1px solid rgba(0,180,255,0.08);
             border-radius: 12px;
             padding: 14px;
             transition: all 0.3s ease;
         }
         .email-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border-color: rgba(0,180,255,0.2);
+            transform: translateY(-2px);
         }
-        .email-address { font-weight: 700; color: #00bcd4; font-size: 13px; margin-bottom: 5px; }
-        .email-services { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
-        .email-service { padding: 2px 8px; border-radius: 5px; font-size: 10px; font-weight: 600; color: #fff; }
-        .email-card:nth-child(1) .email-service { background: rgba(27,94,32,0.7); }
-        .email-card:nth-child(2) .email-service { background: rgba(13,71,161,0.7); }
-        .email-card:nth-child(3) .email-service { background: rgba(74,20,140,0.7); }
-        .email-card:nth-child(4) .email-service { background: rgba(230,81,0,0.7); }
-        .email-card:nth-child(5) .email-service { background: rgba(183,28,28,0.7); }
-        .email-card:nth-child(6) .email-service { background: rgba(0,96,100,0.7); }
-        .email-card:nth-child(7) .email-service { background: rgba(51,105,30,0.7); }
-        .email-card:nth-child(8) .email-service { background: rgba(26,35,126,0.7); }
-        .email-card:nth-child(9) .email-service { background: rgba(233,69,96,0.7); }
-
-        /* Countdown - Glassmorphism */
-        .countdown-section {
-            background: rgba(15,52,96,0.4);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(233,69,96,0.3);
-            border-radius: 10px;
-            padding: 10px 16px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(233,69,96,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
-        }
-        .countdown-title { color: #e94560; font-size: 12px; font-weight: 700; margin-bottom: 3px; }
-        .countdown-subtitle { color: #a0aec0; font-size: 9px; margin-bottom: 6px; }
-        .countdown-timer { display: flex; justify-content: center; gap: 6px; }
-        .countdown-box {
-            background: rgba(37,37,37,0.6);
-            border: 1px solid rgba(233,69,96,0.3);
-            border-radius: 8px;
-            padding: 5px 10px;
-            min-width: 55px;
-        }
-        .countdown-number { font-size: 20px; font-weight: bold; color: #e94560; line-height: 1; text-shadow: 0 0 10px rgba(233,69,96,0.4); }
-        .countdown-label { color: #a0aec0; font-size: 8px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
-        .countdown-date { color: #00bcd4; font-size: 10px; font-weight: 600; margin-top: 5px; }
-        .countdown-status { color: #4caf50; font-size: 9px; margin-top: 3px; font-weight: 600; }
-        .date-display { color: #a0aec0; font-size: 12px; margin-top: 4px; }
+        .email-address { font-weight: 700; color: #00bcd4; font-size: 12px; margin-bottom: 5px; letter-spacing: 0.5px; }
+        .email-services { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+        .email-service { padding: 2px 8px; border-radius: 5px; font-size: 9px; font-weight: 600; color: #fff; letter-spacing: 0.5px; }
+        .email-card:nth-child(1) .email-service { background: rgba(0,230,118,0.2); color: #00e676; border: 1px solid rgba(0,230,118,0.3); }
+        .email-card:nth-child(2) .email-service { background: rgba(0,180,255,0.2); color: #00b4ff; border: 1px solid rgba(0,180,255,0.3); }
+        .email-card:nth-child(3) .email-service { background: rgba(156,39,176,0.2); color: #ce93d8; border: 1px solid rgba(156,39,176,0.3); }
+        .email-card:nth-child(4) .email-service { background: rgba(255,120,0,0.2); color: #ff7800; border: 1px solid rgba(255,120,0,0.3); }
+        .email-card:nth-child(5) .email-service { background: rgba(233,69,96,0.2); color: #e94560; border: 1px solid rgba(233,69,96,0.3); }
+        .email-card:nth-child(6) .email-service { background: rgba(0,200,200,0.2); color: #00c8c8; border: 1px solid rgba(0,200,200,0.3); }
+        .email-card:nth-child(7) .email-service { background: rgba(100,200,100,0.2); color: #64c864; border: 1px solid rgba(100,200,100,0.3); }
+        .email-card:nth-child(8) .email-service { background: rgba(100,150,255,0.2); color: #6496ff; border: 1px solid rgba(100,150,255,0.3); }
+        .email-card:nth-child(9) .email-service { background: rgba(0,229,255,0.2); color: #00e5ff; border: 1px solid rgba(0,229,255,0.3); }
 
         /* Footer */
         .footer {
@@ -261,41 +382,18 @@
             z-index: 10;
             text-align: center;
             padding: 24px;
-            color: #555;
+            color: #3a5a7a;
             font-size: 11px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(0,180,255,0.08);
             margin-top: 30px;
-            background: rgba(26,26,26,0.4);
-            backdrop-filter: blur(10px);
         }
-        .footer a { color: #e94560; text-decoration: none; font-weight: 600; }
-
-        /* Floating particles */
-        .particles {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: rgba(233,69,96,0.4);
-            border-radius: 50%;
-            animation: float linear infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-        }
+        .footer a { color: #00e5ff; text-decoration: none; font-weight: 600; }
+        .footer a:hover { text-shadow: 0 0 10px rgba(0,229,255,0.5); }
 
         @media (max-width: 768px) {
-            .header { padding: 20px 15px; }
-            .header h1 { font-size: 20px; letter-spacing: 2px; }
+            .header { padding: 15px; }
+            .header h1 { font-size: 18px; letter-spacing: 2px; }
             .container { padding: 15px 10px; }
             .status-grid { grid-template-columns: 1fr; }
             .email-grid { grid-template-columns: 1fr; }
@@ -321,169 +419,140 @@
             document.getElementById('cd-minutes').textContent = minutes;
             document.getElementById('cd-seconds').textContent = seconds;
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('cd-date').textContent = 'Next Publish: ' + nextTuesday.toLocaleDateString('en-US', options);
+            document.getElementById('cd-date').textContent = nextTuesday.toLocaleDateString('en-US', options);
             const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
             document.getElementById('current-date').textContent = dateStr;
         }
         setInterval(updateCountdown, 1000);
         window.onload = function() {
             updateCountdown();
-            // Create floating particles
-            const container = document.querySelector('.particles');
-            for (let i = 0; i < 20; i++) {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 80; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                s.style.left = Math.random() * 100 + '%';
+                s.style.top = Math.random() * 100 + '%';
+                s.style.animationDuration = (2 + Math.random() * 4) + 's';
+                s.style.animationDelay = Math.random() * 3 + 's';
+                s.style.width = s.style.height = (1 + Math.random() * 2) + 'px';
+                starsContainer.appendChild(s);
+            }
+            const particlesContainer = document.querySelector('.particles');
+            for (let i = 0; i < 25; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
                 p.style.left = Math.random() * 100 + '%';
-                p.style.animationDuration = (8 + Math.random() * 12) + 's';
-                p.style.animationDelay = Math.random() * 10 + 's';
-                p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
-                container.appendChild(p);
+                p.style.animationDuration = (6 + Math.random() * 10) + 's';
+                p.style.animationDelay = Math.random() * 8 + 's';
+                particlesContainer.appendChild(p);
             }
         };
     </script>
 </head>
 <body>
-    <div class="clouds">
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-    </div>
+    <div class="cosmic-bg"></div>
+    <div class="stars"></div>
     <div class="particles"></div>
+    <div class="energy-rings">
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+    </div>
 
     <div class="header">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px">
+        <div class="header-content">
             <div>
                 <h1>PROJECT DASHBOARD</h1>
-                <p>Mohammed Imthiyaz A - Healthcare AI Content Network & Publishing</p>
-                <p style="margin-top:4px"><a href="https://myportfolio-seven-ruby-43.vercel.app/" style="color:#e94560;text-decoration:none;font-weight:600" target="_blank">My Portfolio</a></p>
+                <div class="header-sub">MOHAMMED IMTHIYAZ A &mdash; HEALTHCARE AI CONTENT NETWORK</div>
+                <div class="header-sub" style="margin-top:4px"><a href="https://myportfolio-seven-ruby-43.vercel.app/" target="_blank">MY PORTFOLIO</a></div>
                 <div class="date-display" id="current-date"></div>
             </div>
-            <div class="countdown-section" style="margin:0;min-width:300px">
+            <div class="countdown-section" style="min-width:280px">
                 <div class="countdown-title">NEXT BOOK PUBLISH</div>
-                <div class="countdown-subtitle">Every Tuesday on Gumroad, KDP & Google Play</div>
+                <div class="countdown-subtitle">EVERY TUESDAY &bull; GUMROAD &bull; KDP &bull; GOOGLE PLAY</div>
                 <div class="countdown-timer">
                     <div class="countdown-box"><div class="countdown-number" id="cd-days">0</div><div class="countdown-label">Days</div></div>
-                    <div class="countdown-box"><div class="countdown-number" id="cd-hours">0</div><div class="countdown-label">Hours</div></div>
+                    <div class="countdown-box"><div class="countdown-number" id="cd-hours">0</div><div class="countdown-label">Hrs</div></div>
                     <div class="countdown-box"><div class="countdown-number" id="cd-minutes">0</div><div class="countdown-label">Min</div></div>
                     <div class="countdown-box"><div class="countdown-number" id="cd-seconds">0</div><div class="countdown-label">Sec</div></div>
                 </div>
                 <div class="countdown-date" id="cd-date"></div>
-                <div class="countdown-status">Book 3: READY TO UPLOAD</div>
+                <div class="countdown-status">BOOK 3: READY TO UPLOAD</div>
             </div>
         </div>
     </div>
 
     <div class="container">
         <div class="stats-grid">
-            <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Books Published</div></div>
-            <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">YouTube Channels</div></div>
-            <div class="stat-card"><div class="stat-number">8</div><div class="stat-label">Repositories</div></div>
-            <div class="stat-card"><div class="stat-number">9</div><div class="stat-label">Email Accounts</div></div>
-            <div class="stat-card"><div class="stat-number">1</div><div class="stat-label">Supermarket Project</div></div>
+            <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Books</div></div>
+            <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">Channels</div></div>
+            <div class="stat-card"><div class="stat-number">8</div><div class="stat-label">Repos</div></div>
+            <div class="stat-card"><div class="stat-number">9</div><div class="stat-label">Emails</div></div>
+            <div class="stat-card"><div class="stat-number">1</div><div class="stat-label">Supermarket</div></div>
         </div>
 
         <div class="section">
-            <div class="section-title">EMAIL ACCOUNTS & SERVICES</div>
+            <div class="section-title">EMAIL ACCOUNTS</div>
             <div class="email-grid">
                 <div class="email-card">
                     <div class="email-address">cybersecurityocean@gmail.com</div>
-                    <div class="email-services">
-                        <span class="email-service">Practical AI Healthcare</span>
-                        <span class="email-service">Gumroad</span>
-                        <span class="email-service">E-Book Publish</span>
-                    </div>
+                    <div class="email-services"><span class="email-service">Practical AI Healthcare</span><span class="email-service">Gumroad</span><span class="email-service">E-Book Publish</span></div>
                     <div class="links"><a href="https://gumroad.com/dashboard" class="link" target="_blank">Gumroad Dashboard</a></div>
                 </div>
                 <div class="email-card">
                     <div class="email-address">imthyazzilaan@gmail.com</div>
-                    <div class="email-services">
-                        <span class="email-service">Amazon KDP</span>
-                        <span class="email-service">Google Play Books</span>
-                    </div>
-                    <div class="links">
-                        <a href="https://kdp.amazon.com/en_US/title-setup/kindle/A18SJ3HHVK8KCL/pricing" class="link" target="_blank">KDP</a>
-                        <a href="https://play.google.com/books/publish/prelogin/signup" class="link" target="_blank">Google Play</a>
-                    </div>
+                    <div class="email-services"><span class="email-service">Amazon KDP</span><span class="email-service">Google Play Books</span></div>
+                    <div class="links"><a href="https://kdp.amazon.com/en_US/title-setup/kindle/A18SJ3HHVK8KCL/pricing" class="link" target="_blank">KDP</a><a href="https://play.google.com/books/publish/prelogin/signup" class="link" target="_blank">Google Play</a></div>
                 </div>
                 <div class="email-card">
                     <div class="email-address">Mohammedimthiyazimi@outlook.com</div>
-                    <div class="email-services">
-                        <span class="email-service">Portfolio</span>
-                    </div>
+                    <div class="email-services"><span class="email-service">Portfolio</span></div>
                     <div class="links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="link" target="_blank">View Portfolio</a></div>
                 </div>
                 <div class="email-card">
                     <div class="email-address">mohammedimthiyaz832@gmail.com</div>
-                    <div class="email-services">
-                        <span class="email-service">CatHub Podcast</span>
-                        <span class="email-service">YouTube</span>
-                        <span class="email-service">Rumble</span>
-                    </div>
+                    <div class="email-services"><span class="email-service">CatHub Podcast</span><span class="email-service">YouTube</span><span class="email-service">Rumble</span></div>
                 </div>
                 <div class="email-card">
                     <div class="email-address">futureintelligence4@gmail.com</div>
-                    <div class="email-services">
-                        <span class="email-service">Future Intelligence</span>
-                        <span class="email-service">YouTube Channel</span>
-                    </div>
+                    <div class="email-services"><span class="email-service">Future Intelligence</span><span class="email-service">YouTube Channel</span></div>
                 </div>
                 <div class="email-card">
                     <div class="email-address">mohammedimthiyaz1401@gmail.com</div>
-                    <div class="email-services">
-                        <span class="email-service">ARIA Future</span>
-                        <span class="email-service">YouTube Channel</span>
-                    </div>
+                    <div class="email-services"><span class="email-service">ARIA Future</span><span class="email-service">YouTube Channel</span></div>
                 </div>
                 <div class="email-card">
                     <div class="email-address">shafapittu@gmail.com</div>
-                    <div class="email-services">
-                        <span class="email-service">Personal</span>
-                    </div>
+                    <div class="email-services"><span class="email-service">Personal</span></div>
                 </div>
                 <div class="email-card">
                     <div class="email-address">mohammedimthiyaz154@gmail.com</div>
-                    <div class="email-services">
-                        <span class="email-service">Personal</span>
-                    </div>
+                    <div class="email-services"><span class="email-service">Personal</span></div>
                 </div>
                 <div class="email-card">
                     <div class="email-address">mohammedimthiyaz1401-ai (GitHub)</div>
-                    <div class="email-services">
-                        <span class="email-service">Dashboard Hosting</span>
-                        <span class="email-service">AI Content Network</span>
-                        <span class="email-service">Ebook Builder</span>
-                    </div>
+                    <div class="email-services"><span class="email-service">Dashboard Hosting</span><span class="email-service">AI Content Network</span><span class="email-service">Ebook Builder</span></div>
                     <div class="links"><a href="https://github.com/mohammedimthiyaz1401-ai" class="link" target="_blank">GitHub Profile</a></div>
                 </div>
             </div>
         </div>
 
         <div class="section">
-            <div class="section-title">BOOKS - Practical AI in Healthcare Series</div>
+            <div class="section-title">BOOKS &mdash; PRACTICAL AI IN HEALTHCARE</div>
             <div class="status-grid">
                 <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Book 1: AI in Healthcare - The Do's and Don'ts</div>
-                        <span class="badge badge-done">PUBLISHED</span>
-                    </div>
+                    <div class="project-header"><div class="project-name">Book 1: AI in Healthcare - The Do's and Don'ts</div><span class="badge badge-done">PUBLISHED</span></div>
                     <div class="project-desc">Practical guide for hospitals. 18 pages.</div>
                     <div class="links"><a href="https://cyberwave407.gumroad.com/l/ai-healthcare-dos-donts" class="link" target="_blank">Gumroad</a></div>
                 </div>
                 <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Book 2: Stop AI From Leaking Patient Data</div>
-                        <span class="badge badge-done">PUBLISHED</span>
-                    </div>
+                    <div class="project-header"><div class="project-name">Book 2: Stop AI From Leaking Patient Data</div><span class="badge badge-done">PUBLISHED</span></div>
                     <div class="project-desc">Data privacy & compliance. 49 pages.</div>
                     <div class="links"><a href="https://cyberwave407.gumroad.com/l/Stop-AI-From-Leaking-Patient-Data" class="link" target="_blank">Gumroad</a></div>
                 </div>
                 <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Book 3: Healthy AI Implementation Roadmap</div>
-                        <span class="badge badge-progress">READY TO UPLOAD</span>
-                    </div>
+                    <div class="project-header"><div class="project-name">Book 3: Healthy AI Implementation Roadmap</div><span class="badge badge-progress">READY TO UPLOAD</span></div>
                     <div class="project-desc">14 chapters, EPUB ready.</div>
                 </div>
             </div>
@@ -495,22 +564,22 @@
                 <div class="project-card">
                     <div class="project-header"><div class="project-name">AI Content Network</div><span class="badge badge-done">ACTIVE</span></div>
                     <div class="project-desc">Automated AI news pipeline.</div>
-                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#f44336">Today</span></div>
+                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div>
                 </div>
                 <div class="project-card">
                     <div class="project-header"><div class="project-name">CatHub Podcast</div><span class="badge badge-done">ACTIVE</span></div>
                     <div class="project-desc">Cat podcast. Shorts disabled.</div>
-                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#f44336">Today</span></div>
+                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div>
                 </div>
                 <div class="project-card">
                     <div class="project-header"><div class="project-name">Future Intelligence</div><span class="badge badge-done">ACTIVE</span></div>
                     <div class="project-desc">AI news bot. Voice fixed.</div>
-                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#f44336">Today</span></div>
+                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div>
                 </div>
                 <div class="project-card">
                     <div class="project-header"><div class="project-name">Stick Cat Academy</div><span class="badge badge-done">ACTIVE</span></div>
-                    <div class="project-desc">Daily cat content. Ep 1 uploaded. Ghibli flashbacks.</div>
-                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#f44336">Today</span></div>
+                    <div class="project-desc">Daily cat content. Ghibli flashbacks.</div>
+                    <div class="project-desc"><strong>Last Video:</strong> <span style="color:#00e5ff">Today</span></div>
                     <div class="links"><a href="https://www.youtube.com/channel/UCVLn-Z8sP1rvVDmsmqJ5QiQ" class="link" target="_blank">YouTube</a></div>
                 </div>
             </div>
@@ -526,7 +595,7 @@
                 </div>
                 <div class="project-card">
                     <div class="project-header"><div class="project-name">Supermarket Website</div><span class="badge badge-planned">PLANNED</span></div>
-                    <div class="project-desc">Virtual supermarket with recipe-based shopping. Coming soon.</div>
+                    <div class="project-desc">Virtual supermarket with recipe-based shopping.</div>
                 </div>
             </div>
         </div>
@@ -599,17 +668,14 @@
                     <div class="project-header"><div class="project-name">project-dashboard</div><span class="badge badge-done">LIVE</span></div>
                     <div class="project-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div>
                     <div class="project-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="github-link" target="_blank">github.com/mohammedimthiyaz1401-ai/project-dashboard</a></div>
-                    <div class="links">
-                        <a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="link" target="_blank">GitHub</a>
-                        <a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="link" target="_blank">Live Site</a>
-                    </div>
+                    <div class="links"><a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="link" target="_blank">Live Site</a></div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        <p>Last Updated: August 31, 2026 | Mohammed Imthiyaz A | <a href="mailto:cybersecurityocean@gmail.com">cybersecurityocean@gmail.com</a></p>
+        <p>LAST UPDATED: AUGUST 31, 2026 &bull; MOHAMMED IMTHIYAZ A &bull; <a href="mailto:cybersecurityocean@gmail.com">cybersecurityocean@gmail.com</a></p>
     </div>
 </body>
 </html>
