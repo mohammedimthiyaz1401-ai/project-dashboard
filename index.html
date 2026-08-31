@@ -825,6 +825,7 @@
                 <h3>MEOW</h3>
                 <p>AI Assistant • Online</p>
             </div>
+            <button onclick="meowMuted=!meowMuted;meowStopSpeaking();this.textContent=meowMuted?'🔇':'🔊'" style="background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.3);border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;" title="Toggle Voice">🔊</button>
             <div class="meow-status"></div>
         </div>
         <div class="meow-messages" id="meowMessages">
@@ -849,6 +850,34 @@
         let meowChatOpen = false;
         let meowListening = false;
         let meowRecognition = null;
+        let meowSpeaking = false;
+        let meowMuted = false;
+
+        // Text-to-Speech
+        function meowSpeak(text) {
+            if (meowMuted || !window.speechSynthesis) return;
+            
+            window.speechSynthesis.cancel();
+            const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, '');
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.rate = 0.95;
+            utterance.pitch = 1.1;
+            utterance.volume = 1;
+            
+            const voices = window.speechSynthesis.getVoices();
+            const preferred = voices.find(v => v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Samantha'));
+            if (preferred) utterance.voice = preferred;
+            
+            utterance.onstart = () => { meowSpeaking = true; };
+            utterance.onend = () => { meowSpeaking = false; };
+            
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function meowStopSpeaking() {
+            window.speechSynthesis.cancel();
+            meowSpeaking = false;
+        }
 
         // Theme Control System
         const themes = {
@@ -862,6 +891,119 @@
                 cherry: { primary: '#e94560', accent: '#c62828', bg: '#150005', name: 'Cherry Red' },
                 dark: { primary: '#ffffff', accent: '#9e9e9e', bg: '#000000', name: 'Pure Dark' },
                 light: { primary: '#1976d2', accent: '#0d47a1', bg: '#f5f5f5', name: 'Light Mode' }
+            }
+        };
+
+        // Website Control Functions
+        const websiteControl = {
+            scrollTo: (section) => {
+                const sections = {
+                    'header': '.header',
+                    'stats': '.stats-row',
+                    'email': '.email-mini',
+                    'books': '.section:nth-child(2)',
+                    'youtube': '.section:nth-child(3)',
+                    'websites': '.section:nth-child(4)',
+                    'infrastructure': '.section:nth-child(5)',
+                    'github': '.section:nth-child(6)',
+                    'footer': '.footer'
+                };
+                const el = document.querySelector(sections[section] || section);
+                if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return true; }
+                return false;
+            },
+            
+            hideSection: (section) => {
+                const el = document.querySelector(`.section:nth-child(${section})`);
+                if (el) { el.style.display = 'none'; return true; }
+                return false;
+            },
+            
+            showSection: (section) => {
+                const el = document.querySelector(`.section:nth-child(${section})`);
+                if (el) { el.style.display = 'block'; return true; }
+                return false;
+            },
+            
+            showAllSections: () => {
+                document.querySelectorAll('.section').forEach(s => s.style.display = 'block');
+                return true;
+            },
+            
+            hideAllSections: () => {
+                document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+                return true;
+            },
+            
+            changeCardColor: (color) => {
+                document.querySelectorAll('.card').forEach(c => c.style.borderColor = color);
+                return true;
+            },
+            
+            changeBackground: (color) => {
+                document.querySelector('.glass-panel').style.background = color;
+                return true;
+            },
+            
+            toggleNightMode: () => {
+                document.body.classList.toggle('night-mode');
+                return true;
+            },
+            
+            changeGlow: (color) => {
+                document.documentElement.style.setProperty('--primary', color);
+                return true;
+            },
+            
+            minimizeAll: () => {
+                document.querySelectorAll('.section').forEach(s => {
+                    s.style.maxHeight = '50px';
+                    s.style.overflow = 'hidden';
+                });
+                return true;
+            },
+            
+            expandAll: () => {
+                document.querySelectorAll('.section').forEach(s => {
+                    s.style.maxHeight = 'none';
+                    s.style.overflow = 'visible';
+                });
+                return true;
+            },
+            
+            highlightCards: () => {
+                document.querySelectorAll('.card').forEach(c => {
+                    c.style.boxShadow = '0 0 20px rgba(0,229,255,0.5)';
+                    setTimeout(() => c.style.boxShadow = '', 2000);
+                });
+                return true;
+            },
+            
+            changeTitle: (text) => {
+                document.querySelector('.header h1').textContent = text;
+                return true;
+            },
+            
+            addBanner: (text) => {
+                const banner = document.createElement('div');
+                banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:rgba(233,69,96,0.9);color:#fff;text-align:center;padding:10px;z-index:9999;font-weight:bold;';
+                banner.textContent = text;
+                banner.onclick = () => banner.remove();
+                document.body.appendChild(banner);
+                return true;
+            },
+            
+            countElements: () => {
+                const cards = document.querySelectorAll('.card').length;
+                const sections = document.querySelectorAll('.section').length;
+                const emails = document.querySelectorAll('.email-chip').length;
+                return `Found ${cards} cards, ${sections} sections, ${emails} email chips`;
+            },
+            
+            focusSearch: () => {
+                const input = document.querySelector('.meow-input');
+                if (input) input.focus();
+                return true;
             }
         };
 
@@ -972,6 +1114,7 @@
             msg.innerHTML = text;
             container.appendChild(msg);
             container.scrollTop = container.scrollHeight;
+            if (type === 'bot') meowSpeak(text);
         }
 
         function meowTyping() {
@@ -1079,8 +1222,146 @@
             
             // Help
             if (lower.includes('help') || lower.includes('what can you do')) {
-                meowAddMsg('bot', '🐱 <strong>I can help with:</strong><br>• 🌤️ Weather updates<br>• 🕐 Time & date<br>• 😄 Jokes<br>• 📰 Tech news<br>• 💻 System info<br>• 📂 Project info<br>• 🎨 Theme changes<br>• 🔤 Font size<br>• ✨ Toggle animations<br>• 🎤 Voice input<br>• 💬 General chat');
+                meowAddMsg('bot', '🐱 <strong>I can control this entire website!</strong><br><br>🎨 <strong>Themes:</strong> "apply ocean theme"<br>🔤 <strong>Font:</strong> "make font bigger"<br>✨ <strong>Animations:</strong> "disable animations"<br>🔇 <strong>Mute voice:</strong> "mute meow"<br>🔊 <strong>Unmute:</strong> "unmute meow"<br><br>📜 <strong>Navigation:</strong><br>• "scroll to books"<br>• "scroll to youtube"<br>• "scroll to github"<br><br>👁️ <strong>Visibility:</strong><br>• "hide books section"<br>• "show all sections"<br>• "minimize all"<br>• "expand all"<br><br>🎨 <strong>Styling:</strong><br>• "change cards to red"<br>• "change background to blue"<br>• "highlight all cards"<br><br>📊 <strong>Info:</strong><br>• "count elements"<br>• "change title to My Dashboard"<br>• "add banner Hello World"');
                 return;
+            }
+            
+            // Mute/Unmute
+            if (lower.includes('mute')) {
+                meowMuted = true;
+                meowStopSpeaking();
+                meowAddMsg('bot', '🔇 Voice muted! I\'ll only show text now.');
+                return;
+            }
+            if (lower.includes('unmute')) {
+                meowMuted = false;
+                meowAddMsg('bot', '🔊 Voice unmuted! I\'ll speak again.');
+                return;
+            }
+            
+            // Stop speaking
+            if (lower.includes('stop') || lower.includes('quiet') || lower.includes('shut up')) {
+                meowStopSpeaking();
+                meowAddMsg('bot', '🤫 Stopped speaking!');
+                return;
+            }
+            
+            // Scroll commands
+            if (lower.includes('scroll')) {
+                const targets = ['header', 'stats', 'email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'footer'];
+                for (const t of targets) {
+                    if (lower.includes(t)) {
+                        websiteControl.scrollTo(t);
+                        meowAddMsg('bot', `📜 Scrolling to <strong>${t}</strong>!`);
+                        return;
+                    }
+                }
+                if (lower.includes('top') || lower.includes('up')) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    meowAddMsg('bot', '📜 Scrolling to top!');
+                    return;
+                }
+                if (lower.includes('bottom') || lower.includes('down')) {
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                    meowAddMsg('bot', '📜 Scrolling to bottom!');
+                    return;
+                }
+            }
+            
+            // Hide section
+            if (lower.includes('hide')) {
+                if (lower.includes('all')) {
+                    websiteControl.hideAllSections();
+                    meowAddMsg('bot', '👁️ All sections hidden!');
+                    return;
+                }
+                const sections = ['email', 'books', 'youtube', 'websites', 'infrastructure', 'github'];
+                for (let i = 0; i < sections.length; i++) {
+                    if (lower.includes(sections[i])) {
+                        document.querySelectorAll('.section')[i].style.display = 'none';
+                        meowAddMsg('bot', `👁️ ${sections[i]} section hidden!`);
+                        return;
+                    }
+                }
+            }
+            
+            // Show section
+            if (lower.includes('show')) {
+                if (lower.includes('all')) {
+                    websiteControl.showAllSections();
+                    meowAddMsg('bot', '👁️ All sections visible!');
+                    return;
+                }
+            }
+            
+            // Minimize/Maximize
+            if (lower.includes('minimize') || lower.includes('collapse')) {
+                websiteControl.minimizeAll();
+                meowAddMsg('bot', '📦 All sections minimized!');
+                return;
+            }
+            if (lower.includes('expand') || lower.includes('maximize')) {
+                websiteControl.expandAll();
+                meowAddMsg('bot', '📦 All sections expanded!');
+                return;
+            }
+            
+            // Highlight
+            if (lower.includes('highlight')) {
+                websiteControl.highlightCards();
+                meowAddMsg('bot', '✨ Highlighting all cards!');
+                return;
+            }
+            
+            // Change card color
+            if (lower.includes('card') && (lower.includes('color') || lower.includes('red') || lower.includes('blue') || lower.includes('green'))) {
+                const colorMap = { 'red': '#e94560', 'blue': '#00e5ff', 'green': '#00e676', 'yellow': '#ffb400', 'purple': '#ce93d8', 'orange': '#ff9800', 'pink': '#e91e63', 'white': '#ffffff' };
+                for (const [name, color] of Object.entries(colorMap)) {
+                    if (lower.includes(name)) {
+                        websiteControl.changeCardColor(color);
+                        meowAddMsg('bot', `🎨 Cards changed to <strong>${name}</strong>!`);
+                        return;
+                    }
+                }
+            }
+            
+            // Change background
+            if (lower.includes('background') || lower.includes('bg')) {
+                const colorMap = { 'red': 'rgba(233,69,96,0.3)', 'blue': 'rgba(0,229,255,0.2)', 'green': 'rgba(0,230,118,0.2)', 'dark': 'rgba(0,0,0,0.8)', 'light': 'rgba(255,255,255,0.3)', 'purple': 'rgba(156,39,176,0.2)' };
+                for (const [name, color] of Object.entries(colorMap)) {
+                    if (lower.includes(name)) {
+                        websiteControl.changeBackground(color);
+                        meowAddMsg('bot', `🎨 Background changed to <strong>${name}</strong>!`);
+                        return;
+                    }
+                }
+            }
+            
+            // Count elements
+            if (lower.includes('count') || lower.includes('how many')) {
+                const result = websiteControl.countElements();
+                meowAddMsg('bot', `📊 ${result}`);
+                return;
+            }
+            
+            // Change title
+            if (lower.includes('title') && lower.includes('change')) {
+                const newTitle = text.replace(/.*title.*to\s*/i, '').trim();
+                if (newTitle) {
+                    websiteControl.changeTitle(newTitle);
+                    meowAddMsg('bot', `📝 Title changed to "<strong>${newTitle}</strong>"!`);
+                    return;
+                }
+            }
+            
+            // Add banner
+            if (lower.includes('banner') || lower.includes('notification')) {
+                const bannerText = text.replace(/.*(?:banner|notification).*?:?\s*/i, '').trim();
+                if (bannerText) {
+                    websiteControl.addBanner(bannerText);
+                    meowAddMsg('bot', `📢 Banner added! Click to dismiss.`);
+                    return;
+                }
             }
             
             // Theme commands
