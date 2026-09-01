@@ -3,363 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammed Imthiyaz - Project Dashboard</title>
+    <title>🐱 Mohammed Imthiyaz - Cat Dashboard</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Rajdhani', sans-serif;
-            background: #020810;
+            background: #0a0a0f;
             color: #e0e0e0;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Sky Background with Clouds */
+        /* Cat Night Sky */
         .sky-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background: linear-gradient(180deg,
-                #0a1628 0%,
-                #0d1f3c 15%,
-                #122a4a 30%,
-                #1a3a5c 45%,
-                #1e4a6a 55%,
-                #2a5a7a 70%,
-                #1a3a5c 85%,
-                #0d1f3c 100%
+                #0a0a12 0%,
+                #0f0f1a 15%,
+                #141425 30%,
+                #1a1a30 45%,
+                #1e1e38 55%,
+                #222240 70%,
+                #1a1a30 85%,
+                #0f0f1a 100%
             );
-        }
-
-        /* Animated Clouds */
-        .clouds { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden; }
-        .cloud {
-            position: absolute;
-            background: radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(30px);
-        }
-        .cloud-1 { width: 400px; height: 150px; top: 8%; animation: cloudMove 45s linear infinite; }
-        .cloud-2 { width: 350px; height: 120px; top: 18%; animation: cloudMove 55s linear infinite; animation-delay: -10s; }
-        .cloud-3 { width: 500px; height: 180px; top: 28%; animation: cloudMove 65s linear infinite; animation-delay: -20s; }
-        .cloud-4 { width: 300px; height: 100px; top: 38%; animation: cloudMove 50s linear infinite; animation-delay: -5s; }
-        .cloud-5 { width: 450px; height: 160px; top: 12%; animation: cloudMove 70s linear infinite; animation-delay: -30s; opacity: 0.6; }
-        .cloud-6 { width: 280px; height: 90px; top: 45%; animation: cloudMove 40s linear infinite; animation-delay: -15s; opacity: 0.4; }
-        @keyframes cloudMove {
-            from { left: -500px; }
-            to { left: calc(100vw + 100px); }
-        }
-
-        /* Flying Birds */
-        .birds-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
-        .bird {
-            position: absolute;
-            width: 20px;
-            height: 8px;
-            animation: flyBird linear infinite;
-        }
-        .bird::before, .bird::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 3px;
-            background: rgba(20,40,60,0.7);
-            border-radius: 50%;
-        }
-        .bird::before { left: 0; transform-origin: right center; animation: flapLeft 0.4s ease-in-out infinite; }
-        .bird::after { right: 0; transform-origin: left center; animation: flapRight 0.4s ease-in-out infinite; }
-        @keyframes flapLeft {
-            0%, 100% { transform: rotate(-20deg); }
-            50% { transform: rotate(20deg); }
-        }
-        @keyframes flapRight {
-            0%, 100% { transform: rotate(20deg); }
-            50% { transform: rotate(-20deg); }
-        }
-        .bird-1 { top: 15%; animation-duration: 18s; animation-delay: -2s; }
-        .bird-2 { top: 18%; animation-duration: 20s; animation-delay: -8s; transform: scale(0.8); }
-        .bird-3 { top: 12%; animation-duration: 22s; animation-delay: -14s; transform: scale(0.7); }
-        .bird-4 { top: 22%; animation-duration: 16s; animation-delay: -5s; }
-        .bird-5 { top: 25%; animation-duration: 24s; animation-delay: -20s; transform: scale(0.6); }
-        .bird-6 { top: 10%; animation-duration: 19s; animation-delay: -12s; transform: scale(0.9); }
-        .bird-7 { top: 28%; animation-duration: 21s; animation-delay: -3s; transform: scale(0.5); }
-        @keyframes flyBird {
-            from { left: -30px; }
-            to { left: calc(100vw + 30px); }
         }
 
         /* Stars */
         .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
         .star { position: absolute; width: 2px; height: 2px; background: #fff; border-radius: 50%; animation: twinkle 4s ease-in-out infinite; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.8; } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.9; } }
 
-        /* Mountain Silhouette */
-        .mountains {
+        /* Moon */
+        .moon {
             position: fixed;
-            bottom: 0; left: 0;
-            width: 100%; height: 35%;
-            z-index: 2;
-            pointer-events: none;
+            top: 60px;
+            right: 80px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #fffde7, #ffd54f);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255,213,79,0.4), 0 0 80px rgba(255,213,79,0.2);
+            z-index: 1;
+            animation: moonGlow 4s ease-in-out infinite;
         }
-        .mountain {
+        .moon::after {
+            content: '';
             position: absolute;
-            bottom: 0;
-            width: 0; height: 0;
+            top: 15px;
+            left: 20px;
+            width: 20px;
+            height: 20px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 50%;
         }
-        .mountain-1 {
-            left: 5%;
-            border-left: 200px solid transparent;
-            border-right: 200px solid transparent;
-            border-bottom: 280px solid rgba(5,15,30,0.6);
-        }
-        .mountain-2 {
-            left: 25%;
-            border-left: 250px solid transparent;
-            border-right: 250px solid transparent;
-            border-bottom: 350px solid rgba(8,20,35,0.5);
-        }
-        .mountain-3 {
-            left: 50%;
-            border-left: 180px solid transparent;
-            border-right: 180px solid transparent;
-            border-bottom: 250px solid rgba(5,15,30,0.7);
-        }
-        .mountain-4 {
-            left: 70%;
-            border-left: 220px solid transparent;
-            border-right: 220px solid transparent;
-            border-bottom: 300px solid rgba(8,20,35,0.5);
-        }
-        .mountain-5 {
-            left: 88%;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-bottom: 220px solid rgba(5,15,30,0.6);
+        @keyframes moonGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(255,213,79,0.4), 0 0 80px rgba(255,213,79,0.2); }
+            50% { box-shadow: 0 0 60px rgba(255,213,79,0.5), 0 0 100px rgba(255,213,79,0.3); }
         }
 
-        /* Trees */
-        .trees {
+        /* Floating Cat Paws */
+        .cat-paws { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .paw {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.15;
+            animation: pawFloat linear infinite;
+        }
+        @keyframes pawFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.15; }
+            90% { opacity: 0.1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Cat Silhouette */
+        .cat-silhouette {
             position: fixed;
-            bottom: 0; left: 0;
-            width: 100%; height: 120px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 3;
             pointer-events: none;
+            font-size: 120px;
+            opacity: 0.08;
+            animation: catBreathe 3s ease-in-out infinite;
         }
-        .tree {
-            position: absolute;
-            bottom: 0;
-        }
-        .tree-trunk {
-            width: 6px;
-            height: 30px;
-            background: linear-gradient(180deg, #1a3020, #0d1a10);
-            margin: 0 auto;
-            border-radius: 2px;
-        }
-        .tree-top {
-            width: 0; height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 40px solid rgba(10,40,20,0.7);
-            margin-bottom: -5px;
-        }
-        .tree-top-2 {
-            width: 0; height: 0;
-            border-left: 16px solid transparent;
-            border-right: 16px solid transparent;
-            border-bottom: 35px solid rgba(15,50,25,0.6);
-            margin: 0 auto -8px;
-        }
-        .tree:nth-child(1) { left: 3%; }
-        .tree:nth-child(2) { left: 8%; transform: scale(0.8); }
-        .tree:nth-child(3) { left: 15%; transform: scale(1.1); }
-        .tree:nth-child(4) { left: 82%; }
-        .tree:nth-child(5) { left: 88%; transform: scale(0.9); }
-        .tree:nth-child(6) { left: 94%; transform: scale(0.7); }
-
-        /* Floating Leaves */
-        .leaves { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; }
-        .leaf {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: rgba(30,80,40,0.5);
-            border-radius: 0 50% 50% 50%;
-            animation: leafFall linear infinite;
-        }
-        @keyframes leafFall {
-            0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.4; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-
-        /* Energy Orbits */
-        .orbits { position: fixed; bottom: -200px; left: 50%; transform: translateX(-50%); width: 1000px; height: 500px; z-index: 2; pointer-events: none; }
-        .orbit { position: absolute; border: 1.5px solid rgba(0,160,255,0.08); border-radius: 50%; left: 50%; top: 50%; transform: translate(-50%, -50%) rotateX(75deg); animation: orbitSpin linear infinite; }
-        .orbit:nth-child(1) { width: 800px; height: 800px; animation-duration: 30s; }
-        .orbit:nth-child(2) { width: 650px; height: 650px; animation-duration: 24s; animation-direction: reverse; }
-        .orbit:nth-child(3) { width: 500px; height: 500px; animation-duration: 18s; }
-        .orbit:nth-child(4) { width: 350px; height: 350px; animation-duration: 14s; animation-direction: reverse; }
-        .orbit-glow { position: absolute; width: 10px; height: 10px; background: radial-gradient(circle, rgba(0,200,255,0.9), transparent); border-radius: 50%; top: -5px; left: 50%; box-shadow: 0 0 15px rgba(0,200,255,0.8); }
-        @keyframes orbitSpin { from { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(0deg); } to { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(360deg); } }
-
-        /* Particles */
-        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
-        .particle { position: absolute; width: 3px; height: 3px; background: radial-gradient(circle, rgba(0,180,255,0.9), transparent); border-radius: 50%; animation: particleRise linear infinite; }
-        @keyframes particleRise { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 0.4; } 100% { transform: translateY(-10vh) scale(1); opacity: 0; } }
-
-        /* Fireflies */
-        .fireflies { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 6; pointer-events: none; }
-        .firefly {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255,220,100,0.8);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255,220,100,0.6), 0 0 20px rgba(255,200,50,0.3);
-            animation: fireflyFloat 8s ease-in-out infinite;
-        }
-        @keyframes fireflyFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-            25% { transform: translate(30px, -20px) scale(1.2); opacity: 1; }
-            50% { transform: translate(-20px, -40px) scale(0.8); opacity: 0.5; }
-            75% { transform: translate(15px, -10px) scale(1.1); opacity: 0.8; }
+        @keyframes catBreathe {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.02); }
         }
 
         /* Glass Panel */
-        .glass-panel { position: relative; z-index: 10; max-width: 1400px; margin: 30px auto; border-radius: 24px; overflow: hidden; background: rgba(5,15,35,0.45); border: 1.5px solid rgba(0,160,255,0.2); box-shadow: 0 0 40px rgba(0,100,200,0.12), 0 0 80px rgba(0,80,180,0.06), inset 0 1px 0 rgba(255,255,255,0.04); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-        .glass-panel::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; border-radius: 26px; background: linear-gradient(135deg, rgba(0,180,255,0.25), transparent 40%, transparent 60%, rgba(0,180,255,0.15)); z-index: -1; animation: borderGlow 4s ease-in-out infinite; }
+        .glass-panel {
+            position: relative; z-index: 10; max-width: 1400px; margin: 30px auto; border-radius: 24px; overflow: hidden;
+            background: rgba(15,15,25,0.85);
+            border: 1.5px solid rgba(255,150,50,0.15);
+            box-shadow: 0 0 40px rgba(255,150,50,0.08), 0 0 80px rgba(255,100,0,0.04), inset 0 1px 0 rgba(255,200,100,0.05);
+            backdrop-filter: blur(20px);
+        }
+        .glass-panel::before {
+            content: '';
+            position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, rgba(255,150,50,0.2), transparent 40%, transparent 60%, rgba(255,100,0,0.15));
+            z-index: -1;
+            animation: borderGlow 4s ease-in-out infinite;
+        }
         @keyframes borderGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
 
-        .header { padding: 25px 35px 18px; background: linear-gradient(180deg, rgba(0,40,80,0.25) 0%, transparent 100%); border-bottom: 1px solid rgba(0,160,255,0.12); position: relative; }
-        .header::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent 5%, #00b4ff 30%, #00e5ff 50%, #00b4ff 70%, transparent 95%); animation: headerLine 3s ease-in-out infinite; }
+        .header {
+            padding: 25px 35px 18px;
+            background: linear-gradient(180deg, rgba(255,150,50,0.08) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(255,150,50,0.1);
+            position: relative;
+        }
+        .header::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent 5%, #ff9632 30%, #ffb74d 50%, #ff9632 70%, transparent 95%);
+            animation: headerLine 3s ease-in-out infinite;
+        }
         @keyframes headerLine { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.9; } }
         .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 18px; }
-        .header h1 { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #fff; letter-spacing: 5px; text-shadow: 0 0 20px rgba(0,180,255,0.6), 0 0 40px rgba(0,180,255,0.25); }
-        .header-sub { color: #5a9ac0; font-size: 16px; letter-spacing: 2px; margin-top: 5px; }
-        .header-sub a { color: #00e5ff; text-decoration: none; font-weight: 600; transition: 0.3s; }
-        .header-sub a:hover { text-shadow: 0 0 10px rgba(0,229,255,0.7); }
-        .date-display { color: #3a7090; font-size: 13px; margin-top: 5px; font-family: 'Orbitron', monospace; letter-spacing: 1.5px; }
+        .header h1 {
+            font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #fff;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px rgba(255,150,50,0.6), 0 0 40px rgba(255,100,0,0.25);
+        }
+        .header-sub { color: #a08060; font-size: 16px; letter-spacing: 2px; margin-top: 5px; }
+        .header-sub a { color: #ffb74d; text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .header-sub a:hover { text-shadow: 0 0 10px rgba(255,183,77,0.7); }
+        .date-display { color: #706050; font-size: 13px; margin-top: 5px; font-family: 'Orbitron', monospace; letter-spacing: 1.5px; }
 
-        .countdown-section { background: rgba(0,30,60,0.5); border: 1px solid rgba(0,160,255,0.25); border-radius: 10px; padding: 8px 14px; text-align: center; box-shadow: 0 0 15px rgba(0,100,200,0.12); min-width: 260px; position: relative; overflow: hidden; }
-        .countdown-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(from 0deg, transparent, rgba(0,160,255,0.06), transparent); animation: countdownSpin 10s linear infinite; }
+        .countdown-section {
+            background: rgba(40,25,10,0.5); border: 1px solid rgba(255,150,50,0.2);
+            border-radius: 10px; padding: 8px 14px; text-align: center;
+            box-shadow: 0 0 15px rgba(255,100,0,0.1); min-width: 260px;
+            position: relative; overflow: hidden;
+        }
+        .countdown-section::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,150,50,0.06), transparent);
+            animation: countdownSpin 10s linear infinite;
+        }
         @keyframes countdownSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .countdown-section > * { position: relative; z-index: 1; }
-        .countdown-title { font-family: 'Orbitron', monospace; color: #00e5ff; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; margin-bottom: 3px; }
-        .countdown-subtitle { color: #3a7090; font-size: 10px; letter-spacing: 1px; margin-bottom: 6px; }
+        .countdown-title { font-family: 'Orbitron', monospace; color: #ffb74d; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; margin-bottom: 3px; }
+        .countdown-subtitle { color: #706050; font-size: 10px; letter-spacing: 1px; margin-bottom: 6px; }
         .countdown-timer { display: flex; justify-content: center; gap: 5px; }
-        .countdown-box { background: rgba(0,20,45,0.7); border: 1px solid rgba(0,160,255,0.2); border-radius: 6px; padding: 5px 8px; min-width: 55px; }
-        .countdown-number { font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900; color: #00e5ff; line-height: 1; text-shadow: 0 0 10px rgba(0,229,255,0.4); }
-        .countdown-label { color: #3a7090; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
-        .countdown-date { color: #00b4ff; font-size: 11px; font-weight: 600; margin-top: 4px; letter-spacing: 0.5px; }
-        .countdown-status { color: #00e676; font-size: 10px; margin-top: 3px; font-weight: 600; letter-spacing: 1px; }
+        .countdown-box { background: rgba(30,20,10,0.7); border: 1px solid rgba(255,150,50,0.15); border-radius: 6px; padding: 5px 8px; min-width: 55px; }
+        .countdown-number { font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900; color: #ffb74d; line-height: 1; text-shadow: 0 0 10px rgba(255,183,77,0.4); }
+        .countdown-label { color: #706050; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+        .countdown-date { color: #ff9632; font-size: 11px; font-weight: 600; margin-top: 4px; letter-spacing: 0.5px; }
+        .countdown-status { color: #ff6b6b; font-size: 10px; margin-top: 3px; font-weight: 600; letter-spacing: 1px; }
 
         .content { padding: 20px 30px 30px; }
         .stats-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: nowrap; }
-        .stat-pill { flex: 1; min-width: 110px; background: rgba(0,30,60,0.4); border: 1px solid rgba(0,160,255,0.12); border-radius: 12px; padding: 14px 10px; text-align: center; transition: all 0.35s ease; cursor: pointer; }
-        .stat-pill:hover { border-color: rgba(0,200,255,0.35); box-shadow: 0 0 20px rgba(0,120,200,0.18); transform: translateY(-3px); }
-        .stat-num { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #00e5ff; text-shadow: 0 0 12px rgba(0,229,255,0.35); }
-        .stat-pill:nth-child(1) .stat-num { color: #00e676; text-shadow: 0 0 12px rgba(0,230,118,0.35); }
-        .stat-pill:nth-child(3) .stat-num { color: #ffb400; text-shadow: 0 0 12px rgba(255,180,0,0.35); }
-        .stat-pill:nth-child(4) .stat-num { color: #e94560; text-shadow: 0 0 12px rgba(233,69,96,0.35); }
-        .stat-pill:nth-child(5) .stat-num { color: #ce93d8; text-shadow: 0 0 12px rgba(156,39,176,0.35); }
-        .stat-lbl { color: #5a9ac0; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+        .stat-pill { flex: 1; min-width: 110px; background: rgba(30,20,10,0.4); border: 1px solid rgba(255,150,50,0.1); border-radius: 12px; padding: 14px 10px; text-align: center; transition: all 0.35s ease; cursor: pointer; }
+        .stat-pill:hover { border-color: rgba(255,150,50,0.3); box-shadow: 0 0 20px rgba(255,100,0,0.15); transform: translateY(-3px); }
+        .stat-num { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #ffb74d; text-shadow: 0 0 12px rgba(255,183,77,0.35); }
+        .stat-pill:nth-child(1) .stat-num { color: #ff6b6b; text-shadow: 0 0 12px rgba(255,107,107,0.35); }
+        .stat-pill:nth-child(3) .stat-num { color: #69f0ae; text-shadow: 0 0 12px rgba(105,240,174,0.35); }
+        .stat-pill:nth-child(4) .stat-num { color: #40c4ff; text-shadow: 0 0 12px rgba(64,196,255,0.35); }
+        .stat-pill:nth-child(5) .stat-num { color: #ea80fc; text-shadow: 0 0 12px rgba(234,128,252,0.35); }
+        .stat-lbl { color: #a08060; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
 
-        .section { background: rgba(8,20,45,0.4); border: 1px solid rgba(0,160,255,0.08); border-radius: 14px; padding: 18px; margin-bottom: 16px; transition: all 0.35s ease; }
-        .section:hover { border-color: rgba(0,160,255,0.18); box-shadow: 0 6px 25px rgba(0,80,160,0.08); }
-        .section-title { font-family: 'Orbitron', monospace; color: #00e5ff; font-size: 14px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .section-title::before { content: ''; width: 3px; height: 16px; background: linear-gradient(180deg, #00e5ff, #0060ff); border-radius: 2px; box-shadow: 0 0 6px rgba(0,229,255,0.35); }
+        .section { background: rgba(20,15,10,0.4); border: 1px solid rgba(255,150,50,0.08); border-radius: 14px; padding: 18px; margin-bottom: 16px; transition: all 0.35s ease; }
+        .section:hover { border-color: rgba(255,150,50,0.18); box-shadow: 0 6px 25px rgba(255,100,0,0.08); }
+        .section-title { font-family: 'Orbitron', monospace; color: #ffb74d; font-size: 14px; font-weight: 700; letter-spacing: 3px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .section-title::before { content: ''; width: 3px; height: 16px; background: linear-gradient(180deg, #ffb74d, #ff6b00); border-radius: 2px; box-shadow: 0 0 6px rgba(255,150,50,0.35); }
 
         .cards { display: flex; flex-wrap: wrap; gap: 10px; }
         .cards .card { flex: 1 1 280px; max-width: calc(33.333% - 7px); min-width: 250px; }
-        .card { background: rgba(10,25,55,0.4); border: 1px solid rgba(0,160,255,0.06); border-radius: 10px; padding: 12px; transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(0,180,255,0.4), transparent); opacity: 0; transition: opacity 0.3s; }
+        .card { background: rgba(20,15,10,0.4); border: 1px solid rgba(255,150,50,0.06); border-radius: 10px; padding: 12px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,150,50,0.4), transparent); opacity: 0; transition: opacity 0.3s; }
         .card:hover::after { opacity: 1; }
-        .card:hover { border-color: rgba(0,160,255,0.2); transform: translateY(-2px); }
+        .card:hover { border-color: rgba(255,150,50,0.2); transform: translateY(-2px); }
         .card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
-        .card-name { font-size: 14px; font-weight: 600; color: #e0f0ff; }
+        .card-name { font-size: 14px; font-weight: 600; color: #ffe0c0; }
         .badge { padding: 3px 9px; border-radius: 14px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; font-family: 'Orbitron', monospace; }
-        .badge-done { background: rgba(0,230,118,0.1); color: #00e676; border: 1px solid rgba(0,230,118,0.2); }
-        .badge-progress { background: rgba(255,180,0,0.1); color: #ffb400; border: 1px solid rgba(255,180,0,0.2); }
-        .badge-hold { background: rgba(233,69,96,0.1); color: #e94560; border: 1px solid rgba(233,69,96,0.2); }
-        .badge-planned { background: rgba(156,39,176,0.1); color: #ce93d8; border: 1px solid rgba(156,39,176,0.2); }
-        .card-desc { color: #5a9ac0; font-size: 12px; line-height: 1.4; }
-        .card-desc strong { color: #7ab8d8; }
-        .email-link { color: #00bcd4; text-decoration: none; font-weight: 600; }
+        .badge-done { background: rgba(105,240,174,0.1); color: #69f0ae; border: 1px solid rgba(105,240,174,0.2); }
+        .badge-progress { background: rgba(255,183,77,0.1); color: #ffb74d; border: 1px solid rgba(255,183,77,0.2); }
+        .badge-hold { background: rgba(255,107,107,0.1); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.2); }
+        .badge-planned { background: rgba(234,128,252,0.1); color: #ea80fc; border: 1px solid rgba(234,128,252,0.2); }
+        .card-desc { color: #a08060; font-size: 12px; line-height: 1.4; }
+        .card-desc strong { color: #c0a080; }
+        .email-link { color: #ffb74d; text-decoration: none; font-weight: 600; }
         .email-link:hover { text-decoration: underline; }
-        .github-link { color: #00e676; text-decoration: none; font-weight: 600; word-break: break-all; font-size: 11px; }
+        .github-link { color: #69f0ae; text-decoration: none; font-weight: 600; word-break: break-all; font-size: 11px; }
         .github-link:hover { text-decoration: underline; }
         .card-links { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
-        .card-link { padding: 3px 10px; background: rgba(0,80,160,0.12); border: 1px solid rgba(0,160,255,0.12); border-radius: 5px; color: #00e5ff; text-decoration: none; font-size: 10px; font-weight: 600; letter-spacing: 0.3px; transition: all 0.3s; }
-        .card-link:hover { background: rgba(0,160,255,0.2); border-color: #00e5ff; box-shadow: 0 0 10px rgba(0,160,255,0.25); color: #fff; }
-
-        .yt-date { display: inline-block; margin-top: 4px; padding: 2px 8px; background: rgba(255,0,0,0.08); border: 1px solid rgba(255,0,0,0.15); border-radius: 4px; font-size: 11px; color: #ff6b6b; font-weight: 600; }
-        .yt-date a { color: #ff6b6b; text-decoration: none; }
-        .yt-date a:hover { text-decoration: underline; }
-        .yt-loading { color: #3a5070; font-style: italic; font-size: 11px; }
+        .card-link { padding: 3px 10px; background: rgba(255,100,0,0.1); border: 1px solid rgba(255,150,50,0.12); border-radius: 5px; color: #ffb74d; text-decoration: none; font-size: 10px; font-weight: 600; letter-spacing: 0.3px; transition: all 0.3s; cursor: pointer; }
+        .card-link:hover { background: rgba(255,150,50,0.2); border-color: #ffb74d; box-shadow: 0 0 10px rgba(255,150,50,0.25); color: #fff; }
 
         .email-mini { display: flex; flex-wrap: wrap; gap: 10px; }
-        .email-chip { flex: 1 1 280px; max-width: calc(33.333% - 7px); min-width: 250px; background: rgba(10,25,55,0.4); border: 1px solid rgba(0,160,255,0.06); border-radius: 10px; padding: 12px; transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .email-chip::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(0,180,255,0.4), transparent); opacity: 0; transition: opacity 0.3s; }
+        .email-chip { flex: 1 1 280px; max-width: calc(33.333% - 7px); min-width: 250px; background: rgba(20,15,10,0.4); border: 1px solid rgba(255,150,50,0.06); border-radius: 10px; padding: 12px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .email-chip::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(255,150,50,0.4), transparent); opacity: 0; transition: opacity 0.3s; }
         .email-chip:hover::after { opacity: 1; }
-        .email-chip:hover { border-color: rgba(0,160,255,0.2); transform: translateY(-2px); }
-        .email-addr { font-weight: 700; color: #00bcd4; font-size: 12px; letter-spacing: 0.3px; margin-bottom: 3px; }
+        .email-chip:hover { border-color: rgba(255,150,50,0.2); transform: translateY(-2px); }
+        .email-addr { font-weight: 700; color: #ffb74d; font-size: 12px; letter-spacing: 0.3px; margin-bottom: 3px; }
         .email-tags { display: flex; flex-wrap: wrap; gap: 2px; }
         .email-tag { padding: 2px 6px; border-radius: 3px; font-size: 9px; font-weight: 600; letter-spacing: 0.3px; }
-        .email-chip:nth-child(1) .email-tag { background: rgba(0,230,118,0.12); color: #00e676; border: 1px solid rgba(0,230,118,0.15); }
-        .email-chip:nth-child(2) .email-tag { background: rgba(0,160,255,0.12); color: #00b4ff; border: 1px solid rgba(0,160,255,0.15); }
-        .email-chip:nth-child(3) .email-tag { background: rgba(156,39,176,0.12); color: #ce93d8; border: 1px solid rgba(156,39,176,0.15); }
-        .email-chip:nth-child(4) .email-tag { background: rgba(255,120,0,0.12); color: #ff7800; border: 1px solid rgba(255,120,0,0.15); }
-        .email-chip:nth-child(5) .email-tag { background: rgba(233,69,96,0.12); color: #e94560; border: 1px solid rgba(233,69,96,0.15); }
-        .email-chip:nth-child(6) .email-tag { background: rgba(0,200,200,0.12); color: #00c8c8; border: 1px solid rgba(0,200,200,0.15); }
-        .email-chip:nth-child(7) .email-tag { background: rgba(100,200,100,0.12); color: #64c864; border: 1px solid rgba(100,200,100,0.15); }
-        .email-chip:nth-child(8) .email-tag { background: rgba(100,150,255,0.12); color: #6496ff; border: 1px solid rgba(100,150,255,0.15); }
-        .email-chip:nth-child(9) .email-tag { background: rgba(0,229,255,0.12); color: #00e5ff; border: 1px solid rgba(0,229,255,0.15); }
+        .email-chip:nth-child(1) .email-tag { background: rgba(255,107,107,0.12); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.15); }
+        .email-chip:nth-child(2) .email-tag { background: rgba(105,240,174,0.12); color: #69f0ae; border: 1px solid rgba(105,240,174,0.15); }
+        .email-chip:nth-child(3) .email-tag { background: rgba(234,128,252,0.12); color: #ea80fc; border: 1px solid rgba(234,128,252,0.15); }
+        .email-chip:nth-child(4) .email-tag { background: rgba(255,183,77,0.12); color: #ffb74d; border: 1px solid rgba(255,183,77,0.15); }
+        .email-chip:nth-child(5) .email-tag { background: rgba(64,196,255,0.12); color: #40c4ff; border: 1px solid rgba(64,196,255,0.15); }
+        .email-chip:nth-child(6) .email-tag { background: rgba(255,213,79,0.12); color: #ffd54f; border: 1px solid rgba(255,213,79,0.15); }
+        .email-chip:nth-child(7) .email-tag { background: rgba(255,138,101,0.12); color: #ff8a65; border: 1px solid rgba(255,138,101,0.15); }
+        .email-chip:nth-child(8) .email-tag { background: rgba(129,212,250,0.12); color: #81d4fa; border: 1px solid rgba(129,212,250,0.15); }
+        .email-chip:nth-child(9) .email-tag { background: rgba(255,241,118,0.12); color: #fff176; border: 1px solid rgba(255,241,118,0.15); }
 
-        .footer { text-align: center; padding: 18px; color: #2a5070; font-size: 11px; letter-spacing: 1.5px; border-top: 1px solid rgba(0,160,255,0.05); }
-        .footer a { color: #00e5ff; text-decoration: none; font-weight: 600; }
-        .footer a:hover { text-shadow: 0 0 8px rgba(0,229,255,0.4); }
+        .footer { text-align: center; padding: 18px; color: #504030; font-size: 11px; letter-spacing: 1.5px; border-top: 1px solid rgba(255,150,50,0.05); }
+        .footer a { color: #ffb74d; text-decoration: none; font-weight: 600; }
+        .footer a:hover { text-shadow: 0 0 8px rgba(255,183,77,0.4); }
 
-        /* MEOW Assistant Chat Widget */
+        /* MEOW Cat Assistant */
         .meow-fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #00e5ff, #0060ff);
-            border: none;
-            cursor: pointer;
-            z-index: 9999;
-            box-shadow: 0 4px 20px rgba(0,229,255,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            transition: 0.3s;
+            background: linear-gradient(135deg, #ff9632, #ff6b00);
+            border: none; cursor: pointer; z-index: 9999;
+            box-shadow: 0 4px 20px rgba(255,150,50,0.4);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; transition: 0.3s;
             animation: meowPulse 2s ease-in-out infinite;
         }
-        .meow-fab:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(0,229,255,0.6); }
+        .meow-fab:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(255,150,50,0.6); }
         @keyframes meowPulse {
-            0%, 100% { box-shadow: 0 4px 20px rgba(0,229,255,0.4); }
-            50% { box-shadow: 0 4px 30px rgba(0,229,255,0.7); }
+            0%, 100% { box-shadow: 0 4px 20px rgba(255,150,50,0.4); }
+            50% { box-shadow: 0 4px 30px rgba(255,150,50,0.7); }
         }
 
         .meow-chat {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 380px;
-            height: 520px;
-            background: rgba(5,15,35,0.95);
-            border: 1px solid rgba(0,229,255,0.3);
-            border-radius: 20px;
-            z-index: 9998;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 30px rgba(0,229,255,0.1);
+            position: fixed; bottom: 100px; right: 30px; width: 380px; height: 520px;
+            background: rgba(15,15,25,0.95);
+            border: 1px solid rgba(255,150,50,0.3);
+            border-radius: 20px; z-index: 9998;
+            display: none; flex-direction: column; overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,150,50,0.1);
             backdrop-filter: blur(20px);
         }
         .meow-chat.active { display: flex; animation: meowSlideUp 0.3s ease; }
@@ -370,178 +254,74 @@
 
         .meow-header {
             padding: 15px 20px;
-            background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(0,96,255,0.1));
-            border-bottom: 1px solid rgba(0,229,255,0.2);
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            background: linear-gradient(135deg, rgba(255,150,50,0.15), rgba(255,100,0,0.1));
+            border-bottom: 1px solid rgba(255,150,50,0.2);
+            display: flex; align-items: center; gap: 12px;
         }
         .meow-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #00e5ff, #0060ff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: linear-gradient(135deg, #ff9632, #ff6b00);
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
         }
-        .meow-header-info h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 14px;
-            color: #00e5ff;
-            letter-spacing: 2px;
-        }
-        .meow-header-info p {
-            font-size: 11px;
-            color: #5a9ac0;
-        }
-        .meow-status {
-            width: 8px;
-            height: 8px;
-            background: #00e676;
-            border-radius: 50%;
-            margin-left: auto;
-            animation: statusBlink 2s infinite;
-        }
-        @keyframes statusBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
+        .meow-header-info h3 { font-family: 'Orbitron', monospace; font-size: 14px; color: #ffb74d; letter-spacing: 2px; }
+        .meow-header-info p { font-size: 11px; color: #a08060; }
+        .meow-status { width: 8px; height: 8px; background: #69f0ae; border-radius: 50%; margin-left: auto; box-shadow: 0 0 8px rgba(105,240,174,0.5); }
 
-        .meow-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .meow-msg {
-            max-width: 85%;
-            padding: 10px 14px;
-            border-radius: 14px;
-            font-size: 13px;
-            line-height: 1.5;
-            animation: msgFade 0.3s ease;
-        }
-        @keyframes msgFade {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .meow-msg.bot {
-            background: rgba(0,229,255,0.1);
-            border: 1px solid rgba(0,229,255,0.15);
-            color: #e0f0ff;
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-        }
-        .meow-msg.user {
-            background: rgba(0,96,255,0.2);
-            border: 1px solid rgba(0,96,255,0.15);
-            color: #e0f0ff;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-        }
-        .meow-msg .typing {
-            display: flex;
-            gap: 4px;
-            padding: 5px 0;
-        }
-        .meow-msg .typing span {
-            width: 6px;
-            height: 6px;
-            background: #00e5ff;
-            border-radius: 50%;
-            animation: typingBounce 1.4s infinite ease-in-out;
-        }
-        .meow-msg .typing span:nth-child(2) { animation-delay: 0.2s; }
-        .meow-msg .typing span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typingBounce {
-            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-            40% { transform: scale(1); opacity: 1; }
-        }
+        .meow-messages { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .meow-msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
+        .meow-msg.user { background: linear-gradient(135deg, #ff9632, #ff6b00); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .meow-msg.bot { background: rgba(255,150,50,0.1); border: 1px solid rgba(255,150,50,0.15); color: #e0d0c0; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .meow-msg a { color: #ffb74d; }
 
-        .meow-input-area {
-            padding: 12px 15px;
-            border-top: 1px solid rgba(0,229,255,0.15);
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .meow-input {
-            flex: 1;
-            background: rgba(0,20,45,0.6);
-            border: 1px solid rgba(0,229,255,0.2);
-            border-radius: 20px;
-            padding: 10px 16px;
-            color: #e0f0ff;
-            font-size: 13px;
-            font-family: inherit;
-            outline: none;
-            transition: 0.3s;
-        }
-        .meow-input:focus { border-color: #00e5ff; }
-        .meow-input::placeholder { color: #3a5070; }
+        .typing { display: flex; gap: 4px; padding: 5px 0; }
+        .typing span { width: 6px; height: 6px; background: #ffb74d; border-radius: 50%; animation: typingBounce 1.4s ease-in-out infinite; }
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
 
-        .meow-voice-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid rgba(0,229,255,0.3);
-            background: rgba(0,229,255,0.1);
-            color: #00e5ff;
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-        .meow-voice-btn:hover { background: rgba(0,229,255,0.2); }
-        .meow-voice-btn.listening {
-            background: rgba(233,69,96,0.3);
-            border-color: #e94560;
-            color: #e94560;
-            animation: voicePulse 1s infinite;
-        }
-        @keyframes voicePulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(233,69,96,0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(233,69,96,0); }
-        }
+        .meow-quick-actions { padding: 8px 15px; display: flex; gap: 6px; flex-wrap: wrap; border-top: 1px solid rgba(255,150,50,0.1); }
+        .meow-quick-btn { background: rgba(255,150,50,0.1); border: 1px solid rgba(255,150,50,0.15); color: #ffb74d; padding: 4px 10px; border-radius: 12px; font-size: 11px; cursor: pointer; transition: 0.2s; }
+        .meow-quick-btn:hover { background: rgba(255,150,50,0.2); border-color: #ffb74d; }
 
-        .meow-send-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            background: linear-gradient(135deg, #00e5ff, #0060ff);
-            color: #fff;
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.3s;
-        }
+        .meow-input-area { padding: 12px 15px; display: flex; gap: 8px; align-items: center; border-top: 1px solid rgba(255,150,50,0.1); }
+        .meow-voice-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,150,50,0.1); border: 1px solid rgba(255,150,50,0.2); color: #ffb74d; cursor: pointer; font-size: 16px; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        .meow-voice-btn:hover { background: rgba(255,150,50,0.2); }
+        .meow-voice-btn.listening { background: rgba(255,0,0,0.3); border-color: #ff4444; animation: voicePulse 1s ease-in-out infinite; }
+        @keyframes voicePulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,0,0,0.3); } 50% { box-shadow: 0 0 0 8px rgba(255,0,0,0); } }
+
+        .meow-input { flex: 1; background: rgba(255,150,50,0.08); border: 1px solid rgba(255,150,50,0.15); border-radius: 18px; padding: 8px 15px; color: #ffe0c0; font-size: 13px; outline: none; }
+        .meow-input::placeholder { color: #706050; }
+        .meow-input:focus { border-color: rgba(255,150,50,0.4); }
+
+        .meow-send-btn { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #ff9632, #ff6b00); border: none; color: #fff; cursor: pointer; font-size: 16px; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
         .meow-send-btn:hover { transform: scale(1.1); }
 
-        .meow-quick-actions {
-            display: flex;
-            gap: 6px;
-            padding: 8px 15px;
-            border-top: 1px solid rgba(0,229,255,0.1);
-            flex-wrap: wrap;
-        }
-        .meow-quick-btn {
-            padding: 5px 10px;
-            border-radius: 12px;
-            border: 1px solid rgba(0,229,255,0.2);
-            background: rgba(0,229,255,0.05);
-            color: #5a9ac0;
-            font-size: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: inherit;
-        }
-        .meow-quick-btn:hover { background: rgba(0,229,255,0.15); color: #00e5ff; }
+        /* URL Tracker */
+        .url-tracker { margin-top: 8px; }
+        .url-list { max-height: 150px; overflow-y: auto; margin-bottom: 8px; }
+        .url-item { display: flex; align-items: center; gap: 8px; padding: 5px 8px; background: rgba(255,150,50,0.05); border: 1px solid rgba(255,150,50,0.1); border-radius: 6px; margin-bottom: 4px; font-size: 11px; }
+        .url-item .url-name { color: #ffb74d; font-weight: bold; min-width: 100px; }
+        .url-item .url-link { color: #c0a080; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .url-item .url-link a { color: #c0a080; text-decoration: none; }
+        .url-item .url-link a:hover { text-decoration: underline; color: #ffb74d; }
+        .url-item .url-delete { background: rgba(255,0,0,0.2); border: 1px solid rgba(255,0,0,0.3); color: #ff6b6b; padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 10px; }
+        .url-add { display: flex; gap: 6px; align-items: center; }
+        .url-add input { background: rgba(255,150,50,0.08); border: 1px solid rgba(255,150,50,0.15); color: #c0a080; padding: 5px 8px; border-radius: 6px; font-size: 11px; }
+        .url-add input::placeholder { color: #706050; }
 
-        .no-animations * { animation: none !important; transition: none !important; }
+        /* Scroll to Top */
+        .scroll-top { position: fixed; bottom: 100px; right: 30px; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,150,50,0.2); border: 1px solid rgba(255,150,50,0.3); color: #ffb74d; cursor: pointer; z-index: 9997; display: none; align-items: center; justify-content: center; font-size: 18px; transition: 0.3s; }
+        .scroll-top:hover { background: rgba(255,150,50,0.3); transform: translateY(-3px); }
+        .scroll-top.visible { display: flex; }
 
+        /* Print */
+        @media print {
+            .sky-bg, .stars, .moon, .cat-paws, .cat-silhouette, .meow-fab, .meow-chat, .scroll-top { display: none !important; }
+            .glass-panel { background: #fff; color: #000; border: 1px solid #ccc; }
+            .card { border: 1px solid #ccc; }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .glass-panel { margin: 10px; border-radius: 16px; }
             .header { padding: 15px 12px; }
@@ -554,390 +334,54 @@
             .stats-row { flex-wrap: wrap; }
             .stat-pill { min-width: 70px; padding: 10px 6px; }
             .stat-num { font-size: 18px; }
-            .mountain { display: none; }
             .meow-chat { width: calc(100% - 20px); right: 10px; bottom: 90px; height: 450px; }
             .meow-fab { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 24px; }
-        }
-
-        /* Loading Animation */
-        .loading-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #020810;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-            transition: opacity 0.5s, visibility 0.5s;
-        }
-        .loading-overlay.hidden { opacity: 0; visibility: hidden; }
-        .loading-spinner {
-            width: 60px; height: 60px;
-            border: 3px solid rgba(0,229,255,0.1);
-            border-top-color: #00e5ff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Scroll to Top Button */
-        .scroll-top {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(0,229,255,0.2);
-            border: 1px solid rgba(0,229,255,0.3);
-            color: #00e5ff;
-            cursor: pointer;
-            z-index: 9997;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            transition: 0.3s;
-            backdrop-filter: blur(10px);
-        }
-        .scroll-top:hover { background: rgba(0,229,255,0.3); transform: translateY(-3px); }
-        .scroll-top.visible { display: flex; }
-
-        /* Tooltip */
-        .tooltip {
-            position: relative;
-        }
-        .tooltip::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,20,45,0.95);
-            color: #00e5ff;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 11px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: none;
-            transition: 0.2s;
-            border: 1px solid rgba(0,229,255,0.2);
-            z-index: 100;
-        }
-        .tooltip:hover::after { opacity: 1; visibility: visible; }
-
-        /* Focus States for Accessibility */
-        button:focus, a:focus, input:focus {
-            outline: 2px solid #00e5ff;
-            outline-offset: 2px;
-        }
-
-        /* Smooth Scroll */
-        html { scroll-behavior: smooth; }
-
-        /* URL Tracker */
-        .url-tracker {
-            margin-top: 8px;
-        }
-        .url-list {
-            max-height: 150px;
-            overflow-y: auto;
-            margin-bottom: 8px;
-        }
-        .url-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 5px 8px;
-            background: rgba(0,229,255,0.05);
-            border: 1px solid rgba(0,229,255,0.1);
-            border-radius: 6px;
-            margin-bottom: 4px;
-            font-size: 11px;
-        }
-        .url-item .url-name {
-            color: #00e5ff;
-            font-weight: bold;
-            min-width: 100px;
-        }
-        .url-item .url-link {
-            color: #7ec8e3;
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .url-item .url-link a {
-            color: #7ec8e3;
-            text-decoration: none;
-        }
-        .url-item .url-link a:hover {
-            text-decoration: underline;
-        }
-        .url-item .url-delete {
-            background: rgba(255,0,0,0.2);
-            border: 1px solid rgba(255,0,0,0.3);
-            color: #ff6666;
-            padding: 2px 6px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 10px;
-        }
-        .url-add {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-        .url-add input {
-            background: rgba(0,229,255,0.1);
-            border: 1px solid rgba(0,229,255,0.2);
-            color: #7ec8e3;
-            padding: 5px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-        }
-
-        /* Print Styles */
-        @media print {
-            .sky-bg, .stars, .clouds, .birds-container, .mountains, .trees, .leaves, .orbits, .particles, .fireflies, .meow-fab, .meow-chat, .scroll-top { display: none !important; }
-            .glass-panel { background: #fff; color: #000; border: 1px solid #ccc; }
-            .card { border: 1px solid #ccc; }
+            .moon { width: 50px; height: 50px; top: 30px; right: 30px; }
         }
     </style>
-    <script>
-        function updateCountdown() {
-            const now = new Date();
-            const dow = now.getDay();
-            let d = (2 - dow + 7) % 7;
-            if (d === 0 && now.getHours() >= 12) d = 7;
-            const next = new Date(now);
-            next.setDate(now.getDate() + d);
-            next.setHours(12, 0, 0, 0);
-            const diff = next - now;
-            document.getElementById('cd-d').textContent = Math.floor(diff / 864e5);
-            document.getElementById('cd-h').textContent = Math.floor((diff % 864e5) / 36e5);
-            document.getElementById('cd-m').textContent = Math.floor((diff % 36e5) / 6e4);
-            document.getElementById('cd-s').textContent = Math.floor((diff % 6e4) / 1e3);
-            document.getElementById('cd-date').textContent = next.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
-            document.getElementById('cur-date').textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-        }
-
-        async function fetchLastVideo(channelId, elementId) {
-            const el = document.getElementById(elementId);
-            if (!el) return;
-            try {
-                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId)}`;
-                const res = await fetch(proxyUrl);
-                if (!res.ok) throw new Error('Fetch failed');
-                const text = await res.text();
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(text, 'text/xml');
-                const entries = xml.querySelectorAll('entry');
-                if (entries.length > 0) {
-                    const title = entries[0].querySelector('title')?.textContent || 'Unknown';
-                    const published = entries[0].querySelector('published')?.textContent || '';
-                    const link = entries[0].querySelector('link')?.getAttribute('href') || '#';
-                    const date = new Date(published);
-                    const now = new Date();
-                    const diffDays = Math.floor((now - date) / 864e5);
-                    let timeAgo = diffDays === 0 ? 'Today' : diffDays === 1 ? 'Yesterday' : diffDays < 7 ? diffDays + 'd ago' : diffDays < 30 ? Math.floor(diffDays/7) + 'w ago' : Math.floor(diffDays/30) + 'mo ago';
-                    el.innerHTML = `<a href="${link}" target="_blank" title="${title}">${timeAgo}</a><br><span style="font-size:9px;color:#3a5070">${title.substring(0,35)}${title.length>35?'...':''}</span>`;
-                } else { el.innerHTML = '<span style="color:#e94560;font-size:11px">No videos</span>'; }
-            } catch (e) { el.innerHTML = '<span class="yt-loading">Load failed</span>'; }
-        }
-
-        setInterval(updateCountdown, 1000);
-        window.onload = function() {
-            updateCountdown();
-            // Stars
-            const sc = document.querySelector('.stars');
-            for (let i = 0; i < 80; i++) {
-                const s = document.createElement('div');
-                s.className = 'star';
-                s.style.left = Math.random() * 100 + '%';
-                s.style.top = Math.random() * 60 + '%';
-                s.style.animationDuration = (2 + Math.random() * 5) + 's';
-                s.style.animationDelay = Math.random() * 4 + 's';
-                s.style.width = s.style.height = (1 + Math.random() * 2) + 'px';
-                sc.appendChild(s);
-            }
-            // Particles
-            const pc = document.querySelector('.particles');
-            for (let i = 0; i < 20; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.left = Math.random() * 100 + '%';
-                p.style.animationDuration = (6 + Math.random() * 10) + 's';
-                p.style.animationDelay = Math.random() * 8 + 's';
-                pc.appendChild(p);
-            }
-            // Fireflies
-            const fc = document.querySelector('.fireflies');
-            for (let i = 0; i < 12; i++) {
-                const f = document.createElement('div');
-                f.className = 'firefly';
-                f.style.left = (10 + Math.random() * 80) + '%';
-                f.style.top = (50 + Math.random() * 40) + '%';
-                f.style.animationDuration = (5 + Math.random() * 8) + 's';
-                f.style.animationDelay = Math.random() * 5 + 's';
-                fc.appendChild(f);
-            }
-            // Leaves
-            const lc = document.querySelector('.leaves');
-            for (let i = 0; i < 8; i++) {
-                const l = document.createElement('div');
-                l.className = 'leaf';
-                l.style.left = Math.random() * 100 + '%';
-                l.style.animationDuration = (10 + Math.random() * 15) + 's';
-                l.style.animationDelay = Math.random() * 10 + 's';
-                l.style.background = `rgba(${20+Math.random()*40},${60+Math.random()*60},${20+Math.random()*30},0.4)`;
-                lc.appendChild(l);
-            }
-            // Orbit dots
-            document.querySelectorAll('.orbit').forEach(o => {
-                const dot = document.createElement('div');
-                dot.className = 'orbit-glow';
-                o.appendChild(dot);
-            });
-            // Fetch YouTube data
-            fetchLastVideo('UCVLn-Z8sP1rvVDmsmqJ5QiQ', 'yt-stick-cat');
-            fetchLastVideo('UCpDok-xmlXc1bVpMYLs0FnA', 'yt-ai-content');
-            fetchLastVideo('UC5Fh9A-0q5v_YxjJ-qY2z_Q', 'yt-future-intel');
-            fetchLastVideo('UCqY5vYxjJ-qY2z_QpDok-xml', 'yt-cat-podcast');
-        };
-    </script>
 </head>
 <body>
+    <!-- Background -->
     <div class="sky-bg"></div>
-    <div class="stars"></div>
-    <div class="clouds">
-        <div class="cloud cloud-1"></div>
-        <div class="cloud cloud-2"></div>
-        <div class="cloud cloud-3"></div>
-        <div class="cloud cloud-4"></div>
-        <div class="cloud cloud-5"></div>
-        <div class="cloud cloud-6"></div>
-    </div>
-    <div class="birds-container">
-        <div class="bird bird-1"></div>
-        <div class="bird bird-2"></div>
-        <div class="bird bird-3"></div>
-        <div class="bird bird-4"></div>
-        <div class="bird bird-5"></div>
-        <div class="bird bird-6"></div>
-        <div class="bird bird-7"></div>
-    </div>
-    <div class="mountains">
-        <div class="mountain mountain-1"></div>
-        <div class="mountain mountain-2"></div>
-        <div class="mountain mountain-3"></div>
-        <div class="mountain mountain-4"></div>
-        <div class="mountain mountain-5"></div>
-    </div>
-    <div class="trees">
-        <div class="tree"><div class="tree-top-2"></div><div class="tree-top"></div><div class="tree-trunk"></div></div>
-        <div class="tree"><div class="tree-top-2"></div><div class="tree-top"></div><div class="tree-trunk"></div></div>
-        <div class="tree"><div class="tree-top-2"></div><div class="tree-top"></div><div class="tree-trunk"></div></div>
-        <div class="tree"><div class="tree-top-2"></div><div class="tree-top"></div><div class="tree-trunk"></div></div>
-        <div class="tree"><div class="tree-top-2"></div><div class="tree-top"></div><div class="tree-trunk"></div></div>
-        <div class="tree"><div class="tree-top-2"></div><div class="tree-top"></div><div class="tree-trunk"></div></div>
-    </div>
-    <div class="leaves"></div>
-    <div class="orbits">
-        <div class="orbit"></div>
-        <div class="orbit"></div>
-        <div class="orbit"></div>
-        <div class="orbit"></div>
-    </div>
-    <div class="particles"></div>
-    <div class="fireflies"></div>
+    <div class="stars" id="stars"></div>
+    <div class="moon"></div>
+    <div class="cat-paws" id="catPaws"></div>
+    <div class="cat-silhouette">🐱</div>
 
     <div class="glass-panel">
         <div class="header">
             <div class="header-top">
                 <div>
-                    <h1>PROJECT DASHBOARD</h1>
-                    <div class="header-sub">MOHAMMED IMTHIYAZ A &mdash; HEALTHCARE AI CONTENT NETWORK</div>
-                    <div class="header-sub" style="margin-top:2px"><a href="https://myportfolio-seven-ruby-43.vercel.app/" target="_blank">MY PORTFOLIO</a></div>
-                    <div class="date-display" id="cur-date"></div>
+                    <h1>🐱 MEOW DASHBOARD</h1>
+                    <div class="header-sub">MOHAMMED IMTHIYAZ A &bull; <a href="mailto:cybersecurityocean@gmail.com">cybersecurityocean@gmail.com</a></div>
+                    <div class="date-display" id="dateDisplay"></div>
                 </div>
                 <div class="countdown-section">
-                    <div class="countdown-title">NEXT BOOK PUBLISH</div>
-                    <div class="countdown-subtitle">TUESDAY &bull; GUMROAD &bull; KDP &bull; GOOGLE PLAY</div>
+                    <div class="countdown-title">🐱 CAT COUNTDOWN</div>
+                    <div class="countdown-subtitle">Time until next purr session</div>
                     <div class="countdown-timer">
-                        <div class="countdown-box"><div class="countdown-number" id="cd-d">0</div><div class="countdown-label">Days</div></div>
-                        <div class="countdown-box"><div class="countdown-number" id="cd-h">0</div><div class="countdown-label">Hrs</div></div>
-                        <div class="countdown-box"><div class="countdown-number" id="cd-m">0</div><div class="countdown-label">Min</div></div>
-                        <div class="countdown-box"><div class="countdown-number" id="cd-s">0</div><div class="countdown-label">Sec</div></div>
+                        <div class="countdown-box"><div class="countdown-number" id="countDays">0</div><div class="countdown-label">Days</div></div>
+                        <div class="countdown-box"><div class="countdown-number" id="countHours">0</div><div class="countdown-label">Hours</div></div>
+                        <div class="countdown-box"><div class="countdown-number" id="countMins">0</div><div class="countdown-label">Mins</div></div>
+                        <div class="countdown-box"><div class="countdown-number" id="countSecs">0</div><div class="countdown-label">Secs</div></div>
                     </div>
-                    <div class="countdown-date" id="cd-date"></div>
-                    <div class="countdown-status">BOOK 3: READY TO UPLOAD</div>
+                    <div class="countdown-date" id="nextCatVideo"></div>
+                    <div class="countdown-status" id="countdownStatus">🐱 Next video loading...</div>
                 </div>
             </div>
         </div>
+
         <div class="content">
             <div class="stats-row">
-                <div class="stat-pill"><div class="stat-num">3</div><div class="stat-lbl">Books</div></div>
-                <div class="stat-pill"><div class="stat-num">4</div><div class="stat-lbl">Channels</div></div>
-                <div class="stat-pill"><div class="stat-num">10</div><div class="stat-lbl">Repos</div></div>
-                <div class="stat-pill"><div class="stat-num">9</div><div class="stat-lbl">Emails</div></div>
-                <div class="stat-pill"><div class="stat-num">1</div><div class="stat-lbl">Supermarket</div></div>
+                <div class="stat-pill"><div class="stat-num" id="repoCount">10</div><div class="stat-lbl">Repos</div></div>
+                <div class="stat-pill"><div class="stat-num" id="channelCount">4</div><div class="stat-lbl">Channels</div></div>
+                <div class="stat-pill"><div class="stat-num" id="bookCount">3</div><div class="stat-lbl">Books</div></div>
+                <div class="stat-pill"><div class="stat-num" id="websiteCount">4</div><div class="stat-lbl">Websites</div></div>
+                <div class="stat-pill"><div class="stat-num" id="emailCount">9</div><div class="stat-lbl">Emails</div></div>
             </div>
 
             <div class="section">
-                <div class="section-title">EMAIL ACCOUNTS</div>
-                <div class="email-mini">
-                    <div class="email-chip"><div class="email-addr">cybersecurityocean@gmail.com</div><div class="email-tags"><span class="email-tag">Practical AI Healthcare</span><span class="email-tag">Gumroad</span><span class="email-tag">E-Book</span></div></div>
-                    <div class="email-chip"><div class="email-addr">imthyazzilaan@gmail.com</div><div class="email-tags"><span class="email-tag">Amazon KDP</span><span class="email-tag">Google Play Books</span></div></div>
-                    <div class="email-chip"><div class="email-addr">Mohammedimthiyazimi@outlook.com</div><div class="email-tags"><span class="email-tag">Portfolio</span></div></div>
-                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz832@gmail.com</div><div class="email-tags"><span class="email-tag">CatHub Podcast</span><span class="email-tag">YouTube</span><span class="email-tag">Rumble</span></div></div>
-                    <div class="email-chip"><div class="email-addr">futureintelligence4@gmail.com</div><div class="email-tags"><span class="email-tag">Future Intelligence</span><span class="email-tag">YouTube</span></div></div>
-                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz1401@gmail.com</div><div class="email-tags"><span class="email-tag">ARIA Future</span><span class="email-tag">YouTube</span></div></div>
-                    <div class="email-chip"><div class="email-addr">shafapittu@gmail.com</div><div class="email-tags"><span class="email-tag">Personal</span></div></div>
-                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz154@gmail.com</div><div class="email-tags"><span class="email-tag">Personal</span></div></div>
-                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz1401-ai (GitHub)</div><div class="email-tags"><span class="email-tag">Dashboard</span><span class="email-tag">AI Network</span><span class="email-tag">Ebook Builder</span></div></div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">BOOKS &mdash; PRACTICAL AI IN HEALTHCARE</div>
-                <div class="cards">
-                    <div class="card"><div class="card-head"><div class="card-name">Book 1: AI in Healthcare - Do's and Don'ts</div><span class="badge badge-done">PUBLISHED</span></div><div class="card-desc">Practical guide for hospitals. 18 pages.</div><div class="card-links"><a href="https://cyberwave407.gumroad.com/l/ai-healthcare-dos-donts" class="card-link" target="_blank">Gumroad</a><a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">Book 2: Stop AI From Leaking Patient Data</div><span class="badge badge-done">PUBLISHED</span></div><div class="card-desc">Data privacy & compliance. 49 pages.</div><div class="card-links"><a href="https://cyberwave407.gumroad.com/l/Stop-AI-From-Leaking-Patient-Data" class="card-link" target="_blank">Gumroad</a><a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">Book 3: Healthy AI Implementation Roadmap</div><span class="badge badge-progress">READY</span></div><div class="card-desc">14 chapters, EPUB ready. Waiting for cover image.</div><div class="card-links"><a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="card-link" target="_blank">GitHub</a></div></div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">YOUTUBE CHANNELS</div>
-                <div class="cards">
-                    <div class="card"><div class="card-head"><div class="card-name">AI Content Network</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">Automated AI news pipeline.</div><div class="yt-date" id="yt-ai-content"><span class="yt-loading">Loading...</span></div><div class="card-links"><a href="https://www.youtube.com/channel/UCpDok-xmlXc1bVpMYLs0FnA" class="card-link" target="_blank">YouTube</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">CatHub Podcast</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">Cat podcast. Shorts disabled.</div><div class="yt-date" id="yt-cat-podcast"><span class="yt-loading">Loading...</span></div><div class="card-links"><a href="https://www.youtube.com/channel/UCqY5vYxjJ-qY2z_QpDok-xml" class="card-link" target="_blank">YouTube</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">Future Intelligence</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">AI news bot. Voice fixed.</div><div class="yt-date" id="yt-future-intel"><span class="yt-loading">Loading...</span></div><div class="card-links"><a href="https://www.youtube.com/channel/UC5Fh9A-0q5v_YxjJ-qY2z_Q" class="card-link" target="_blank">YouTube</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">Stick Cat Academy</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">Daily cat content. Ghibli flashbacks.</div><div class="yt-date" id="yt-stick-cat"><span class="yt-loading">Loading...</span></div><div class="card-links"><a href="https://www.youtube.com/channel/UCVLn-Z8sP1rvVDmsmqJ5QiQ" class="card-link" target="_blank">YouTube</a></div></div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">WEBSITES & PORTFOLIO</div>
-                <div class="cards">
-                    <div class="card"><div class="card-head"><div class="card-name">Portfolio Website</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">Personal & professional portfolio.</div><div class="card-links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="card-link" target="_blank">View Site</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">Supermarket Website</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">Hyderabad supermarket with virtual store & recipe mode.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/supermarket-hyderabad/" class="card-link" target="_blank">Website</a><a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="card-link" target="_blank">GitHub</a></div></div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">INFRASTRUCTURE</div>
-                <div class="cards">
-                    <div class="card"><div class="card-head"><div class="card-name">Ebook Builder</div><span class="badge badge-done">PUSHED</span></div><div class="card-desc">Gemini &rarr; PDF &rarr; EPUB automation.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">MEOW Assistant</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">AI assistant in dashboard. Weather, voice, chat.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/meow-assistant/" class="card-link" target="_blank">Website</a><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a><button class="card-link" onclick="toggleMeowChat()">Chat Now</button></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">Rumble Automation</div><span class="badge badge-hold">ON HOLD</span></div><div class="card-desc">Upload step fails.</div></div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">QUICK LINKS</div>
+                <div class="section-title">🐱 QUICK LINKS</div>
                 <div class="cards">
                     <div class="card"><div class="card-head"><div class="card-name">🌐 Live Dashboard</div></div><div class="card-desc">This dashboard - live on GitHub Pages.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="card-link" target="_blank">Open</a></div></div>
                     <div class="card"><div class="card-head"><div class="card-name">💼 Portfolio</div></div><div class="card-desc">Personal & professional portfolio.</div><div class="card-links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="card-link" target="_blank">Open</a></div></div>
@@ -951,18 +395,59 @@
             </div>
 
             <div class="section">
-                <div class="section-title">GITHUB REPOSITORIES</div>
+                <div class="section-title">📺 YOUTUBE CHANNELS</div>
                 <div class="cards">
-                    <div class="card"><div class="card-head"><div class="card-name">ai-content-network</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="github-link" target="_blank">mohammedimthiyaz1401-ai/ai-content-network</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">portfolio</div><span class="badge badge-done">DONE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:Mohammedimthiyazimi@outlook.com" class="email-link">Mohammedimthiyazimi@outlook.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/imthiyazimi/portfolio" class="github-link" target="_blank">imthiyazimi/portfolio</a></div><div class="card-links"><a href="https://github.com/imthiyazimi/portfolio" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">cat-podcast-voice-gen</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz832@gmail.com" class="email-link">mohammedimthiyaz832@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/imthi92/cat-podcast-voice-gen" class="github-link" target="_blank">imthi92/cat-podcast-voice-gen</a></div><div class="card-links"><a href="https://github.com/imthi92/cat-podcast-voice-gen" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">ai-news-bot</div><span class="badge badge-done">FIXED</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:futureintelligence4@gmail.com" class="email-link">futureintelligence4@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/futureintelligence4-netizen/ai-news-bot" class="github-link" target="_blank">futureintelligence4-netizen/ai-news-bot</a></div><div class="card-links"><a href="https://github.com/futureintelligence4-netizen/ai-news-bot" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">stick-cat-academy</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz832@gmail.com" class="email-link">mohammedimthiyaz832@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/imthi92/stick-cat-academy" class="github-link" target="_blank">imthi92/stick-cat-academy</a></div><div class="card-links"><a href="https://github.com/imthi92/stick-cat-academy" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">practical-ai-healthcare</div><span class="badge badge-progress">BOOK 3</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:cybersecurityocean@gmail.com" class="email-link">cybersecurityocean@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="github-link" target="_blank">cybersecurityocean/practical-ai-healthcare</a></div><div class="card-links"><a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">ebook-builder</div><span class="badge badge-done">DONE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="github-link" target="_blank">mohammedimthiyaz1401-ai/ebook-builder</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="card-link" target="_blank">GitHub</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">project-dashboard</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="github-link" target="_blank">mohammedimthiyaz1401-ai/project-dashboard</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="card-link" target="_blank">Live</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">supermarket-hyderabad</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="github-link" target="_blank">mohammedimthiyaz1401-ai/supermarket-hyderabad</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/supermarket-hyderabad/" class="card-link" target="_blank">Website</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">meow-assistant</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>Email:</strong> <a href="mailto:mohammedimthiyaz1401@gmail.com" class="email-link">mohammedimthiyaz1401@gmail.com</a></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="github-link" target="_blank">mohammedimthiyaz1401-ai/meow-assistant</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/meow-assistant/" class="card-link" target="_blank">Website</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">AI Content Network</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">Automated AI content.</div><div class="card-links"><a href="https://www.youtube.com/@AIContentNetwork" class="card-link" target="_blank">YouTube</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">Stick Cat Academy</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">Learn to code with cats.</div><div class="card-links"><a href="https://www.youtube.com/@StickCatAcademy" class="card-link" target="_blank">YouTube</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">CatHub Podcast</div><span class="badge badge-progress">ACTIVE</span></div><div class="card-desc">Cat podcast & shorts.</div><div class="card-links"><a href="https://www.youtube.com/@CatHubPodcast" class="card-link" target="_blank">YouTube</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">Future Intelligence</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">AI & tech content.</div><div class="card-links"><a href="https://www.youtube.com/@FutureIntelligence" class="card-link" target="_blank">YouTube</a></div></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🌐 WEBSITES & PORTFOLIO</div>
+                <div class="cards">
+                    <div class="card"><div class="card-head"><div class="card-name">Portfolio Website</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">Personal & professional portfolio.</div><div class="card-links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="card-link" target="_blank">View Site</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">Supermarket Website</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">Hyderabad supermarket with virtual store & recipe mode.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/supermarket-hyderabad/" class="card-link" target="_blank">Website</a><a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="card-link" target="_blank">GitHub</a></div></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🔧 INFRASTRUCTURE</div>
+                <div class="cards">
+                    <div class="card"><div class="card-head"><div class="card-name">Ebook Builder</div><span class="badge badge-done">PUSHED</span></div><div class="card-desc">Gemini → PDF → EPUB automation.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">MEOW Assistant</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">AI assistant in dashboard. Weather, voice, chat.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/meow-assistant/" class="card-link" target="_blank">Website</a><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a><button class="card-link" onclick="toggleMeowChat()">Chat Now</button></div></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📧 EMAIL ACCOUNTS</div>
+                <div class="email-mini">
+                    <div class="email-chip"><div class="email-addr">cybersecurityocean@gmail.com</div><div class="email-tags"><span class="email-tag">Books</span><span class="email-tag">Gumroad</span></div></div>
+                    <div class="email-chip"><div class="email-addr">imthyazzilaan@gmail.com</div><div class="email-tags"><span class="email-tag">Personal</span></div></div>
+                    <div class="email-chip"><div class="email-addr">Mohammedimthiyazimi@outlook.com</div><div class="email-tags"><span class="email-tag">Portfolio</span></div></div>
+                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz832@gmail.com</div><div class="email-tags"><span class="email-tag">Cat Podcast</span><span class="email-tag">Stick Cat</span></div></div>
+                    <div class="email-chip"><div class="email-addr">futureintelligence4@gmail.com</div><div class="email-tags"><span class="email-tag">AI News Bot</span></div></div>
+                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz1401@gmail.com</div><div class="email-tags"><span class="email-tag">Dashboard</span><span class="email-tag">MEOW</span></div></div>
+                    <div class="email-chip"><div class="email-addr">shafapittu@gmail.com</div><div class="email-tags"><span class="email-tag">Backup</span></div></div>
+                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz154@gmail.com</div><div class="email-tags"><span class="email-tag">Alt</span></div></div>
+                    <div class="email-chip"><div class="email-addr">mohammedimthiyaz1401-ai</div><div class="email-tags"><span class="email-tag">GitHub</span></div></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">💻 GITHUB REPOSITORIES</div>
+                <div class="cards">
+                    <div class="card"><div class="card-head"><div class="card-name">ai-content-network</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="github-link" target="_blank">mohammedimthiyaz1401-ai/ai-content-network</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">portfolio</div><span class="badge badge-done">DONE</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/imthiyazimi/portfolio" class="github-link" target="_blank">imthiyazimi/portfolio</a></div><div class="card-links"><a href="https://github.com/imthiyazimi/portfolio" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">cat-podcast-voice-gen</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/imthi92/cat-podcast-voice-gen" class="github-link" target="_blank">imthi92/cat-podcast-voice-gen</a></div><div class="card-links"><a href="https://github.com/imthi92/cat-podcast-voice-gen" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">ai-news-bot</div><span class="badge badge-done">FIXED</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/futureintelligence4-netizen/ai-news-bot" class="github-link" target="_blank">futureintelligence4-netizen/ai-news-bot</a></div><div class="card-links"><a href="https://github.com/futureintelligence4-netizen/ai-news-bot" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">stick-cat-academy</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/imthi92/stick-cat-academy" class="github-link" target="_blank">imthi92/stick-cat-academy</a></div><div class="card-links"><a href="https://github.com/imthi92/stick-cat-academy" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">practical-ai-healthcare</div><span class="badge badge-progress">BOOK 3</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="github-link" target="_blank">cybersecurityocean/practical-ai-healthcare</a></div><div class="card-links"><a href="https://github.com/cybersecurityocean/practical-ai-healthcare" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">ebook-builder</div><span class="badge badge-done">DONE</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="github-link" target="_blank">mohammedimthiyaz1401-ai/ebook-builder</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="card-link" target="_blank">GitHub</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">project-dashboard</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="github-link" target="_blank">mohammedimthiyaz1401-ai/project-dashboard</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/project-dashboard" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="card-link" target="_blank">Live</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">supermarket-hyderabad</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="github-link" target="_blank">mohammedimthiyaz1401-ai/supermarket-hyderabad</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/supermarket-hyderabad" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/supermarket-hyderabad/" class="card-link" target="_blank">Website</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">meow-assistant</div><span class="badge badge-done">LIVE</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="github-link" target="_blank">mohammedimthiyaz1401-ai/meow-assistant</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" class="card-link" target="_blank">GitHub</a><a href="https://mohammedimthiyaz1401-ai.github.io/meow-assistant/" class="card-link" target="_blank">Website</a></div></div>
                 </div>
             </div>
 
@@ -973,29 +458,29 @@
                     <div class="url-add">
                         <input type="text" id="urlName" placeholder="Project name" style="width:120px">
                         <input type="text" id="urlLink" placeholder="URL" style="width:200px">
-                        <button onclick="addProjectUrl()" style="background:rgba(0,229,255,0.2);border:1px solid rgba(0,229,255,0.3);color:#00e5ff;padding:5px 12px;border-radius:6px;cursor:pointer">+ Add</button>
-                        <button onclick="exportUrls()" style="background:rgba(0,200,100,0.2);border:1px solid rgba(0,200,100,0.3);color:#00c864;padding:5px 12px;border-radius:6px;cursor:pointer">📋 Export</button>
+                        <button onclick="addProjectUrl()" style="background:rgba(255,150,50,0.2);border:1px solid rgba(255,150,50,0.3);color:#ffb74d;padding:5px 12px;border-radius:6px;cursor:pointer">+ Add</button>
+                        <button onclick="exportUrls()" style="background:rgba(105,240,174,0.2);border:1px solid rgba(105,240,174,0.3);color:#69f0ae;padding:5px 12px;border-radius:6px;cursor:pointer">📋 Export</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer">LAST UPDATED: AUGUST 31, 2026 &bull; MOHAMMED IMTHIYAZ A &bull; <a href="mailto:cybersecurityocean@gmail.com">cybersecurityocean@gmail.com</a></div>
+        <div class="footer">LAST UPDATED: SEPTEMBER 2026 &bull; 🐱 MOHAMMED IMTHIYAZ A &bull; <a href="mailto:cybersecurityocean@gmail.com">cybersecurityocean@gmail.com</a></div>
     </div>
 
-    <!-- MEOW Assistant Widget -->
+    <!-- MEOW Chat Widget -->
     <button class="meow-fab" onclick="toggleMeowChat()" title="Chat with MEOW">🐱</button>
     <div class="meow-chat" id="meowChat">
         <div class="meow-header">
             <div class="meow-avatar">🐱</div>
             <div class="meow-header-info">
                 <h3>MEOW</h3>
-                <p>AI Assistant • Online</p>
+                <p>Cat Assistant • Online</p>
             </div>
-            <button onclick="meowMuted=!meowMuted;meowStopSpeaking();this.textContent=meowMuted?'🔇':'🔊'" style="background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.3);border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;" title="Toggle Voice">🔊</button>
+            <button onclick="meowMuted=!meowMuted;meowStopSpeaking();this.textContent=meowMuted?'🔇':'🔊'" style="background:rgba(255,150,50,0.1);border:1px solid rgba(255,150,50,0.3);border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;" title="Toggle Voice">🔊</button>
             <div class="meow-status"></div>
         </div>
         <div class="meow-messages" id="meowMessages">
-            <div class="meow-msg bot">Hello! I'm MEOW, your AI assistant. I can help with tasks, notes, URLs, weather, and more! Type <strong>"help"</strong> or click 🎤 to speak. 🐱</div>
+            <div class="meow-msg bot">Meow! 🐱 I'm MEOW, your cat assistant. Type <strong>"help"</strong> or click 🎤 to speak. I can help with tasks, notes, URLs, weather, and more!</div>
         </div>
         <div class="meow-quick-actions">
             <button class="meow-quick-btn" onclick="meowQuickAction('tasks')">📋 Tasks</button>
@@ -1007,466 +492,69 @@
         </div>
         <div class="meow-input-area">
             <button class="meow-voice-btn" id="meowVoiceBtn" onclick="meowVoiceInput()" title="Voice Input">🎤</button>
-            <input type="text" class="meow-input" id="meowInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter')meowSend()">
+            <input type="text" class="meow-input" id="meowInput" placeholder="Ask MEOW anything..." onkeypress="if(event.key==='Enter')meowSend()">
             <button class="meow-send-btn" onclick="meowSend()">➤</button>
         </div>
     </div>
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
     <script>
-        // MEOW Assistant Web Version
-        let meowChatOpen = false;
-        let meowListening = false;
-        let meowRecognition = null;
-        let meowSpeaking = false;
-        let meowMuted = false;
-        let meowSpeakingQueue = [];
-        let meowLastSpoken = '';
-        let meowSpeakTimeout = null;
-        let meowProcessing = false;
-
-        // Text-to-Speech with Queue Control
-        function meowSpeak(text) {
-            if (meowMuted || !window.speechSynthesis) return;
-            
-            const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, '').trim();
-            if (!cleanText || cleanText.length < 2) return;
-            
-            // Skip if same message repeated
-            if (cleanText === meowLastSpoken) return;
-            meowLastSpoken = cleanText;
-            
-            // Cancel any pending speech
-            window.speechSynthesis.cancel();
-            clearTimeout(meowSpeakTimeout);
-            
-            const utterance = new SpeechSynthesisUtterance(cleanText);
-            utterance.rate = 1.0;
-            utterance.pitch = 1.0;
-            utterance.volume = 0.9;
-            
-            const voices = window.speechSynthesis.getVoices();
-            const preferred = voices.find(v => v.name.includes('Google') || v.name.includes('Microsoft'));
-            if (preferred) utterance.voice = preferred;
-            
-            utterance.onstart = () => { meowSpeaking = true; };
-            utterance.onend = () => { 
-                meowSpeaking = false;
-                meowLastSpoken = '';
-            };
-            utterance.onerror = () => { 
-                meowSpeaking = false;
-                meowLastSpoken = '';
-            };
-            
-            window.speechSynthesis.speak(utterance);
-            
-            // Force stop after 15 seconds max
-            meowSpeakTimeout = setTimeout(() => {
-                window.speechSynthesis.cancel();
-                meowSpeaking = false;
-            }, 15000);
-        }
-
-        function meowStopSpeaking() {
-            window.speechSynthesis.cancel();
-            meowSpeaking = false;
-            meowLastSpoken = '';
-            clearTimeout(meowSpeakTimeout);
-        }
-
-        // Theme Control System
-        const themes = {
-            current: 'space',
-            presets: {
-                space: { primary: '#00e5ff', accent: '#0060ff', bg: '#020810', name: 'Space Blue' },
-                ocean: { primary: '#00bcd4', accent: '#0097a7', bg: '#0a1929', name: 'Ocean Teal' },
-                forest: { primary: '#4caf50', accent: '#2e7d32', bg: '#0a1a0a', name: 'Forest Green' },
-                sunset: { primary: '#ff9800', accent: '#f57c00', bg: '#1a0a00', name: 'Sunset Orange' },
-                purple: { primary: '#ce93d8', accent: '#9c27b0', bg: '#0d0015', name: 'Purple Haze' },
-                cherry: { primary: '#e94560', accent: '#c62828', bg: '#150005', name: 'Cherry Red' },
-                dark: { primary: '#ffffff', accent: '#9e9e9e', bg: '#000000', name: 'Pure Dark' },
-                light: { primary: '#1976d2', accent: '#0d47a1', bg: '#f5f5f5', name: 'Light Mode' }
+        // Background Effects
+        (function initBackground() {
+            const starsEl = document.getElementById('stars');
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 60 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
+                starsEl.appendChild(star);
             }
-        };
-
-        // Website Control Functions
-        const websiteControl = {
-            // Task Management
-            tasks: JSON.parse(localStorage.getItem('meow-tasks') || '[]'),
-            
-            addTask: (task) => {
-                websiteControl.tasks.push({ id: Date.now(), text: task, done: false, created: new Date().toISOString() });
-                localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks));
-                return true;
-            },
-            
-            completeTask: (index) => {
-                if (websiteControl.tasks[index]) {
-                    websiteControl.tasks[index].done = true;
-                    localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks));
-                    return true;
-                }
-                return false;
-            },
-            
-            removeTask: (index) => {
-                if (websiteControl.tasks[index]) {
-                    websiteControl.tasks.splice(index, 1);
-                    localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks));
-                    return true;
-                }
-                return false;
-            },
-            
-            listTasks: () => {
-                return websiteControl.tasks.map((t, i) => `${i+1}. ${t.done ? '✅' : '⏳'} ${t.text}`).join('<br>') || 'No tasks yet!';
-            },
-            
-            clearCompletedTasks: () => {
-                websiteControl.tasks = websiteControl.tasks.filter(t => !t.done);
-                localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks));
-                return true;
-            },
-            
-            // Notes System
-            notes: JSON.parse(localStorage.getItem('meow-notes') || '[]'),
-            
-            addNote: (text) => {
-                websiteControl.notes.push({ id: Date.now(), text, created: new Date().toISOString() });
-                localStorage.setItem('meow-notes', JSON.stringify(websiteControl.notes));
-                return true;
-            },
-            
-            listNotes: () => {
-                return websiteControl.notes.map((n, i) => `${i+1}. ${n.text.substring(0, 50)}${n.text.length > 50 ? '...' : ''}`).join('<br>') || 'No notes yet!';
-            },
-            
-            deleteNote: (index) => {
-                if (websiteControl.notes[index]) {
-                    websiteControl.notes.splice(index, 1);
-                    localStorage.setItem('meow-notes', JSON.stringify(websiteControl.notes));
-                    return true;
-                }
-                return false;
-            },
-            
-            // Reminders
-            reminders: JSON.parse(localStorage.getItem('meow-reminders') || '[]'),
-            
-            addReminder: (text, minutes) => {
-                const time = new Date(Date.now() + minutes * 60000);
-                websiteControl.reminders.push({ id: Date.now(), text, time: time.toISOString(), fired: false });
-                localStorage.setItem('meow-reminders', JSON.stringify(websiteControl.reminders));
-                return time;
-            },
-            
-            listReminders: () => {
-                const pending = websiteControl.reminders.filter(r => !r.fired);
-                return pending.map((r, i) => {
-                    const time = new Date(r.time);
-                    const diff = Math.round((time - new Date()) / 60000);
-                    return `${i+1}. ${r.text} - in ${diff} min`;
-                }).join('<br>') || 'No pending reminders!';
-            },
-            
-            // Timer
-            timerInterval: null,
-            timerSeconds: 0,
-            
-            startTimer: (minutes) => {
-                websiteControl.timerSeconds = minutes * 60;
-                if (websiteControl.timerInterval) clearInterval(websiteControl.timerInterval);
-                websiteControl.timerInterval = setInterval(() => {
-                    websiteControl.timerSeconds--;
-                    if (websiteControl.timerSeconds <= 0) {
-                        clearInterval(websiteControl.timerInterval);
-                        meowAddMsg('bot', '⏰ Timer finished!');
-                        if (!meowMuted) new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3').play();
-                    }
-                }, 1000);
-                return true;
-            },
-            
-            stopTimer: () => {
-                if (websiteControl.timerInterval) {
-                    clearInterval(websiteControl.timerInterval);
-                    websiteControl.timerInterval = null;
-                }
-                return true;
-            },
-            
-            // Clipboard
-            copyToClipboard: async (text) => {
-                try {
-                    await navigator.clipboard.writeText(text);
-                    return true;
-                } catch { return false; }
-            },
-            
-            readClipboard: async () => {
-                try {
-                    return await navigator.clipboard.readText();
-                } catch { return 'Could not read clipboard'; }
-            },
-            
-            // Navigation
-            openUrl: (url) => {
-                if (!url.startsWith('http')) url = 'https://' + url;
-                window.open(url, '_blank');
-                return true;
-            },
-            
-            goToDashboard: () => { window.scrollTo({ top: 0, behavior: 'smooth' }); return true; },
-            goToGithub: () => { websiteControl.scrollTo('github'); return true; },
-            goToBooks: () => { websiteControl.scrollTo('books'); return true; },
-            
-            // Calculator
-            calculate: (expr) => {
-                try {
-                    // Sanitize: only allow numbers, operators, parentheses, dots, spaces
-                    const sanitized = expr.replace(/[^0-9+\-*/().%\s]/g, '');
-                    if (sanitized !== expr.replace(/\s/g, '')) return 'Invalid expression';
-                    const result = Function('"use strict"; return (' + sanitized + ')')();
-                    if (typeof result !== 'number' || !isFinite(result)) return 'Invalid result';
-                    return `= ${result}`;
-                } catch { return 'Invalid expression'; }
-            },
-            
-            // Unit Converter
-            convert: (value, from, to) => {
-                const conversions = {
-                    'kg-g': value * 1000,
-                    'g-kg': value / 1000,
-                    'km-m': value * 1000,
-                    'm-km': value / 1000,
-                    'l-ml': value * 1000,
-                    'ml-l': value / 1000,
-                    'c-f': (value * 9/5) + 32,
-                    'f-c': (value - 32) * 5/9,
-                    'inch-cm': value * 2.54,
-                    'cm-inch': value / 2.54,
-                    'mph-kmh': value * 1.609,
-                    'kmh-mph': value / 1.609
-                };
-                const key = `${from.toLowerCase()}-${to.toLowerCase()}`;
-                return conversions[key] ? `${value} ${from} = ${conversions[key].toFixed(2)} ${to}` : 'Unknown conversion';
-            },
-            
-            // Quick Links
-            openGmail: () => window.open('https://mail.google.com', '_blank'),
-            openCalendar: () => window.open('https://calendar.google.com', '_blank'),
-            openDrive: () => window.open('https://drive.google.com', '_blank'),
-            openYouTube: () => window.open('https://youtube.com', '_blank'),
-            openGitHub: () => window.open('https://github.com', '_blank'),
-            openChatGPT: () => window.open('https://chat.openai.com', '_blank'),
-            openNotion: () => window.open('https://notion.so', '_blank'),
-            
-            // System
-            getSystemInfo: () => {
-                return `🖥️ <strong>System:</strong><br>Platform: ${navigator.platform}<br>Language: ${navigator.language}<br>Screen: ${screen.width}x${screen.height}<br>Cores: ${navigator.hardwareConcurrency || 'N/A'}<br>Memory: ${navigator.deviceMemory || 'N/A'}GB`;
-            },
-            
-            // Weather
-            getWeather: async () => {
-                try {
-                    const pos = await fetch('https://ipapi.co/json/').then(r => r.json());
-                    const weather = await fetch(`https://wttr.in/${pos.city}?format=%l:+%C+%t+%h+%w`).then(r => r.text());
-                    return weather;
-                } catch { return 'Could not fetch weather'; }
-            },
-            
-            // Joke
-            getJoke: async () => {
-                try {
-                    const joke = await fetch('https://official-joke-api.appspot.com/random_joke').then(r => r.json());
-                    return `${joke.setup} - ${joke.punchline}`;
-                } catch { return 'Why did the cat join Instagram? To get more followers!'; }
-            },
-            
-            // Quote
-            getQuote: async () => {
-                try {
-                    const quote = await fetch('https://zenquotes.io/api/random').then(r => r.json());
-                    return `"${quote[0].q}" - ${quote[0].a}`;
-                } catch { return '"The only way to do great work is to love what you do." - Steve Jobs'; }
-            },
-            
-            // Color Operations
-            hexToRgb: (hex) => {
-                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-                return result ? `R: ${parseInt(result[1], 16)}, G: ${parseInt(result[2], 16)}, B: ${parseInt(result[3], 16)}` : 'Invalid hex';
-            },
-            
-            rgbToHex: (r, g, b) => {
-                return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
-            },
-            
-            // Text Operations
-            countWords: (text) => text.split(/\s+/).length,
-            countChars: (text) => text.length,
-            reverseText: (text) => text.split('').reverse().join(''),
-            uppercase: (text) => text.toUpperCase(),
-            lowercase: (text) => text.toLowerCase(),
-            
-            // Random
-            randomNumber: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
-            randomColor: () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0'),
-            randomChoice: (arr) => arr[Math.floor(Math.random() * arr.length)],
-            
-            // Base64
-            encode64: (text) => btoa(text),
-            decode64: (text) => {
-                try { return atob(text); } catch { return 'Invalid base64'; }
-            },
-            
-            // Show/Hide
-            scrollTo: (section) => {
-                const sections = {
-                    'header': '.header',
-                    'stats': '.stats-row',
-                    'email': '.email-mini',
-                    'books': '.section:nth-child(2)',
-                    'youtube': '.section:nth-child(3)',
-                    'websites': '.section:nth-child(4)',
-                    'infrastructure': '.section:nth-child(5)',
-                    'github': '.section:nth-child(6)',
-                    'footer': '.footer'
-                };
-                const el = document.querySelector(sections[section] || section);
-                if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return true; }
-                return false;
-            },
-            
-            hideSection: (section) => {
-                const el = document.querySelector(`.section:nth-child(${section})`);
-                if (el) { el.style.display = 'none'; return true; }
-                return false;
-            },
-            
-            showSection: (section) => {
-                const el = document.querySelector(`.section:nth-child(${section})`);
-                if (el) { el.style.display = 'block'; return true; }
-                return false;
-            },
-            
-            showAllSections: () => {
-                document.querySelectorAll('.section').forEach(s => s.style.display = 'block');
-                return true;
-            },
-            
-            hideAllSections: () => {
-                document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-                return true;
-            },
-            
-            changeCardColor: (color) => {
-                document.querySelectorAll('.card').forEach(c => c.style.borderColor = color);
-                return true;
-            },
-            
-            changeBackground: (color) => {
-                document.querySelector('.glass-panel').style.background = color;
-                return true;
-            },
-            
-            toggleNightMode: () => {
-                document.body.classList.toggle('night-mode');
-                return true;
-            },
-            
-            changeGlow: (color) => {
-                document.documentElement.style.setProperty('--primary', color);
-                return true;
-            },
-            
-            minimizeAll: () => {
-                document.querySelectorAll('.section').forEach(s => {
-                    s.style.maxHeight = '50px';
-                    s.style.overflow = 'hidden';
-                });
-                return true;
-            },
-            
-            expandAll: () => {
-                document.querySelectorAll('.section').forEach(s => {
-                    s.style.maxHeight = 'none';
-                    s.style.overflow = 'visible';
-                });
-                return true;
-            },
-            
-            highlightCards: () => {
-                document.querySelectorAll('.card').forEach(c => {
-                    c.style.boxShadow = '0 0 20px rgba(0,229,255,0.5)';
-                    setTimeout(() => c.style.boxShadow = '', 2000);
-                });
-                return true;
-            },
-            
-            changeTitle: (text) => {
-                document.querySelector('.header h1').textContent = text;
-                return true;
-            },
-            
-            addBanner: (text) => {
-                const banner = document.createElement('div');
-                banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:rgba(233,69,96,0.9);color:#fff;text-align:center;padding:10px;z-index:9999;font-weight:bold;cursor:pointer;';
-                banner.textContent = text;
-                banner.onclick = () => banner.remove();
-                document.body.appendChild(banner);
-                return true;
-            },
-            
-            countElements: () => {
-                const cards = document.querySelectorAll('.card').length;
-                const sections = document.querySelectorAll('.section').length;
-                const emails = document.querySelectorAll('.email-chip').length;
-                return `Found ${cards} cards, ${sections} sections, ${emails} email chips`;
+            const pawsEl = document.getElementById('catPaws');
+            const paws = ['🐾', '🐱', '😺', '😸', '😹', '😻'];
+            for (let i = 0; i < 8; i++) {
+                const paw = document.createElement('div');
+                paw.className = 'paw';
+                paw.textContent = paws[Math.floor(Math.random() * paws.length)];
+                paw.style.left = Math.random() * 100 + '%';
+                paw.style.animationDuration = (15 + Math.random() * 20) + 's';
+                paw.style.animationDelay = (-Math.random() * 20) + 's';
+                pawsEl.appendChild(paw);
             }
-        };
+        })();
 
-        function applyTheme(themeName) {
-            const theme = themes.presets[themeName];
-            if (!theme) return false;
-            
-            document.documentElement.style.setProperty('--primary', theme.primary);
-            document.documentElement.style.setProperty('--accent', theme.accent);
-            document.documentElement.style.setProperty('--bg', theme.bg);
-            themes.current = themeName;
-            
-            // Save to localStorage
-            localStorage.setItem('meow-theme', themeName);
-            return true;
+        // Date Display
+        function updateDate() {
+            const now = new Date();
+            document.getElementById('dateDisplay').textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
         }
+        updateDate();
 
-        function toggleAnimations() {
-            const body = document.body;
-            body.classList.toggle('no-animations');
-            const enabled = !body.classList.contains('no-animations');
-            localStorage.setItem('meow-animations', enabled);
-            return enabled;
+        // Countdown
+        function updateCountdown() {
+            const now = new Date();
+            const dow = now.getDay();
+            const target = new Date(now);
+            target.setDate(now.getDate() + ((6 - dow + 7) % 7 || 7));
+            target.setHours(10, 0, 0, 0);
+            const diff = target - now;
+            document.getElementById('countDays').textContent = Math.floor(diff / 86400000);
+            document.getElementById('countHours').textContent = Math.floor((diff % 86400000) / 3600000);
+            document.getElementById('countMins').textContent = Math.floor((diff % 3600000) / 60000);
+            document.getElementById('countSecs').textContent = Math.floor((diff % 60000) / 1000);
+            document.getElementById('nextCatVideo').textContent = target.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
         }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
 
-        function changeFontSize(size) {
-            const sizes = { small: '12px', normal: '14px', large: '16px', xlarge: '18px' };
-            document.body.style.fontSize = sizes[size] || '14px';
-            localStorage.setItem('meow-fontsize', size);
-            return size;
-        }
+        // Scroll to Top
+        window.addEventListener('scroll', () => {
+            document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 300);
+        });
 
-        function changePanelOpacity(value) {
-            const panel = document.querySelector('.glass-panel');
-            if (panel) {
-                panel.style.background = `rgba(5,15,35,${value})`;
-                localStorage.setItem('meow-opacity', value);
-            }
-            return value;
-        }
-
-        // URL Tracker System
+        // URL Tracker
         let projectUrls = JSON.parse(localStorage.getItem('meow-urls') || '[]');
-        
-        // Default URLs
         const defaultUrls = [
             { name: 'Dashboard', url: 'https://mohammedimthiyaz1401-ai.github.io/project-dashboard/' },
             { name: 'Portfolio', url: 'https://myportfolio-seven-ruby-43.vercel.app/' },
@@ -1481,842 +569,311 @@
             { name: 'Book 1 - Gumroad', url: 'https://cyberwave407.gumroad.com/l/ai-healthcare-dos-donts' },
             { name: 'Book 2 - Gumroad', url: 'https://cyberwave407.gumroad.com/l/Stop-AI-From-Leaking-Patient-Data' }
         ];
-        
-        if (projectUrls.length === 0) {
-            projectUrls = defaultUrls;
-            localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
-        }
-        
+        if (projectUrls.length === 0) { projectUrls = defaultUrls; localStorage.setItem('meow-urls', JSON.stringify(projectUrls)); }
+
         function renderUrls() {
             const list = document.getElementById('urlList');
             if (!list) return;
-            list.innerHTML = projectUrls.map((u, i) => `
-                <div class="url-item">
-                    <span class="url-name">${u.name}</span>
-                    <span class="url-link"><a href="${u.url}" target="_blank">${u.url.length > 40 ? u.url.substring(0, 40) + '...' : u.url}</a></span>
-                    <button class="url-delete" onclick="removeUrl(${i})">✕</button>
-                </div>
-            `).join('');
+            list.innerHTML = projectUrls.map((u, i) => '<div class="url-item"><span class="url-name">' + u.name + '</span><span class="url-link"><a href="' + u.url + '" target="_blank">' + (u.url.length > 40 ? u.url.substring(0, 40) + '...' : u.url) + '</a></span><button class="url-delete" onclick="removeUrl(' + i + ')">✕</button></div>').join('');
         }
-        
+
         function addProjectUrl() {
             const name = document.getElementById('urlName').value.trim();
             const url = document.getElementById('urlLink').value.trim();
             if (!name || !url) return;
-            
-            // Validate URL
             let finalUrl = url;
-            if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                finalUrl = 'https://' + url;
-            }
-            try {
-                new URL(finalUrl);
-            } catch {
-                const notif = document.createElement('div');
-                notif.style.cssText = 'position:fixed;top:20px;right:20px;background:rgba(255,0,0,0.9);color:#fff;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
-                notif.textContent = 'Invalid URL format!';
-                document.body.appendChild(notif);
-                setTimeout(() => notif.remove(), 2000);
-                return;
-            }
-            
-            // Check for duplicates
-            if (projectUrls.some(u => u.url === finalUrl)) {
-                const notif = document.createElement('div');
-                notif.style.cssText = 'position:fixed;top:20px;right:20px;background:rgba(255,165,0,0.9);color:#000;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
-                notif.textContent = 'URL already exists!';
-                document.body.appendChild(notif);
-                setTimeout(() => notif.remove(), 2000);
-                return;
-            }
-            
+            if (!url.startsWith('http://') && !url.startsWith('https://')) finalUrl = 'https://' + url;
+            try { new URL(finalUrl); } catch { showNotif('Invalid URL!', true); return; }
+            if (projectUrls.some(u => u.url === finalUrl)) { showNotif('URL exists!', true); return; }
             projectUrls.push({ name, url: finalUrl });
             localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
             document.getElementById('urlName').value = '';
             document.getElementById('urlLink').value = '';
             renderUrls();
-            
-            const notif = document.createElement('div');
-            notif.style.cssText = 'position:fixed;top:20px;right:20px;background:rgba(0,200,100,0.9);color:#000;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
-            notif.textContent = `Added: ${name}`;
-            document.body.appendChild(notif);
-            setTimeout(() => notif.remove(), 2000);
+            showNotif('Added: ' + name);
         }
-        
+
         function removeUrl(index) {
             projectUrls.splice(index, 1);
             localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
             renderUrls();
         }
-        
+
         function exportUrls() {
-            const text = projectUrls.map(u => `${u.name}: ${u.url}`).join('\n');
-            navigator.clipboard.writeText(text).then(() => {
-                // Show temporary notification instead of alert
-                const notif = document.createElement('div');
-                notif.style.cssText = 'position:fixed;top:20px;right:20px;background:rgba(0,229,255,0.9);color:#000;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
-                notif.textContent = 'URLs copied to clipboard!';
-                document.body.appendChild(notif);
-                setTimeout(() => notif.remove(), 2000);
-            }).catch(() => {
-                const notif = document.createElement('div');
-                notif.style.cssText = 'position:fixed;top:20px;right:20px;background:rgba(255,0,0,0.9);color:#fff;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
-                notif.textContent = 'Failed to copy. Try manually.';
-                document.body.appendChild(notif);
-                setTimeout(() => notif.remove(), 2000);
-            });
+            const text = projectUrls.map(u => u.name + ': ' + u.url).join('\n');
+            navigator.clipboard.writeText(text).then(() => showNotif('URLs copied!')).catch(() => showNotif('Copy failed!', true));
         }
-        
-        // Initialize URLs on load
+
+        function showNotif(msg, isError) {
+            const n = document.createElement('div');
+            n.style.cssText = 'position:fixed;top:20px;right:20px;background:' + (isError ? 'rgba(255,0,0,0.9)' : 'rgba(105,240,174,0.9)') + ';color:#fff;padding:12px 20px;border-radius:8px;z-index:99999;font-weight:bold;';
+            n.textContent = msg;
+            document.body.appendChild(n);
+            setTimeout(() => n.remove(), 2000);
+        }
+
         window.addEventListener('DOMContentLoaded', renderUrls);
 
-        // Load saved preferences
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('meow-theme');
-            if (savedTheme) applyTheme(savedTheme);
-            
-            const savedAnimations = localStorage.getItem('meow-animations');
-            if (savedAnimations === 'false') document.body.classList.add('no-animations');
-            
-            const savedFontSize = localStorage.getItem('meow-fontsize');
-            if (savedFontSize) changeFontSize(savedFontSize);
-            
-            const savedOpacity = localStorage.getItem('meow-opacity');
-            if (savedOpacity) changePanelOpacity(savedOpacity);
-        });
+        // MEOW Assistant
+        let meowChatOpen = false, meowListening = false, meowRecognition = null, meowSpeaking = false, meowMuted = false, meowLastSpoken = '', meowSpeakTimeout = null, meowProcessing = false;
 
-        // Initialize Speech Recognition
+        function meowSpeak(text) {
+            if (meowMuted || !window.speechSynthesis) return;
+            const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, '').replace(/[^\w\s.,!?'-]/g, ' ').trim();
+            if (!cleanText || cleanText.length < 2) return;
+            if (cleanText === meowLastSpoken) return;
+            meowLastSpoken = cleanText;
+            window.speechSynthesis.cancel();
+            clearTimeout(meowSpeakTimeout);
+            const u = new SpeechSynthesisUtterance(cleanText);
+            u.rate = 1.0; u.pitch = 1.0; u.volume = 0.9;
+            const v = window.speechSynthesis.getVoices();
+            const p = v.find(v => v.name.includes('Google') || v.name.includes('Microsoft'));
+            if (p) u.voice = p;
+            u.onstart = () => { meowSpeaking = true; };
+            u.onend = u.onerror = () => { meowSpeaking = false; meowLastSpoken = ''; };
+            window.speechSynthesis.speak(u);
+            meowSpeakTimeout = setTimeout(() => { window.speechSynthesis.cancel(); meowSpeaking = false; }, 15000);
+        }
+
+        function meowStopSpeaking() {
+            window.speechSynthesis.cancel();
+            meowSpeaking = false;
+            meowLastSpoken = '';
+            clearTimeout(meowSpeakTimeout);
+        }
+
+        // Theme System
+        const themes = { current: 'space', presets: {
+            space: { primary: '#ffb74d', accent: '#ff6b00', bg: '#0a0a0f', name: 'Cat Orange' },
+            ocean: { primary: '#00bcd4', accent: '#0097a7', bg: '#0a1929', name: 'Ocean Teal' },
+            forest: { primary: '#4caf50', accent: '#2e7d32', bg: '#0a1a0a', name: 'Forest Green' },
+            sunset: { primary: '#ff9800', accent: '#f57c00', bg: '#1a0a00', name: 'Sunset Orange' },
+            purple: { primary: '#ce93d8', accent: '#9c27b0', bg: '#0d0015', name: 'Purple Haze' },
+            dark: { primary: '#ffffff', accent: '#9e9e9e', bg: '#000000', name: 'Pure Dark' },
+            light: { primary: '#1976d2', accent: '#0d47a1', bg: '#f5f5f5', name: 'Light Mode' }
+        }};
+
+        // Website Control
+        const websiteControl = {
+            tasks: JSON.parse(localStorage.getItem('meow-tasks') || '[]'),
+            addTask: (t) => { websiteControl.tasks.push({ id: Date.now(), text: t, done: false }); localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks)); },
+            completeTask: (i) => { if (websiteControl.tasks[i]) { websiteControl.tasks[i].done = true; localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks)); return true; } return false; },
+            removeTask: (i) => { if (websiteControl.tasks[i]) { websiteControl.tasks.splice(i, 1); localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks)); return true; } return false; },
+            listTasks: () => websiteControl.tasks.map((t, i) => (i+1) + '. ' + (t.done ? '✅' : '⏳') + ' ' + t.text).join('<br>') || 'No tasks yet!',
+            clearCompletedTasks: () => { websiteControl.tasks = websiteControl.tasks.filter(t => !t.done); localStorage.setItem('meow-tasks', JSON.stringify(websiteControl.tasks)); },
+            notes: JSON.parse(localStorage.getItem('meow-notes') || '[]'),
+            addNote: (t) => { websiteControl.notes.push({ id: Date.now(), text: t }); localStorage.setItem('meow-notes', JSON.stringify(websiteControl.notes)); },
+            listNotes: () => websiteControl.notes.map((n, i) => (i+1) + '. ' + n.text.substring(0, 50)).join('<br>') || 'No notes yet!',
+            deleteNote: (i) => { if (websiteControl.notes[i]) { websiteControl.notes.splice(i, 1); localStorage.setItem('meow-notes', JSON.stringify(websiteControl.notes)); return true; } return false; },
+            reminders: JSON.parse(localStorage.getItem('meow-reminders') || '[]'),
+            addReminder: (t, m) => { const time = new Date(Date.now() + m * 60000); websiteControl.reminders.push({ id: Date.now(), text: t, time: time.toISOString(), fired: false }); localStorage.setItem('meow-reminders', JSON.stringify(websiteControl.reminders)); return time; },
+            listReminders: () => { const p = websiteControl.reminders.filter(r => !r.fired); return p.map((r, i) => (i+1) + '. ' + r.text + ' - in ' + Math.round((new Date(r.time) - new Date()) / 60000) + ' min').join('<br>') || 'No pending reminders!'; },
+            timerInterval: null, timerSeconds: 0,
+            startTimer: (m) => { websiteControl.timerSeconds = m * 60; if (websiteControl.timerInterval) clearInterval(websiteControl.timerInterval); websiteControl.timerInterval = setInterval(() => { websiteControl.timerSeconds--; if (websiteControl.timerSeconds <= 0) { clearInterval(websiteControl.timerInterval); meowAddMsg('bot', '⏰ Timer finished!'); } }, 1000); },
+            stopTimer: () => { clearInterval(websiteControl.timerInterval); websiteControl.timerInterval = null; },
+            calculate: (e) => { try { const s = e.replace(/[^0-9+\-*/().%\s]/g, ''); if (!s) return 'Invalid'; const r = Function('"use strict"; return (' + s + ')')(); if (typeof r !== 'number' || !isFinite(r)) return 'Invalid'; return '= ' + r; } catch { return 'Invalid expression'; } },
+            convert: (v, f, t) => { const c = { 'kg-g': v*1000, 'g-kg': v/1000, 'km-m': v*1000, 'm-km': v/1000, 'c-f': (v*9/5)+32, 'f-c': (v-32)*5/9, 'inch-cm': v*2.54, 'cm-inch': v/2.54 }; const k = f.toLowerCase()+'-'+t.toLowerCase(); return c[k] ? v+' '+f+' = '+c[k].toFixed(2)+' '+t : 'Unknown conversion'; },
+            openGmail: () => window.open('https://mail.google.com', '_blank'),
+            openCalendar: () => window.open('https://calendar.google.com', '_blank'),
+            openDrive: () => window.open('https://drive.google.com', '_blank'),
+            openYouTube: () => window.open('https://youtube.com', '_blank'),
+            openGitHub: () => window.open('https://github.com', '_blank'),
+            openChatGPT: () => window.open('https://chat.openai.com', '_blank'),
+            getSystemInfo: () => 'Platform: ' + navigator.platform + '<br>Language: ' + navigator.language + '<br>Screen: ' + screen.width + 'x' + screen.height,
+            getWeather: async () => { try { const p = await fetch('https://ipapi.co/json/').then(r=>r.json()); return await fetch('https://wttr.in/'+p.city+'?format=3').then(r=>r.text()); } catch { return 'Could not fetch weather'; } },
+            getJoke: async () => { try { const j = await fetch('https://official-joke-api.appspot.com/random_joke').then(r=>r.json()); return j.setup+' - '+j.punchline; } catch { return 'Why did the cat join Instagram? To get more followers!'; } },
+            getQuote: async () => { try { const q = await fetch('https://zenquotes.io/api/random').then(r=>r.json()); return '"'+q[0].q+'" - '+q[0].a; } catch { return '"The only way to do great work is to love what you do." - Steve Jobs'; } },
+            countWords: (t) => t.split(/\s+/).length,
+            countChars: (t) => t.length,
+            reverseText: (t) => t.split('').reverse().join(''),
+            uppercase: (t) => t.toUpperCase(),
+            lowercase: (t) => t.toLowerCase(),
+            randomNumber: (a, b) => Math.floor(Math.random() * (b - a + 1)) + a,
+            randomColor: () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0'),
+            randomChoice: (a) => a[Math.floor(Math.random() * a.length)],
+            encode64: (t) => btoa(t),
+            decode64: (t) => { try { return atob(t); } catch { return 'Invalid base64'; } },
+            scrollTo: (s) => { const m = { header: '.header', stats: '.stats-row', email: '.email-mini', books: '.section:nth-child(2)', youtube: '.section:nth-child(3)', websites: '.section:nth-child(4)', infrastructure: '.section:nth-child(5)', github: '.section:nth-child(6)', urls: '.section:nth-child(7)', footer: '.footer' }; const el = document.querySelector(m[s]); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return true; } return false; },
+            showAllSections: () => { document.querySelectorAll('.section').forEach(s => s.style.display = 'block'); },
+            hideAllSections: () => { document.querySelectorAll('.section').forEach(s => s.style.display = 'none'); },
+            changeCardColor: (c) => { document.querySelectorAll('.card').forEach(cd => cd.style.borderColor = c); },
+            changeBackground: (c) => { document.querySelector('.glass-panel').style.background = c; },
+            changeGlow: (c) => { document.documentElement.style.setProperty('--primary', c); },
+            minimizeAll: () => { document.querySelectorAll('.section').forEach(s => { s.style.maxHeight = '50px'; s.style.overflow = 'hidden'; }); },
+            expandAll: () => { document.querySelectorAll('.section').forEach(s => { s.style.maxHeight = 'none'; s.style.overflow = 'visible'; }); },
+            highlightCards: () => { document.querySelectorAll('.card').forEach(c => { c.style.boxShadow = '0 0 20px rgba(255,150,50,0.5)'; setTimeout(() => c.style.boxShadow = '', 2000); }); },
+            changeTitle: (t) => { document.querySelector('.header h1').textContent = t; },
+            addBanner: (t) => { const b = document.createElement('div'); b.style.cssText = 'position:fixed;top:0;left:0;right:0;background:rgba(255,100,0,0.9);color:#fff;text-align:center;padding:10px;z-index:9999;font-weight:bold;cursor:pointer;'; b.textContent = t; b.onclick = () => b.remove(); document.body.appendChild(b); },
+            countElements: () => 'Cards: ' + document.querySelectorAll('.card').length + ', Sections: ' + document.querySelectorAll('.section').length
+        };
+
+        function applyTheme(n) { const t = themes.presets[n]; if (!t) return; document.documentElement.style.setProperty('--primary', t.primary); document.documentElement.style.setProperty('--accent', t.accent); themes.current = n; localStorage.setItem('meow-theme', n); }
+        function toggleAnimations() { document.body.classList.toggle('no-animations'); return !document.body.classList.contains('no-animations'); }
+        function changeFontSize(s) { const m = { small: '12px', normal: '14px', large: '16px', xlarge: '18px' }; document.body.style.fontSize = m[s] || '14px'; localStorage.setItem('meow-fontsize', s); }
+        function changePanelOpacity(v) { const p = document.querySelector('.glass-panel'); if (p) { p.style.background = 'rgba(15,15,25,' + v + ')'; localStorage.setItem('meow-opacity', v); } }
+
+        // Speech Recognition
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            meowRecognition = new SpeechRecognition();
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            meowRecognition = new SR();
             meowRecognition.continuous = false;
             meowRecognition.interimResults = false;
             meowRecognition.lang = 'en-US';
-            
-            meowRecognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                document.getElementById('meowInput').value = transcript;
-                meowSend();
-            };
-            
-            meowRecognition.onend = () => {
-                meowListening = false;
-                document.getElementById('meowVoiceBtn').classList.remove('listening');
-            };
-            
-            meowRecognition.onerror = (event) => {
-                meowListening = false;
-                document.getElementById('meowVoiceBtn').classList.remove('listening');
-                if (event.error === 'not-allowed') {
-                    meowAddMsg('bot', '🎤 Microphone access denied. Please allow microphone access.', false);
-                } else if (event.error === 'no-speech') {
-                    meowAddMsg('bot', '🎤 No speech detected. Try again!', false);
-                }
-            };
+            meowRecognition.onresult = (e) => { document.getElementById('meowInput').value = e.results[0][0].transcript; meowSend(); };
+            meowRecognition.onend = () => { meowListening = false; document.getElementById('meowVoiceBtn').classList.remove('listening'); };
+            meowRecognition.onerror = (e) => { meowListening = false; document.getElementById('meowVoiceBtn').classList.remove('listening'); if (e.error === 'not-allowed') meowAddMsg('bot', '🎤 Mic access denied.', false); else if (e.error === 'no-speech') meowAddMsg('bot', '🎤 No speech detected.', false); };
         }
 
-        function toggleMeowChat() {
-            meowChatOpen = !meowChatOpen;
-            document.getElementById('meowChat').classList.toggle('active', meowChatOpen);
-        }
+        function toggleMeowChat() { meowChatOpen = !meowChatOpen; document.getElementById('meowChat').classList.toggle('active', meowChatOpen); }
 
         function meowVoiceInput() {
-            if (!meowRecognition) {
-                meowAddMsg('bot', 'Voice input not supported in this browser. Try Chrome!', false);
-                return;
-            }
-            if (meowListening) {
-                meowRecognition.stop();
-                meowListening = false;
-                document.getElementById('meowVoiceBtn').classList.remove('listening');
-            } else {
-                if (meowProcessing) return;
-                meowStopSpeaking();
-                try {
-                    meowRecognition.start();
-                    meowListening = true;
-                    document.getElementById('meowVoiceBtn').classList.add('listening');
-                    meowAddMsg('bot', 'Listening... speak now! 🎤', false);
-                } catch(e) {
-                    meowAddMsg('bot', '🎤 Could not start voice input. Try again!', false);
-                }
-            }
+            if (!meowRecognition) { meowAddMsg('bot', 'Voice not supported. Try Chrome!', false); return; }
+            if (meowListening) { meowRecognition.stop(); meowListening = false; document.getElementById('meowVoiceBtn').classList.remove('listening'); }
+            else { if (meowProcessing) return; meowStopSpeaking(); try { meowRecognition.start(); meowListening = true; document.getElementById('meowVoiceBtn').classList.add('listening'); meowAddMsg('bot', 'Listening... 🎤', false); } catch(e) { meowAddMsg('bot', '🎤 Try again!', false); } }
         }
 
-        function meowAddMsg(type, text, speak = true) {
-            const container = document.getElementById('meowMessages');
-            if (!container) return;
-            const msg = document.createElement('div');
-            msg.className = `meow-msg ${type}`;
-            msg.innerHTML = text;
-            container.appendChild(msg);
-            container.scrollTop = container.scrollHeight;
+        function meowAddMsg(type, text, speak) {
+            if (speak === undefined) speak = true;
+            const c = document.getElementById('meowMessages');
+            if (!c) return;
+            const m = document.createElement('div');
+            m.className = 'meow-msg ' + type;
+            m.innerHTML = (type === 'user') ? text.replace(/</g, '&lt;').replace(/>/g, '&gt;') : text;
+            c.appendChild(m);
+            c.scrollTop = c.scrollHeight;
             if (type === 'bot' && speak) meowSpeak(text);
         }
 
-        function meowTyping() {
-            const container = document.getElementById('meowMessages');
-            if (!container) return;
-            const msg = document.createElement('div');
-            msg.className = 'meow-msg bot';
-            msg.id = 'meowTyping';
-            msg.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
-            container.appendChild(msg);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function meowRemoveTyping() {
-            const el = document.getElementById('meowTyping');
-            if (el) el.remove();
-        }
+        function meowTyping() { const c = document.getElementById('meowMessages'); if (!c) return; const m = document.createElement('div'); m.className = 'meow-msg bot'; m.id = 'meowTyping'; m.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>'; c.appendChild(m); c.scrollTop = c.scrollHeight; }
+        function meowRemoveTyping() { const e = document.getElementById('meowTyping'); if (e) e.remove(); }
 
         function meowSend() {
             if (meowProcessing) return;
-            const input = document.getElementById('meowInput');
-            if (!input) return;
-            const text = input.value.trim();
-            if (!text) return;
-            
+            const i = document.getElementById('meowInput');
+            if (!i) return;
+            const t = i.value.trim();
+            if (!t) return;
             meowProcessing = true;
             meowStopSpeaking();
-            meowAddMsg('user', text);
-            input.value = '';
+            meowAddMsg('user', t);
+            i.value = '';
             meowTyping();
-            
-            setTimeout(() => {
-                meowRemoveTyping();
-                meowProcessCommand(text).then(() => {
-                    meowProcessing = false;
-                }).catch(() => {
-                    meowProcessing = false;
-                });
-            }, 400 + Math.random() * 400);
+            setTimeout(() => { meowRemoveTyping(); meowProcessCommand(t).then(() => { meowProcessing = false; }).catch(() => { meowProcessing = false; }); }, 400 + Math.random() * 400);
         }
 
-        function meowQuickAction(action) {
-            const actions = {
-                'tasks': 'list tasks',
-                'notes': 'list notes',
-                'timer': 'start timer 5 minutes',
-                'weather': 'what is the weather',
-                'quote': 'give me a quote',
-                'help': 'what can you do'
-            };
-            document.getElementById('meowInput').value = actions[action] || action;
-            meowSend();
-        }
+        function meowQuickAction(a) { const m = { tasks: 'list tasks', notes: 'list notes', timer: 'start timer 5 minutes', weather: 'what is the weather', quote: 'give me a quote', help: 'what can you do' }; document.getElementById('meowInput').value = m[a] || a; meowSend(); }
 
         async function meowProcessCommand(text) {
-            const lower = text.toLowerCase();
-            
-            // Weather
-            if (lower.includes('weather')) {
-                try {
-                    const pos = await fetch('https://ipapi.co/json/').then(r => r.json());
-                    const weather = await fetch(`https://wttr.in/${pos.city}?format=3`).then(r => r.text());
-                    meowAddMsg('bot', `🌤️ <strong>${pos.city}</strong><br>${weather}`);
-                } catch(e) {
-                    meowAddMsg('bot', '🌤️ I couldn\'t fetch weather. Try again later!');
-                }
-                return;
-            }
-            
-            // Time
-            if (lower.includes('time') || lower.includes('date')) {
-                const now = new Date();
-                const time = now.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
-                const date = now.toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
-                meowAddMsg('bot', `🕐 <strong>Time:</strong> ${time}<br>📅 <strong>Date:</strong> ${date}`);
-                return;
-            }
-            
-            // Joke
-            if (lower.includes('joke')) {
-                try {
-                    const joke = await fetch('https://official-joke-api.appspot.com/random_joke').then(r => r.json());
-                    meowAddMsg('bot', `😄 ${joke.setup}<br><strong>${joke.punchline}</strong>`);
-                } catch(e) {
-                    meowAddMsg('bot', '😄 Why did the cat join Instagram? To get more followers! 🐱');
-                }
-                return;
-            }
-            
-            // News
-            if (lower.includes('news')) {
-                meowAddMsg('bot', '📰 Here are some tech news sources:<br>• <a href="https://news.ycombinator.com" target="_blank" style="color:#00e5ff">Hacker News</a><br>• <a href="https://www.techcrunch.com" target="_blank" style="color:#00e5ff">TechCrunch</a><br>• <a href="https://www.theverge.com" target="_blank" style="color:#00e5ff">The Verge</a>');
-                return;
-            }
-            
-            // System info
-            if (lower.includes('system') || lower.includes('battery') || lower.includes('device')) {
-                let info = '💻 <strong>Device Info:</strong><br>';
-                info += `📱 Platform: ${navigator.platform}<br>`;
-                info += `🌐 Language: ${navigator.language}<br>`;
-                info += `🖥️ Screen: ${screen.width}x${screen.height}<br>`;
-                if (navigator.getBattery) {
-                    const bat = await navigator.getBattery();
-                    info += `🔋 Battery: ${Math.round(bat.level * 100)}%`;
-                }
-                meowAddMsg('bot', info);
-                return;
-            }
-            
-            // Projects
-            if (lower.includes('project') || lower.includes('repo')) {
-                meowAddMsg('bot', '📂 <strong>Your Projects:</strong><br>• AI Content Network<br>• Portfolio<br>• Cat Podcast<br>• Stick Cat Academy<br>• Ebook Builder<br>• Project Dashboard<br>• MEOW Assistant');
-                return;
-            }
-            
-            // URL Tracking
-            if (lower.includes('list url') || lower.includes('show url') || lower.includes('my url')) {
-                const urlList = projectUrls.map((u, i) => `${i+1}. <strong>${u.name}</strong>: <a href="${u.url}" target="_blank" style="color:#00e5ff">${u.url.length > 50 ? u.url.substring(0, 50) + '...' : u.url}</a>`).join('<br>');
-                meowAddMsg('bot', `🔗 <strong>Your Project URLs:</strong><br>${urlList || 'No URLs saved yet!'}`);
-                return;
-            }
-            if (lower.includes('add url') || lower.includes('new url')) {
-                const match = text.match(/(?:add|new)\s+url\s+(.+?)\s+(https?:\/\/.+)/i);
-                if (match) {
-                    const name = match[1].trim();
-                    const url = match[2].trim();
-                    projectUrls.push({ name, url });
-                    localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
-                    renderUrls();
-                    meowAddMsg('bot', `✅ URL added: <strong>${name}</strong> → ${url}`);
-                    return;
-                }
-                meowAddMsg('bot', '❓ Say "add url [name] [url]"<br>Example: "add url My Site https://example.com"');
-                return;
-            }
-            if (lower.includes('remove url') || lower.includes('delete url')) {
-                const idx = parseInt(text.match(/(?:remove|delete)\s+url\s+(\d+)/i)?.[1]) - 1;
-                if (!isNaN(idx) && projectUrls[idx]) {
-                    const removed = projectUrls.splice(idx, 1)[0];
-                    localStorage.setItem('meow-urls', JSON.stringify(projectUrls));
-                    renderUrls();
-                    meowAddMsg('bot', `🗑️ Removed: <strong>${removed.name}</strong>`);
-                    return;
-                }
-                meowAddMsg('bot', '❓ Say "remove url [number]". Use "list url" to see numbers.');
-                return;
-            }
-            if (lower.includes('track url') || lower.includes('open url')) {
-                const match = text.match(/(?:track|open)\s+url\s+(.+)/i);
-                if (match) {
-                    const search = match[1].trim().toLowerCase();
-                    const found = projectUrls.find(u => u.name.toLowerCase().includes(search));
-                    if (found) {
-                        meowAddMsg('bot', `🔗 Opening <strong>${found.name}</strong>: <a href="${found.url}" target="_blank" style="color:#00e5ff">${found.url}</a>`);
-                        window.open(found.url, '_blank');
-                        return;
-                    }
-                    meowAddMsg('bot', `❌ URL "${match[1]}" not found. Say "list url" to see all.`);
-                    return;
-                }
-                meowAddMsg('bot', '❓ Say "open url [name]" to track and open a URL');
-                return;
-            }
-            
-            // Help
-            if (lower.includes('help') || lower.includes('what can you do')) {
-                meowAddMsg('bot', '🐱 <strong>I am MEOW - Your JARVIS-like Work Assistant!</strong><br><br>📋 <strong>Tasks:</strong><br>• "add task buy groceries"<br>• "list tasks"<br>• "complete task 1"<br>• "remove task 1"<br><br>📝 <strong>Notes:</strong><br>• "add note meeting at 3pm"<br>• "list notes"<br>• "delete note 1"<br><br>⏰ <strong>Reminders:</strong><br>• "remind me to call in 30 min"<br>• "list reminders"<br><br>⏱️ <strong>Timer:</strong><br>• "start timer 5 minutes"<br>• "stop timer"<br><br>🧮 <strong>Calculator:</strong><br>• "calculate 2+2*3"<br>• "convert 5 km to miles"<br><br>🔗 <strong>URL Tracking:</strong><br>• "list url" - show all URLs<br>• "add url name url" - add new URL<br>• "remove url 1" - delete URL<br>• "open url name" - open URL<br><br>🔗 <strong>Quick Links:</strong><br>• "open gmail"<br>• "open youtube"<br>• "open github"<br>• "open chatgpt"<br><br>📊 <strong>System:</strong><br>• "system info"<br>• "count elements"<br>• "get weather"<br>• "tell me a joke"<br>• "give me a quote"<br><br>🎨 <strong>Website Control:</strong><br>• "scroll to books"<br>• "hide youtube section"<br>• "change title to X"<br>• "add banner Hello"<br>• "highlight cards"<br><br>🔧 <strong>Text Tools:</strong><br>• "count words in hello world"<br>• "reverse text hello"<br>• "uppercase hello"<br><br>🎲 <strong>Random:</strong><br>• "random number 1 to 100"<br>• "random color"<br>• "pick from [a,b,c]"<br><br>🔐 <strong>Encoding:</strong><br>• "encode hello" (base64)<br>• "decode aGVsbG8="');
-                return;
-            }
-            
-            // ===== TASK MANAGEMENT =====
-            if (lower.includes('add task') || lower.includes('new task')) {
-                const task = text.replace(/.*(?:add|new)\s+task\s*/i, '').trim();
-                if (task) {
-                    websiteControl.addTask(task);
-                    meowAddMsg('bot', `✅ Task added: "<strong>${task}</strong>"`);
-                    return;
-                }
-                meowAddMsg('bot', '❓ What task should I add? Say "add task [task name]"');
-                return;
-            }
-            if (lower.includes('list task') || lower.includes('show task') || lower.includes('my task')) {
-                meowAddMsg('bot', `📋 <strong>Your Tasks:</strong><br>${websiteControl.listTasks()}`);
-                return;
-            }
-            if (lower.includes('complete task')) {
-                const idx = parseInt(text.match(/\d+/)?.[0]) - 1;
-                if (!isNaN(idx) && websiteControl.completeTask(idx)) {
-                    meowAddMsg('bot', '✅ Task completed!');
-                } else {
-                    meowAddMsg('bot', '❓ Task not found. Say "list tasks" to see them.');
-                }
-                return;
-            }
-            if (lower.includes('remove task') || lower.includes('delete task')) {
-                const idx = parseInt(text.match(/\d+/)?.[0]) - 1;
-                if (!isNaN(idx) && websiteControl.removeTask(idx)) {
-                    meowAddMsg('bot', '🗑️ Task removed!');
-                } else {
-                    meowAddMsg('bot', '❓ Task not found.');
-                }
-                return;
-            }
-            if (lower.includes('clear completed') || lower.includes('clear done')) {
-                websiteControl.clearCompletedTasks();
-                meowAddMsg('bot', '🧹 Completed tasks cleared!');
-                return;
-            }
-            
-            // ===== NOTES =====
-            if (lower.includes('add note') || lower.includes('new note') || lower.includes('take note')) {
-                const note = text.replace(/.*(?:add|new|take)\s+note\s*/i, '').trim();
-                if (note) {
-                    websiteControl.addNote(note);
-                    meowAddMsg('bot', `📝 Note saved: "<strong>${note}</strong>"`);
-                    return;
-                }
-                meowAddMsg('bot', '❓ What should I note down? Say "add note [text]"');
-                return;
-            }
-            if (lower.includes('list note') || lower.includes('show note') || lower.includes('my note')) {
-                meowAddMsg('bot', `📝 <strong>Your Notes:</strong><br>${websiteControl.listNotes()}`);
-                return;
-            }
-            if (lower.includes('delete note')) {
-                const idx = parseInt(text.match(/\d+/)?.[0]) - 1;
-                if (!isNaN(idx) && websiteControl.deleteNote(idx)) {
-                    meowAddMsg('bot', '🗑️ Note deleted!');
-                } else {
-                    meowAddMsg('bot', '❓ Note not found.');
-                }
-                return;
-            }
-            
-            // ===== REMINDERS =====
-            if (lower.includes('remind me') || lower.includes('reminder')) {
-                const timeMatch = text.match(/(\d+)\s*(min|minute|hour|hr)/i);
-                if (timeMatch) {
-                    let mins = parseInt(timeMatch[1]);
-                    if (timeMatch[2].toLowerCase().startsWith('hour') || timeMatch[2].toLowerCase().startsWith('hr')) mins *= 60;
-                    const reminderText = text.replace(/.*(?:remind|reminder).*?(?:in\s*\d+\s*(?:min|minute|hour|hr))?\s*/i, '').trim() || 'something';
-                    const time = websiteControl.addReminder(reminderText, mins);
-                    meowAddMsg('bot', `⏰ Reminder set for <strong>${mins} minutes</strong>: "${reminderText}"`);
-                    return;
-                }
-                meowAddMsg('bot', '❓ Say "remind me to [task] in [time] min"');
-                return;
-            }
-            if (lower.includes('list reminder') || lower.includes('show reminder')) {
-                meowAddMsg('bot', `⏰ <strong>Reminders:</strong><br>${websiteControl.listReminders()}`);
-                return;
-            }
-            
-            // ===== TIMER =====
-            if (lower.includes('start timer') || lower.includes('set timer')) {
-                const mins = parseInt(text.match(/\d+/)?.[0]) || 5;
-                websiteControl.startTimer(mins);
-                meowAddMsg('bot', `⏱️ Timer started for <strong>${mins} minutes</strong>!`);
-                return;
-            }
-            if (lower.includes('stop timer')) {
-                websiteControl.stopTimer();
-                meowAddMsg('bot', '⏱️ Timer stopped!');
-                return;
-            }
-            
-            // ===== CALCULATOR =====
-            if (lower.includes('calculate') || lower.includes('compute') || lower.includes('math')) {
-                const expr = text.replace(/.*(?:calculate|compute|math)\s*/i, '').trim();
-                if (expr) {
-                    const result = websiteControl.calculate(expr);
-                    meowAddMsg('bot', `🧮 ${expr} = <strong>${result}</strong>`);
-                    return;
-                }
-            }
-            
-            // ===== UNIT CONVERTER =====
-            if (lower.includes('convert')) {
-                const match = text.match(/(\d+\.?\d*)\s*(\w+)\s*(?:to|in)\s*(\w+)/i);
-                if (match) {
-                    const result = websiteControl.convert(parseFloat(match[1]), match[2], match[3]);
-                    meowAddMsg('bot', `🔄 ${result}`);
-                    return;
-                }
-                meowAddMsg('bot', '❓ Say "convert [value] [from] to [to]" (e.g., "convert 5 km to miles")');
-                return;
-            }
-            
-            // ===== QUICK LINKS =====
-            if (lower.includes('open gmail') || lower.includes('open email')) {
-                websiteControl.openGmail();
-                meowAddMsg('bot', '📧 Opening Gmail!');
-                return;
-            }
-            if (lower.includes('open youtube')) {
-                websiteControl.openYouTube();
-                meowAddMsg('bot', '📺 Opening YouTube!');
-                return;
-            }
-            if (lower.includes('open github')) {
-                websiteControl.openGitHub();
-                meowAddMsg('bot', '💻 Opening GitHub!');
-                return;
-            }
-            if (lower.includes('open chatgpt') || lower.includes('open ai')) {
-                websiteControl.openChatGPT();
-                meowAddMsg('bot', '🤖 Opening ChatGPT!');
-                return;
-            }
-            if (lower.includes('open calendar')) {
-                websiteControl.openCalendar();
-                meowAddMsg('bot', '📅 Opening Calendar!');
-                return;
-            }
-            if (lower.includes('open drive')) {
-                websiteControl.openDrive();
-                meowAddMsg('bot', '📁 Opening Google Drive!');
-                return;
-            }
-            
-            // ===== SYSTEM =====
-            if (lower.includes('system info') || lower.includes('device info')) {
-                meowAddMsg('bot', websiteControl.getSystemInfo());
-                return;
-            }
-            if (lower.includes('quote') || lower.includes('inspire')) {
-                const quote = await websiteControl.getQuote();
-                meowAddMsg('bot', `💡 ${quote}`);
-                return;
-            }
-            
-            // ===== TEXT TOOLS =====
-            if (lower.includes('count words')) {
-                const textToCount = text.replace(/.*count words\s*(in)?\s*/i, '').trim();
-                const count = websiteControl.countWords(textToCount);
-                meowAddMsg('bot', `📝 Word count: <strong>${count}</strong>`);
-                return;
-            }
-            if (lower.includes('count char')) {
-                const textToCount = text.replace(/.*count char\s*(in)?\s*/i, '').trim();
-                const count = websiteControl.countChars(textToCount);
-                meowAddMsg('bot', `📝 Character count: <strong>${count}</strong>`);
-                return;
-            }
-            if (lower.includes('reverse')) {
-                const textToReverse = text.replace(/.*reverse\s*/i, '').trim();
-                const reversed = websiteControl.reverseText(textToReverse);
-                meowAddMsg('bot', `🔄 Reversed: <strong>${reversed}</strong>`);
-                return;
-            }
-            if (lower.includes('uppercase')) {
-                const textToUpper = text.replace(/.*uppercase\s*/i, '').trim();
-                meowAddMsg('bot', `🔠 <strong>${websiteControl.uppercase(textToUpper)}</strong>`);
-                return;
-            }
-            if (lower.includes('lowercase')) {
-                const textToLower = text.replace(/.*lowercase\s*/i, '').trim();
-                meowAddMsg('bot', `🔡 <strong>${websiteControl.lowercase(textToLower)}</strong>`);
-                return;
-            }
-            
-            // ===== RANDOM =====
-            if (lower.includes('random number') || lower.includes('random between')) {
-                const nums = text.match(/\d+/g);
-                const min = nums?.[0] || 1;
-                const max = nums?.[1] || 100;
-                meowAddMsg('bot', `🎲 Random number: <strong>${websiteControl.randomNumber(parseInt(min), parseInt(max))}</strong>`);
-                return;
-            }
-            if (lower.includes('random color')) {
-                const color = websiteControl.randomColor();
-                meowAddMsg('bot', `🎨 Random color: <strong>${color}</strong>`);
-                return;
-            }
-            if (lower.includes('pick from') || lower.includes('choose from')) {
-                const items = text.replace(/.*(?:pick|choose)\s+from\s*/i, '').split(',').map(i => i.trim());
-                const picked = websiteControl.randomChoice(items);
-                meowAddMsg('bot', `🎲 I pick: <strong>${picked}</strong>`);
-                return;
-            }
-            
-            // ===== ENCODING =====
-            if (lower.includes('encode')) {
-                const textToEncode = text.replace(/.*encode\s*/i, '').trim();
-                const encoded = websiteControl.encode64(textToEncode);
-                meowAddMsg('bot', `🔐 Base64: <strong>${encoded}</strong>`);
-                return;
-            }
-            if (lower.includes('decode')) {
-                const textToDecode = text.replace(/.*decode\s*/i, '').trim();
-                const decoded = websiteControl.decode64(textToDecode);
-                meowAddMsg('bot', `🔓 Decoded: <strong>${decoded}</strong>`);
-                return;
-            }
-            
-            // ===== COLOR TOOLS =====
-            if (lower.includes('hex to rgb')) {
-                const hex = text.match(/#[a-f0-9]{6}/i)?.[0];
-                if (hex) {
-                    meowAddMsg('bot', `🎨 ${websiteControl.hexToRgb(hex)}`);
-                    return;
-                }
-            }
-            
-            // Mute/Unmute
-            if (lower === 'mute' || lower === 'mute voice') {
-                meowMuted = true;
-                meowStopSpeaking();
-                meowAddMsg('bot', '🔇 Voice muted! I\'ll only show text now.');
-                return;
-            }
-            if (lower === 'unmute' || lower === 'unmute voice') {
-                meowMuted = false;
-                meowAddMsg('bot', '🔊 Voice unmuted! I\'ll speak again.');
-                return;
-            }
-            
-            // Stop speaking (must be after stop timer)
-            if (lower === 'stop' || lower === 'quiet' || lower === 'shut up' || lower === 'be quiet') {
-                meowStopSpeaking();
-                meowAddMsg('bot', '🤫 Stopped speaking!');
-                return;
-            }
-            
-            // Scroll commands (must be before other commands)
-            if (lower.startsWith('scroll') || lower.includes('scroll to')) {
+            const l = text.toLowerCase();
+
+            if (l.startsWith('scroll')) {
                 const targets = ['header', 'stats', 'email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'footer', 'urls'];
-                for (const t of targets) {
-                    if (lower.includes(t)) {
-                        websiteControl.scrollTo(t);
-                        meowAddMsg('bot', `📜 Scrolling to <strong>${t}</strong>!`);
-                        return;
-                    }
-                }
-                if (lower.includes('top') || lower.includes('up')) {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    meowAddMsg('bot', '📜 Scrolling to top!');
-                    return;
-                }
-                if (lower.includes('bottom') || lower.includes('down')) {
-                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-                    meowAddMsg('bot', '📜 Scrolling to bottom!');
-                    return;
-                }
+                for (const t of targets) { if (l.includes(t)) { websiteControl.scrollTo(t); meowAddMsg('bot', '📜 Scrolling to <strong>' + t + '</strong>!'); return; } }
+                if (l.includes('top') || l.includes('up')) { window.scrollTo({ top: 0, behavior: 'smooth' }); meowAddMsg('bot', '📜 Scrolling to top!'); return; }
+                if (l.includes('bottom') || l.includes('down')) { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); meowAddMsg('bot', '📜 Scrolling to bottom!'); return; }
             }
-            
-            // Hide section
-            if (lower.includes('hide')) {
-                if (lower.includes('all')) {
-                    websiteControl.hideAllSections();
-                    meowAddMsg('bot', '👁️ All sections hidden!');
-                    return;
-                }
-                const sectionMap = {
-                    'email': 0, 'books': 1, 'youtube': 2, 'websites': 3,
-                    'infrastructure': 4, 'github': 5, 'urls': 6
-                };
-                for (const [name, idx] of Object.entries(sectionMap)) {
-                    if (lower.includes(name)) {
-                        const sections = document.querySelectorAll('.section');
-                        if (sections[idx]) {
-                            sections[idx].style.display = 'none';
-                            meowAddMsg('bot', `👁️ ${name} section hidden!`);
-                            return;
-                        }
-                    }
-                }
+
+            if (l.startsWith('hide ')) {
+                if (l.includes('all')) { websiteControl.hideAllSections(); meowAddMsg('bot', '👁️ All sections hidden!'); return; }
+                const names = ['email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'urls'];
+                const titles = document.querySelectorAll('.section-title');
+                for (let i = 0; i < titles.length; i++) { for (const n of names) { if (l.includes(n) && titles[i].textContent.toLowerCase().includes(n)) { titles[i].closest('.section').style.display = 'none'; meowAddMsg('bot', '👁️ ' + n + ' hidden!'); return; } } }
             }
-            
-            // Show section
-            if (lower.includes('show')) {
-                if (lower.includes('all')) {
-                    websiteControl.showAllSections();
-                    meowAddMsg('bot', '👁️ All sections visible!');
-                    return;
-                }
-                const sectionMap = {
-                    'email': 0, 'books': 1, 'youtube': 2, 'websites': 3,
-                    'infrastructure': 4, 'github': 5, 'urls': 6
-                };
-                for (const [name, idx] of Object.entries(sectionMap)) {
-                    if (lower.includes(name)) {
-                        const sections = document.querySelectorAll('.section');
-                        if (sections[idx]) {
-                            sections[idx].style.display = 'block';
-                            meowAddMsg('bot', `👁️ ${name} section visible!`);
-                            return;
-                        }
-                    }
-                }
+
+            if (l.startsWith('show ')) {
+                if (l.includes('all')) { websiteControl.showAllSections(); meowAddMsg('bot', '👁️ All visible!'); return; }
+                const names = ['email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'urls'];
+                const titles = document.querySelectorAll('.section-title');
+                for (let i = 0; i < titles.length; i++) { for (const n of names) { if (l.includes(n) && titles[i].textContent.toLowerCase().includes(n)) { titles[i].closest('.section').style.display = 'block'; meowAddMsg('bot', '👁️ ' + n + ' visible!'); return; } } }
             }
-            
-            // Minimize/Maximize
-            if (lower.includes('minimize') || lower.includes('collapse')) {
-                websiteControl.minimizeAll();
-                meowAddMsg('bot', '📦 All sections minimized!');
-                return;
-            }
-            if (lower.includes('expand') || lower.includes('maximize')) {
-                websiteControl.expandAll();
-                meowAddMsg('bot', '📦 All sections expanded!');
-                return;
-            }
-            
-            // Highlight
-            if (lower.includes('highlight')) {
-                websiteControl.highlightCards();
-                meowAddMsg('bot', '✨ Highlighting all cards!');
-                return;
-            }
-            
-            // Change background
-            if (lower.includes('background') || lower.includes('bg')) {
-                const colorMap = { 'red': 'rgba(233,69,96,0.3)', 'blue': 'rgba(0,229,255,0.2)', 'green': 'rgba(0,230,118,0.2)', 'dark': 'rgba(0,0,0,0.8)', 'light': 'rgba(255,255,255,0.3)', 'purple': 'rgba(156,39,176,0.2)' };
-                for (const [name, color] of Object.entries(colorMap)) {
-                    if (lower.includes(name)) {
-                        websiteControl.changeBackground(color);
-                        meowAddMsg('bot', `🎨 Background changed to <strong>${name}</strong>!`);
-                        return;
-                    }
-                }
-            }
-            
-            // Count elements
-            if (lower.includes('count') || lower.includes('how many')) {
-                const result = websiteControl.countElements();
-                meowAddMsg('bot', `📊 ${result}`);
-                return;
-            }
-            
-            // Change title
-            if (lower.includes('title') && lower.includes('change')) {
-                const newTitle = text.replace(/.*title.*to\s*/i, '').trim();
-                if (newTitle) {
-                    websiteControl.changeTitle(newTitle);
-                    meowAddMsg('bot', `📝 Title changed to "<strong>${newTitle}</strong>"!`);
-                    return;
-                }
-            }
-            
-            // Add banner
-            if (lower.includes('banner') || lower.includes('notification')) {
-                const bannerText = text.replace(/.*(?:banner|notification).*?:?\s*/i, '').trim();
-                if (bannerText) {
-                    websiteControl.addBanner(bannerText);
-                    meowAddMsg('bot', `📢 Banner added! Click to dismiss.`);
-                    return;
-                }
-            }
-            
-            // Theme commands
-            if (lower.includes('theme') || lower.includes('appearance')) {
-                meowAddMsg('bot', '🎨 <strong>Available Themes:</strong><br>• <code>theme space</code> - Space Blue (default)<br>• <code>theme ocean</code> - Ocean Teal<br>• <code>theme forest</code> - Forest Green<br>• <code>theme sunset</code> - Sunset Orange<br>• <code>theme purple</code> - Purple Haze<br>• <code>theme cherry</code> - Cherry Red<br>• <code>theme dark</code> - Pure Dark<br>• <code>theme light</code> - Light Mode<br><br>Just say: "apply ocean theme" or "change to sunset"');
-                return;
-            }
-            
-            // Apply theme
-            if (lower.includes('apply') && lower.includes('theme') || lower.includes('change to') || lower.includes('use')) {
-                const themeNames = Object.keys(themes.presets);
-                for (const name of themeNames) {
-                    if (lower.includes(name)) {
-                        applyTheme(name);
-                        meowAddMsg('bot', `✅ Theme changed to <strong>${themes.presets[name].name}</strong>!`);
-                        return;
-                    }
-                }
-            }
-            
-            // Card color (check before generic color)
-            if (lower.includes('card') && (lower.includes('red') || lower.includes('blue') || lower.includes('green') || lower.includes('yellow') || lower.includes('purple') || lower.includes('orange') || lower.includes('pink') || lower.includes('white'))) {
-                const colorMap = { 'red': '#e94560', 'blue': '#00e5ff', 'green': '#00e676', 'yellow': '#ffb400', 'purple': '#ce93d8', 'orange': '#ff9800', 'pink': '#e91e63', 'white': '#ffffff' };
-                for (const [name, color] of Object.entries(colorMap)) {
-                    if (lower.includes(name)) {
-                        websiteControl.changeCardColor(color);
-                        meowAddMsg('bot', `🎨 Cards changed to <strong>${name}</strong>!`);
-                        return;
-                    }
-                }
-            }
-            
-            // Font size
-            if (lower.includes('font') || lower.includes('text size') || lower.includes('bigger') || lower.includes('smaller')) {
-                if (lower.includes('small')) {
-                    changeFontSize('small');
-                    meowAddMsg('bot', '🔤 Font size set to <strong>small</strong>!');
-                } else if (lower.includes('large') || lower.includes('big')) {
-                    changeFontSize('large');
-                    meowAddMsg('bot', '🔤 Font size set to <strong>large</strong>!');
-                } else if (lower.includes('extra') || lower.includes('xlarge')) {
-                    changeFontSize('xlarge');
-                    meowAddMsg('bot', '🔤 Font size set to <strong>extra large</strong>!');
-                } else {
-                    changeFontSize('normal');
-                    meowAddMsg('bot', '🔤 Font size set to <strong>normal</strong>!');
-                }
-                return;
-            }
-            
-            // Toggle animations
-            if (lower.includes('animation') || lower.includes('animate') || lower.includes('disable animation') || lower.includes('enable animation')) {
-                const enabled = toggleAnimations();
-                meowAddMsg('bot', `✨ Animations <strong>${enabled ? 'enabled' : 'disabled'}</strong>!`);
-                return;
-            }
-            
-            // Panel opacity
-            if (lower.includes('opacity') || lower.includes('transparent') || lower.includes('glass')) {
-                if (lower.includes('light') || lower.includes('more')) {
-                    changePanelOpacity('0.2');
-                    meowAddMsg('bot', '👁️ Panel is now more <strong>transparent</strong>!');
-                } else if (lower.includes('dark') || lower.includes('less') || lower.includes('solid')) {
-                    changePanelOpacity('0.8');
-                    meowAddMsg('bot', '👁️ Panel is now more <strong>solid</strong>!');
-                } else {
-                    changePanelOpacity('0.45');
-                    meowAddMsg('bot', '👁️ Panel opacity reset to <strong>default</strong>!');
-                }
-                return;
-            }
-            
-            // Reset theme
-            if (lower.includes('reset') && (lower.includes('theme') || lower.includes('appearance'))) {
-                applyTheme('space');
-                changeFontSize('normal');
-                changePanelOpacity('0.45');
-                document.body.classList.remove('no-animations');
-                meowAddMsg('bot', '🔄 Everything reset to <strong>default</strong>!');
-                return;
-            }
-            
-            // Greeting
-            if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
-                meowAddMsg('bot', 'Hello! 🐱 How can I help you today?');
-                return;
-            }
-            
-            // Thanks
-            if (lower.includes('thank') || lower.includes('thanks')) {
-                meowAddMsg('bot', 'You\'re welcome! 🐱 Always happy to help!');
-                return;
-            }
-            
-            // Clear chat
-            if (lower.includes('clear chat') || lower.includes('clear history') || lower === 'clear') {
-                const container = document.getElementById('meowMessages');
-                if (container) container.innerHTML = '';
-                meowAddMsg('bot', '🗑️ Chat cleared!');
-                return;
-            }
-            
-            // YouTube channels
-            if (lower.includes('youtube') || lower.includes('channel')) {
-                meowAddMsg('bot', '📺 <strong>YouTube Channels:</strong><br>• AI Content Network<br>• CatHub Podcast<br>• Future Intelligence<br>• Stick Cat Academy');
-                return;
-            }
-            
-            // Books
-            if (lower.includes('book')) {
-                meowAddMsg('bot', '📚 <strong>Practical AI in Healthcare:</strong><br>• Book 1: Do\'s and Don\'ts ✅<br>• Book 2: Stop Data Leaking ✅<br>• Book 3: Implementation Roadmap 📝');
-                return;
-            }
-            
-            // Default response with web search suggestion
-            meowAddMsg('bot', `I heard: "${text}"<br><br>I\'m a web-based assistant. I can help with weather, time, jokes, news, and system info. For more advanced features, check the <a href="https://github.com/mohammedimthiyaz1401-ai/meow-assistant" target="_blank" style="color:#00e5ff">full MEOW assistant</a>! 🐱`);
+
+            if (l.includes('weather')) { try { const p = await fetch('https://ipapi.co/json/').then(r=>r.json()); const w = await fetch('https://wttr.in/'+p.city+'?format=3').then(r=>r.text()); meowAddMsg('bot', '🌤️ <strong>' + p.city + '</strong><br>' + w); } catch { meowAddMsg('bot', '🌤️ Could not fetch weather.'); } return; }
+            if (l.includes('time') || l.includes('date')) { const n = new Date(); meowAddMsg('bot', '🕐 <strong>' + n.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'}) + '</strong><br>📅 ' + n.toLocaleDateString('en-US', {weekday:'long',year:'numeric',month:'long',day:'numeric'})); return; }
+            if (l.includes('joke')) { try { const j = await fetch('https://official-joke-api.appspot.com/random_joke').then(r=>r.json()); meowAddMsg('bot', '😄 ' + j.setup + '<br><strong>' + j.punchline + '</strong>'); } catch { meowAddMsg('bot', '😄 Why did the cat join Instagram? To get more followers! 🐱'); } return; }
+            if (l.includes('news')) { meowAddMsg('bot', '📰 <a href="https://news.ycombinator.com" target="_blank" style="color:#ffb74d">Hacker News</a> • <a href="https://www.techcrunch.com" target="_blank" style="color:#ffb74d">TechCrunch</a> • <a href="https://www.theverge.com" target="_blank" style="color:#ffb74d">The Verge</a>'); return; }
+            if (l.startsWith('system') || l.startsWith('device')) { meowAddMsg('bot', '💻 ' + websiteControl.getSystemInfo()); return; }
+            if (l.startsWith('project') || l.startsWith('repo')) { meowAddMsg('bot', '📂 <strong>Projects:</strong><br>• AI Content Network<br>• Portfolio<br>• Cat Podcast<br>• Stick Cat Academy<br>• Ebook Builder<br>• Dashboard<br>• MEOW'); return; }
+            if (l.includes('quote')) { const q = await websiteControl.getQuote(); meowAddMsg('bot', '💡 ' + q); return; }
+
+            if (l.includes('list url') || l.includes('show url')) { meowAddMsg('bot', '🔗 <strong>URLs:</strong><br>' + projectUrls.map((u,i) => (i+1)+'. <strong>'+u.name+'</strong>').join('<br>')); return; }
+            if (l.includes('add url')) { const m = text.match(/(?:add|new)\s+url\s+(.+?)\s+(https?:\/\/.+)/i); if (m) { try { new URL(m[2]); } catch { meowAddMsg('bot', '❌ Invalid URL.'); return; } projectUrls.push({ name: m[1].trim(), url: m[2].trim() }); localStorage.setItem('meow-urls', JSON.stringify(projectUrls)); renderUrls(); meowAddMsg('bot', '✅ Added: ' + m[1].trim()); return; } meowAddMsg('bot', '❓ "add url [name] [url]"'); return; }
+            if (l.includes('remove url')) { const i = parseInt(text.match(/(\d+)/)?.[0]) - 1; if (!isNaN(i) && projectUrls[i]) { const r = projectUrls.splice(i, 1)[0]; localStorage.setItem('meow-urls', JSON.stringify(projectUrls)); renderUrls(); meowAddMsg('bot', '🗑️ Removed: ' + r.name); return; } meowAddMsg('bot', '❓ "remove url [number]"'); return; }
+            if (l.startsWith('open url ')) { const s = text.replace(/.*open\s+url\s+/i, '').toLowerCase(); const f = projectUrls.find(u => u.name.toLowerCase().includes(s)); if (f) { window.open(f.url, '_blank'); meowAddMsg('bot', '🔗 Opening ' + f.name + '!'); return; } meowAddMsg('bot', '❌ URL not found.'); return; }
+
+            if (l.startsWith('add task') || l.startsWith('new task')) { const t = text.replace(/.*(?:add|new)\s+task\s*/i, '').trim(); if (t) { websiteControl.addTask(t); meowAddMsg('bot', '✅ Task added: ' + t); return; } meowAddMsg('bot', '❓ "add task [task]"'); return; }
+            if (l.startsWith('list task') || l.startsWith('show task')) { meowAddMsg('bot', '📋 <strong>Tasks:</strong><br>' + websiteControl.listTasks()); return; }
+            if (l.startsWith('complete task')) { const i = parseInt(text.match(/(\d+)/)?.[0]) - 1; if (!isNaN(i) && websiteControl.completeTask(i)) meowAddMsg('bot', '✅ Done!'); else meowAddMsg('bot', '❓ Not found.'); return; }
+            if (l.startsWith('remove task') || l.startsWith('delete task')) { const i = parseInt(text.match(/(\d+)/)?.[0]) - 1; if (!isNaN(i) && websiteControl.removeTask(i)) meowAddMsg('bot', '🗑️ Removed!'); else meowAddMsg('bot', '❓ Not found.'); return; }
+            if (l.startsWith('clear completed')) { websiteControl.clearCompletedTasks(); meowAddMsg('bot', '🧹 Cleared!'); return; }
+
+            if (l.startsWith('add note') || l.startsWith('new note')) { const t = text.replace(/.*(?:add|new|take)\s+note\s*/i, '').trim(); if (t) { websiteControl.addNote(t); meowAddMsg('bot', '📝 Saved: ' + t); return; } meowAddMsg('bot', '❓ "add note [text]"'); return; }
+            if (l.startsWith('list note')) { meowAddMsg('bot', '📝 <strong>Notes:</strong><br>' + websiteControl.listNotes()); return; }
+            if (l.startsWith('delete note')) { const i = parseInt(text.match(/(\d+)/)?.[0]) - 1; if (!isNaN(i) && websiteControl.deleteNote(i)) meowAddMsg('bot', '🗑️ Deleted!'); else meowAddMsg('bot', '❓ Not found.'); return; }
+
+            if (l.startsWith('remind me') || l.startsWith('reminder')) { const m = text.match(/(\d+)\s*(min|minute|hour|hr)/i); if (m) { let mins = parseInt(m[1]); if (m[2].startsWith('hour') || m[2].startsWith('hr')) mins *= 60; websiteControl.addReminder(text.replace(/.*(?:remind|reminder).*?(?:in\s*\d+\s*(?:min|minute|hour|hr))?\s*/i, '').trim() || 'something', mins); meowAddMsg('bot', '⏰ Reminder set for ' + mins + ' min!'); return; } meowAddMsg('bot', '❓ "remind me to [task] in [time] min"'); return; }
+            if (l.startsWith('list reminder')) { meowAddMsg('bot', '⏰ <strong>Reminders:</strong><br>' + websiteControl.listReminders()); return; }
+
+            if (l.startsWith('start timer') || l.startsWith('set timer')) { const m = parseInt(text.match(/(\d+)/)?.[0]) || 5; websiteControl.startTimer(m); meowAddMsg('bot', '⏱️ Timer: ' + m + ' min!'); return; }
+            if (l.startsWith('stop timer')) { websiteControl.stopTimer(); meowAddMsg('bot', '⏱️ Stopped!'); return; }
+
+            if (l.startsWith('calculate ') || l.startsWith('compute ') || l.startsWith('math ')) { const e = text.replace(/.*(?:calculate|compute|math)\s*/i, '').trim(); if (e) { meowAddMsg('bot', '🧮 ' + e + ' = <strong>' + websiteControl.calculate(e) + '</strong>'); return; } }
+            if (l.startsWith('convert ')) { const m = text.match(/(\d+\.?\d*)\s*(\w+)\s*(?:to|in)\s*(\w+)/i); if (m) { meowAddMsg('bot', '🔄 ' + websiteControl.convert(parseFloat(m[1]), m[2], m[3])); return; } meowAddMsg('bot', '❓ "convert [val] [from] to [to]"'); return; }
+
+            if (l.startsWith('open gmail') || l.startsWith('open email')) { websiteControl.openGmail(); meowAddMsg('bot', '📧 Opening Gmail!'); return; }
+            if (l.startsWith('open youtube')) { websiteControl.openYouTube(); meowAddMsg('bot', '📺 Opening YouTube!'); return; }
+            if (l.startsWith('open github')) { websiteControl.openGitHub(); meowAddMsg('bot', '💻 Opening GitHub!'); return; }
+            if (l.startsWith('open chatgpt') || l === 'open ai') { websiteControl.openChatGPT(); meowAddMsg('bot', '🤖 Opening ChatGPT!'); return; }
+            if (l.startsWith('open calendar')) { websiteControl.openCalendar(); meowAddMsg('bot', '📅 Opening Calendar!'); return; }
+            if (l.startsWith('open drive')) { websiteControl.openDrive(); meowAddMsg('bot', '📁 Opening Drive!'); return; }
+
+            if (l.startsWith('count words')) { const t = text.replace(/.*count words\s*(in)?\s*/i, '').trim(); meowAddMsg('bot', '📝 Words: <strong>' + websiteControl.countWords(t) + '</strong>'); return; }
+            if (l.startsWith('count char')) { const t = text.replace(/.*count char\s*(in)?\s*/i, '').trim(); meowAddMsg('bot', '📝 Chars: <strong>' + websiteControl.countChars(t) + '</strong>'); return; }
+            if (l.startsWith('reverse ')) { meowAddMsg('bot', '🔄 ' + websiteControl.reverseText(text.replace(/.*reverse\s*/i, '').trim())); return; }
+            if (l.startsWith('uppercase ')) { meowAddMsg('bot', '🔠 ' + websiteControl.uppercase(text.replace(/.*uppercase\s*/i, '').trim())); return; }
+            if (l.startsWith('lowercase ')) { meowAddMsg('bot', '🔡 ' + websiteControl.lowercase(text.replace(/.*lowercase\s*/i, '').trim())); return; }
+
+            if (l.startsWith('random number') || l.startsWith('random between')) { const n = text.match(/(\d+)/g); meowAddMsg('bot', '🎲 ' + websiteControl.randomNumber(parseInt(n?.[0]||1), parseInt(n?.[1]||100))); return; }
+            if (l.startsWith('random color')) { meowAddMsg('bot', '🎨 ' + websiteControl.randomColor()); return; }
+            if (l.startsWith('pick from') || l.startsWith('choose from')) { const items = text.replace(/.*(?:pick|choose)\s+from\s*/i, '').split(',').map(i=>i.trim()); meowAddMsg('bot', '🎲 ' + websiteControl.randomChoice(items)); return; }
+
+            if (l.startsWith('encode ')) { meowAddMsg('bot', '🔐 ' + websiteControl.encode64(text.replace(/.*encode\s*/i, '').trim())); return; }
+            if (l.startsWith('decode ')) { meowAddMsg('bot', '🔓 ' + websiteControl.decode64(text.replace(/.*decode\s*/i, '').trim())); return; }
+
+            if (l === 'mute') { meowMuted = true; meowStopSpeaking(); meowAddMsg('bot', '🔇 Muted!'); return; }
+            if (l === 'unmute') { meowMuted = false; meowAddMsg('bot', '🔊 Unmuted!'); return; }
+            if (l === 'stop' || l === 'quiet' || l === 'shut up') { meowStopSpeaking(); meowAddMsg('bot', '🤫 Stopped!'); return; }
+
+            if (l.startsWith('minimize') || l.startsWith('collapse')) { websiteControl.minimizeAll(); meowAddMsg('bot', '📦 Minimized!'); return; }
+            if (l.startsWith('expand') || l.startsWith('maximize')) { websiteControl.expandAll(); meowAddMsg('bot', '📦 Expanded!'); return; }
+            if (l.startsWith('highlight')) { websiteControl.highlightCards(); meowAddMsg('bot', '✨ Highlighted!'); return; }
+            if (l.startsWith('count elements') || l === 'count all') { meowAddMsg('bot', '📊 ' + websiteControl.countElements()); return; }
+
+            if (l.includes('theme') && !l.includes('apply')) { meowAddMsg('bot', '🎨 Themes: space, ocean, forest, sunset, purple, dark, light<br>Say "apply [theme]"'); return; }
+            if (l.startsWith('apply ') || l.startsWith('use ')) { const names = Object.keys(themes.presets); for (const n of names) { if (l.includes(n)) { applyTheme(n); meowAddMsg('bot', '✅ Theme: ' + themes.presets[n].name); return; } } }
+            if (l.includes('card') && (l.includes('red')||l.includes('blue')||l.includes('green')||l.includes('yellow'))) { const m = {red:'#ff6b6b',blue:'#40c4ff',green:'#69f0ae',yellow:'#ffd54f'}; for (const [n,c] of Object.entries(m)) { if (l.includes(n)) { websiteControl.changeCardColor(c); meowAddMsg('bot', '🎨 Cards: ' + n); return; } } }
+            if (l.startsWith('font ')) { if (l.includes('small')) changeFontSize('small'); else if (l.includes('large')||l.includes('big')) changeFontSize('large'); else changeFontSize('normal'); meowAddMsg('bot', '🔤 Font changed!'); return; }
+            if (l.startsWith('animation') || l.startsWith('disable animation')) { const e = toggleAnimations(); meowAddMsg('bot', '✨ Animations ' + (e ? 'on' : 'off') + '!'); return; }
+            if (l.includes('reset') && l.includes('theme')) { applyTheme('space'); changeFontSize('normal'); meowAddMsg('bot', '🔄 Reset!'); return; }
+
+            if (l.includes('hello') || l.includes('hi ') || l === 'hi' || l.includes('hey')) { meowAddMsg('bot', 'Hello! 🐱 How can I help?'); return; }
+            if (l.includes('thank')) { meowAddMsg('bot', 'You\'re welcome! 🐱'); return; }
+            if (l.includes('clear chat') || l === 'clear') { const c = document.getElementById('meowMessages'); if (c) c.innerHTML = ''; meowAddMsg('bot', '🗑️ Cleared!'); return; }
+            if (l.includes('youtube') || l.includes('channel')) { meowAddMsg('bot', '📺 <strong>Channels:</strong><br>• AI Content Network<br>• CatHub Podcast<br>• Future Intelligence<br>• Stick Cat Academy'); return; }
+            if (l.includes('book')) { meowAddMsg('bot', '📚 <strong>Books:</strong><br>• Book 1: Do\'s & Don\'ts ✅<br>• Book 2: Stop Data Leaking ✅<br>• Book 3: Implementation 📝'); return; }
+
+            if (l.includes('help') || l.includes('what can you do')) { meowAddMsg('bot', '🐱 <strong>MEOW Commands:</strong><br><br>📋 Tasks: "add/list/complete/remove task"<br>📝 Notes: "add/list/delete note"<br>⏰ Reminders: "remind me... in X min"<br>⏱️ Timer: "start/stop timer"<br>🧮 Calculator: "calculate 2+2"<br>🔄 Converter: "convert 5 km to miles"<br>🔗 URLs: "list/add/remove/open url"<br>🌤️ Weather: "weather"<br>😄 Joke: "joke"<br>💡 Quote: "quote"<br>📰 News: "news"<br>💻 System: "system info"<br>🎨 Theme: "apply [theme]"<br>📜 Scroll: "scroll to [section]"<br>👁️ Hide/Show: "hide/show [section]"<br>🔤 Font: "font small/large"<br>🔐 Encode: "encode/decode text"<br>🎲 Random: "random number/color"<br>🧹 Clear: "clear chat"'); return; }
+
+            meowAddMsg('bot', 'I don\'t understand. Type <strong>"help"</strong> for commands! 🐱', false);
         }
+
+        // Load saved prefs
+        window.addEventListener('DOMContentLoaded', () => {
+            const t = localStorage.getItem('meow-theme'); if (t) applyTheme(t);
+            const a = localStorage.getItem('meow-animations'); if (a === 'false') document.body.classList.add('no-animations');
+            const f = localStorage.getItem('meow-fontsize'); if (f) changeFontSize(f);
+            const o = localStorage.getItem('meow-opacity'); if (o) changePanelOpacity(o);
+        });
     </script>
 </body>
 </html>
