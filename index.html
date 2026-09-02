@@ -895,7 +895,7 @@
             const l = text.toLowerCase();
 
             if (l.startsWith('scroll')) {
-                const targets = ['header', 'stats', 'email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'footer', 'urls'];
+                const targets = ['header', 'stats', 'email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'urls', 'footer'];
                 for (const t of targets) { if (l.includes(t)) { websiteControl.scrollTo(t); meowAddMsg('bot', '📜 Scrolling to <strong>' + t + '</strong>!'); return; } }
                 if (l.includes('top') || l.includes('up')) { window.scrollTo({ top: 0, behavior: 'smooth' }); meowAddMsg('bot', '📜 Scrolling to top!'); return; }
                 if (l.includes('bottom') || l.includes('down')) { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); meowAddMsg('bot', '📜 Scrolling to bottom!'); return; }
