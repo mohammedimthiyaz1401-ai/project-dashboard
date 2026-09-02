@@ -405,6 +405,17 @@
             </div>
 
             <div class="section">
+                <div class="section-title">📊 YOUTUBE ACTIVITY STATUS</div>
+                <div id="yt-status" class="cards" style="flex-direction:column;">
+                    <div class="card" style="max-width:100%;"><div class="card-desc">Loading YouTube activity status...</div></div>
+                </div>
+                <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+                    <button class="card-link" onclick="checkYouTubeStatus()" style="background:rgba(105,240,174,0.15);border-color:rgba(105,240,174,0.3);">🔄 Refresh Status</button>
+                    <a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network/actions" class="card-link" target="_blank" style="background:rgba(255,150,50,0.15);">📋 View All Runs</a>
+                </div>
+            </div>
+
+            <div class="section">
                 <div class="section-title">🌐 WEBSITES & PORTFOLIO</div>
                 <div class="cards">
                     <div class="card"><div class="card-head"><div class="card-name">Portfolio Website</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">Personal & professional portfolio.</div><div class="card-links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="card-link" target="_blank">View Site</a></div></div>
@@ -547,6 +558,87 @@
         }
         updateCountdown();
         setInterval(updateCountdown, 1000);
+
+        // YouTube Activity Status
+        const YT_REPOS = [
+            { name: 'AI Content Network', repo: 'mohammedimthiyaz1401-ai/ai-content-network', channel: '@AIContentNetwork' },
+            { name: 'Cat Podcast', repo: 'imthi92/cat-podcast-voice-gen', channel: '@CatHubPodcast' },
+            { name: 'Stick Cat Academy', repo: 'imthi92/stick-cat-academy', channel: '@StickCatAcademy' },
+            { name: 'AI News Bot', repo: 'futureintelligence4-netizen/ai-news-bot', channel: '@FutureIntelligence' },
+            { name: 'Rumble Podcast', repo: 'imthi92/rumble-podcast-automation', channel: 'Rumble' },
+        ];
+
+        async function checkYouTubeStatus() {
+            const container = document.getElementById('yt-status');
+            container.innerHTML = '<div class="card" style="max-width:100%;"><div class="card-desc">⏳ Checking workflow status...</div></div>';
+
+            let html = '';
+            for (const ch of YT_REPOS) {
+                try {
+                    const resp = await fetch(`https://api.github.com/repos/${ch.repo}/actions/runs?per_page=5`);
+                    const data = await resp.json();
+                    const runs = data.workflow_runs || [];
+                    const latest = runs[0];
+                    const lastSuccess = runs.find(r => r.conclusion === 'success');
+                    const lastFail = runs.find(r => r.conclusion === 'failure');
+
+                    let statusBadge = 'badge-done';
+                    let statusText = 'OK';
+                    if (latest && latest.conclusion === 'failure') {
+                        statusBadge = 'badge-hold';
+                        statusText = 'FAILED';
+                    } else if (latest && latest.conclusion === 'success') {
+                        statusBadge = 'badge-done';
+                        statusText = 'OK';
+                    } else {
+                        statusBadge = 'badge-progress';
+                        statusText = 'RUNNING';
+                    }
+
+                    const lastRun = latest ? timeAgo(new Date(latest.created_at)) : 'N/A';
+                    const lastSuccessTime = lastSuccess ? timeAgo(new Date(lastSuccess.created_at)) : 'Never';
+                    const workflowName = latest ? latest.name : 'N/A';
+
+                    html += `<div class="card" style="max-width:100%;">
+                        <div class="card-head">
+                            <div class="card-name">${ch.name}</div>
+                            <span class="badge ${statusBadge}">${statusText}</span>
+                        </div>
+                        <div class="card-desc">
+                            <strong>Channel:</strong> ${ch.channel}<br>
+                            <strong>Workflow:</strong> ${workflowName}<br>
+                            <strong>Last Run:</strong> ${lastRun}<br>
+                            <strong>Last Success:</strong> ${lastSuccessTime}<br>
+                            <strong>Repo:</strong> <a href="https://github.com/${ch.repo}" target="_blank" class="github-link">${ch.repo.split('/')[1]}</a>
+                        </div>
+                        <div class="card-links">
+                            <a href="https://github.com/${ch.repo}/actions" class="card-link" target="_blank">View Runs</a>
+                            ${latest && latest.html_url ? `<a href="${latest.html_url}" class="card-link" target="_blank">Latest Run</a>` : ''}
+                        </div>
+                    </div>`;
+                } catch (e) {
+                    html += `<div class="card" style="max-width:100%;">
+                        <div class="card-head"><div class="card-name">${ch.name}</div><span class="badge badge-hold">ERROR</span></div>
+                        <div class="card-desc">Could not fetch status: ${e.message}</div>
+                    </div>`;
+                }
+            }
+            container.innerHTML = html;
+        }
+
+        function timeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            if (seconds < 60) return seconds + 's ago';
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return minutes + 'm ago';
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return hours + 'h ago';
+            const days = Math.floor(hours / 24);
+            return days + 'd ago';
+        }
+
+        // Auto-check on load
+        checkYouTubeStatus();
 
         // Scroll to Top
         window.addEventListener('scroll', () => {
