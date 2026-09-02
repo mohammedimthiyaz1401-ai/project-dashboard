@@ -381,6 +381,21 @@
             </div>
 
             <div class="section">
+                <div class="section-title">📺 YOUTUBE & RUMBLE STATUS</div>
+                <div id="yt-status" class="cards" style="flex-direction:column;">
+                    <div class="card" style="max-width:100%;"><div class="card-desc">Loading channel status...</div></div>
+                </div>
+                <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+                    <button class="card-link" onclick="checkYouTubeStatus()" style="background:rgba(105,240,174,0.15);border-color:rgba(105,240,174,0.3);">Refresh Status</button>
+                    <a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network/actions" class="card-link" target="_blank" style="background:rgba(255,150,50,0.15);">AI Content Network Runs</a>
+                    <a href="https://github.com/imthi92/rumble-podcast-automation/actions" class="card-link" target="_blank" style="background:rgba(255,107,107,0.15);border-color:rgba(255,107,107,0.3);">Rumble Runs</a>
+                    <a href="https://github.com/imthi92/cat-podcast-voice-gen/actions" class="card-link" target="_blank">Cat Podcast Runs</a>
+                    <a href="https://github.com/imthi92/stick-cat-academy/actions" class="card-link" target="_blank">Stick Cat Runs</a>
+                    <a href="https://github.com/futureintelligence4-netizen/ai-news-bot/actions" class="card-link" target="_blank">AI News Bot Runs</a>
+                </div>
+            </div>
+
+            <div class="section">
                 <div class="section-title">🐱 QUICK LINKS</div>
                 <div class="cards">
                     <div class="card"><div class="card-head"><div class="card-name">🌐 Live Dashboard</div></div><div class="card-desc">This dashboard - live on GitHub Pages.</div><div class="card-links"><a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="card-link" target="_blank">Open</a></div></div>
@@ -391,27 +406,6 @@
                     <div class="card"><div class="card-head"><div class="card-name">📚 Book 2</div></div><div class="card-desc">Stop AI From Leaking Patient Data.</div><div class="card-links"><a href="https://cyberwave407.gumroad.com/l/Stop-AI-From-Leaking-Patient-Data" class="card-link" target="_blank">Gumroad</a></div></div>
                     <div class="card"><div class="card-head"><div class="card-name">🤖 AI Content Network</div></div><div class="card-desc">Automated YouTube content.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="card-link" target="_blank">GitHub</a></div></div>
                     <div class="card"><div class="card-head"><div class="card-name">📖 Ebook Builder</div></div><div class="card-desc">Book generation automation.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="card-link" target="_blank">GitHub</a></div></div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">📺 YOUTUBE CHANNELS</div>
-                <div class="cards">
-                    <div class="card"><div class="card-head"><div class="card-name">AI Content Network</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">Automated AI content.</div><div class="card-links"><a href="https://www.youtube.com/@AIContentNetwork" class="card-link" target="_blank">YouTube</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">Stick Cat Academy</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">Learn to code with cats.</div><div class="card-links"><a href="https://www.youtube.com/@StickCatAcademy" class="card-link" target="_blank">YouTube</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">CatHub Podcast</div><span class="badge badge-progress">ACTIVE</span></div><div class="card-desc">Cat podcast & shorts.</div><div class="card-links"><a href="https://www.youtube.com/@CatHubPodcast" class="card-link" target="_blank">YouTube</a></div></div>
-                    <div class="card"><div class="card-head"><div class="card-name">Future Intelligence</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc">AI & tech content.</div><div class="card-links"><a href="https://www.youtube.com/@FutureIntelligence" class="card-link" target="_blank">YouTube</a></div></div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">📊 YOUTUBE ACTIVITY STATUS</div>
-                <div id="yt-status" class="cards" style="flex-direction:column;">
-                    <div class="card" style="max-width:100%;"><div class="card-desc">Loading YouTube activity status...</div></div>
-                </div>
-                <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
-                    <button class="card-link" onclick="checkYouTubeStatus()" style="background:rgba(105,240,174,0.15);border-color:rgba(105,240,174,0.3);">🔄 Refresh Status</button>
-                    <a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network/actions" class="card-link" target="_blank" style="background:rgba(255,150,50,0.15);">📋 View All Runs</a>
                 </div>
             </div>
 
@@ -559,18 +553,18 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // YouTube Activity Status
+        // YouTube & Rumble Activity Status
         const YT_REPOS = [
-            { name: 'AI Content Network', repo: 'mohammedimthiyaz1401-ai/ai-content-network', channel: '@AIContentNetwork' },
-            { name: 'Cat Podcast', repo: 'imthi92/cat-podcast-voice-gen', channel: '@CatHubPodcast' },
-            { name: 'Stick Cat Academy', repo: 'imthi92/stick-cat-academy', channel: '@StickCatAcademy' },
-            { name: 'AI News Bot', repo: 'futureintelligence4-netizen/ai-news-bot', channel: '@FutureIntelligence' },
-            { name: 'Rumble Podcast', repo: 'imthi92/rumble-podcast-automation', channel: 'Rumble' },
+            { name: 'AI Content Network', repo: 'mohammedimthiyaz1401-ai/ai-content-network', channel: '@AIContentNetwork', type: 'youtube' },
+            { name: 'Cat Podcast', repo: 'imthi92/cat-podcast-voice-gen', channel: '@CatHubPodcast', type: 'youtube' },
+            { name: 'Stick Cat Academy', repo: 'imthi92/stick-cat-academy', channel: '@StickCatAcademy', type: 'youtube' },
+            { name: 'AI News Bot', repo: 'futureintelligence4-netizen/ai-news-bot', channel: '@FutureIntelligence', type: 'youtube' },
+            { name: 'Rumble Podcast', repo: 'imthi92/rumble-podcast-automation', channel: 'Rumble', type: 'rumble' },
         ];
 
         async function checkYouTubeStatus() {
             const container = document.getElementById('yt-status');
-            container.innerHTML = '<div class="card" style="max-width:100%;"><div class="card-desc">⏳ Checking workflow status...</div></div>';
+            container.innerHTML = '<div class="card" style="max-width:100%;"><div class="card-desc">Checking channel status...</div></div>';
 
             let html = '';
             for (const ch of YT_REPOS) {
@@ -584,40 +578,54 @@
 
                     let statusBadge = 'badge-done';
                     let statusText = 'OK';
+                    let borderColor = 'rgba(105,240,174,0.2)';
                     if (latest && latest.conclusion === 'failure') {
                         statusBadge = 'badge-hold';
                         statusText = 'FAILED';
+                        borderColor = 'rgba(255,107,107,0.4)';
                     } else if (latest && latest.conclusion === 'success') {
                         statusBadge = 'badge-done';
                         statusText = 'OK';
+                        borderColor = 'rgba(105,240,174,0.2)';
                     } else {
                         statusBadge = 'badge-progress';
                         statusText = 'RUNNING';
+                        borderColor = 'rgba(255,183,77,0.3)';
                     }
 
                     const lastRun = latest ? timeAgo(new Date(latest.created_at)) : 'N/A';
                     const lastSuccessTime = lastSuccess ? timeAgo(new Date(lastSuccess.created_at)) : 'Never';
                     const workflowName = latest ? latest.name : 'N/A';
+                    const icon = ch.type === 'rumble' ? '🎬' : '📺';
 
-                    html += `<div class="card" style="max-width:100%;">
+                    let failInfo = '';
+                    if (lastFail && (!lastSuccess || new Date(lastFail.created_at) > new Date(lastSuccess.created_at))) {
+                        failInfo = `<div style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);border-radius:8px;padding:8px 12px;margin-top:8px;">
+                            <strong style="color:#ff6b6b;">Last Failure:</strong> ${timeAgo(new Date(lastFail.created_at))}<br>
+                            <a href="${lastFail.html_url}" target="_blank" class="github-link" style="color:#ff6b6b;">View Failure Logs & Troubleshoot</a>
+                        </div>`;
+                    }
+
+                    html += `<div class="card" style="max-width:100%;border-color:${borderColor};">
                         <div class="card-head">
-                            <div class="card-name">${ch.name}</div>
+                            <div class="card-name">${icon} ${ch.name}</div>
                             <span class="badge ${statusBadge}">${statusText}</span>
                         </div>
                         <div class="card-desc">
                             <strong>Channel:</strong> ${ch.channel}<br>
                             <strong>Workflow:</strong> ${workflowName}<br>
                             <strong>Last Run:</strong> ${lastRun}<br>
-                            <strong>Last Success:</strong> ${lastSuccessTime}<br>
-                            <strong>Repo:</strong> <a href="https://github.com/${ch.repo}" target="_blank" class="github-link">${ch.repo.split('/')[1]}</a>
+                            <strong>Last Success:</strong> ${lastSuccessTime}
                         </div>
+                        ${failInfo}
                         <div class="card-links">
-                            <a href="https://github.com/${ch.repo}/actions" class="card-link" target="_blank">View Runs</a>
+                            <a href="https://github.com/${ch.repo}/actions" class="card-link" target="_blank">View All Runs</a>
                             ${latest && latest.html_url ? `<a href="${latest.html_url}" class="card-link" target="_blank">Latest Run</a>` : ''}
+                            <a href="https://github.com/${ch.repo}" class="card-link" target="_blank">Repo</a>
                         </div>
                     </div>`;
                 } catch (e) {
-                    html += `<div class="card" style="max-width:100%;">
+                    html += `<div class="card" style="max-width:100%;border-color:rgba(255,107,107,0.3);">
                         <div class="card-head"><div class="card-name">${ch.name}</div><span class="badge badge-hold">ERROR</span></div>
                         <div class="card-desc">Could not fetch status: ${e.message}</div>
                     </div>`;
