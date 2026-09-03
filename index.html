@@ -222,6 +222,36 @@
         .email-chip:nth-child(8) .email-tag { background: rgba(129,212,250,0.12); color: #81d4fa; border: 1px solid rgba(129,212,250,0.2); }
         .email-chip:nth-child(9) .email-tag { background: rgba(255,241,118,0.12); color: #fff176; border: 1px solid rgba(255,241,118,0.2); }
 
+        /* Prompt Section */
+        .prompt-box {
+            background: rgba(10,10,20,0.6); border: 1px solid rgba(79,209,197,0.25);
+            border-radius: 8px; padding: 12px; margin-top: 8px; position: relative;
+        }
+        .prompt-box pre {
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(79,209,197,0.15);
+            border-radius: 6px; padding: 10px; margin: 8px 0 0; font-size: 10px;
+            color: #b0d0cc; line-height: 1.5; max-height: 200px; overflow-y: auto;
+            font-family: 'Consolas', 'Courier New', monospace; white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .prompt-box pre::-webkit-scrollbar { width: 4px; }
+        .prompt-box pre::-webkit-scrollbar-thumb { background: rgba(79,209,197,0.3); border-radius: 2px; }
+        .copy-prompt-btn {
+            position: absolute; top: 8px; right: 8px;
+            background: rgba(79,209,197,0.2); border: 1px solid rgba(79,209,197,0.4);
+            color: #4FD1C5; padding: 4px 10px; border-radius: 4px; cursor: pointer;
+            font-size: 10px; font-weight: 600; transition: 0.2s;
+        }
+        .copy-prompt-btn:hover { background: rgba(79,209,197,0.35); }
+        .upload-card {
+            background: rgba(20,15,10,0.5); border: 1px solid rgba(255,150,50,0.15);
+            border-radius: 10px; padding: 12px; transition: 0.3s;
+        }
+        .upload-card:hover { border-color: rgba(255,150,50,0.35); box-shadow: 0 0 20px rgba(255,107,0,0.15); }
+        .upload-title { font-size: 12px; font-weight: 700; color: #ffb74d; margin-bottom: 6px; }
+        .upload-detail { font-size: 10px; color: #a08060; margin: 3px 0; }
+        .upload-detail strong { color: #ffe0c0; }
+
         .footer { text-align: center; padding: 18px; color: #504030; font-size: 11px; letter-spacing: 1.5px; border-top: 1px solid rgba(255,150,50,0.08); }
         .footer a { color: #ffb74d; text-decoration: none; font-weight: 600; }
         .footer a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,183,77,0.5); }
@@ -386,7 +416,7 @@
                 <div class="stat-pill"><div class="stat-num" id="emailCount">9</div><div class="stat-lbl">Emails</div></div>
             </div>
 
-            <div class="section">
+            <div class="section" data-section="youtube">
                 <div class="section-title">📺 YOUTUBE & RUMBLE STATUS</div>
                 <div id="yt-status" class="cards" style="flex-direction:column;">
                     <div class="card" style="max-width:100%;"><div class="card-desc">Loading channel status...</div></div>
@@ -401,7 +431,7 @@
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section" data-section="quicklinks">
                 <div class="section-title">🐱 QUICK LINKS</div>
                 <div class="cards" style="gap:4px;">
                     <div class="card" style="padding:6px 8px;max-width:100%;"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11px;font-weight:600;color:#ffe0c0;">🌐 Dashboard</span><a href="https://mohammedimthiyaz1401-ai.github.io/project-dashboard/" class="card-link" target="_blank" style="font-size:9px;padding:2px 6px;">Open</a></div></div>
@@ -416,7 +446,7 @@
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section" data-section="websites">
                 <div class="section-title">🌐 WEBSITES & PORTFOLIO</div>
                 <div class="cards">
                     <div class="card"><div class="card-head"><div class="card-name">Portfolio Website</div><span class="badge badge-done">LIVE</span></div><div class="card-desc">Personal & professional portfolio.</div><div class="card-links"><a href="https://myportfolio-seven-ruby-43.vercel.app/" class="card-link" target="_blank">View Site</a></div></div>
@@ -425,7 +455,7 @@
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section" data-section="infrastructure">
                 <div class="section-title">🔧 INFRASTRUCTURE</div>
                 <div class="cards">
                     <div class="card"><div class="card-head"><div class="card-name">Ebook Builder</div><span class="badge badge-done">PUSHED</span></div><div class="card-desc">Gemini → PDF → EPUB automation.</div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ebook-builder" class="card-link" target="_blank">GitHub</a></div></div>
@@ -433,7 +463,7 @@
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section" data-section="email">
                 <div class="section-title">📧 EMAIL ACCOUNTS</div>
                 <div class="email-mini">
                     <div class="email-chip"><div class="email-addr">cybersecurityocean@gmail.com</div><div class="email-tags"><span class="email-tag">Books</span><span class="email-tag">Gumroad</span></div></div>
@@ -448,7 +478,7 @@
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section" data-section="github">
                 <div class="section-title">💻 GITHUB REPOSITORIES</div>
                 <div class="cards">
                     <div class="card"><div class="card-head"><div class="card-name">ai-content-network</div><span class="badge badge-done">ACTIVE</span></div><div class="card-desc"><strong>GitHub:</strong> <a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="github-link" target="_blank">mohammedimthiyaz1401-ai/ai-content-network</a></div><div class="card-links"><a href="https://github.com/mohammedimthiyaz1401-ai/ai-content-network" class="card-link" target="_blank">GitHub</a></div></div>
@@ -465,7 +495,54 @@
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section" data-section="bookupload">
+                <div class="section-title">📚 BOOK UPLOAD & PROMPTS</div>
+                <div class="cards" style="gap:10px;">
+                    <!-- Book 3 Upload Card -->
+                    <div class="upload-card" style="flex:1;min-width:280px;">
+                        <div class="upload-title">📖 Book 3: Healthy AI Implementation Roadmap</div>
+                        <div class="upload-detail"><strong>Status:</strong> <span style="color:#69f0ae;">READY TO UPLOAD</span></div>
+                        <div class="upload-detail"><strong>Files:</strong> C:\Users\Imtiyaz\Documents\practical-ai-healthcare\book-03-healthy-ai-implementation-roadmap\</div>
+                        <div class="upload-detail"><strong>Gumroad Price:</strong> $4.99 &nbsp;|&nbsp; <strong>KDP Price:</strong> $7.99</div>
+                        <div class="upload-detail"><strong>ISBN:</strong> 9798193703846 &nbsp;|&nbsp; <strong>Pages:</strong> 30</div>
+                        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+                            <a href="https://gumroad.com/dashboard" class="card-link" target="_blank" style="background:rgba(79,209,197,0.15);border-color:rgba(79,209,197,0.3);">🛒 Gumroad Upload</a>
+                            <a href="https://kdp.amazon.com" class="card-link" target="_blank" style="background:rgba(255,183,77,0.15);border-color:rgba(255,183,77,0.3);">📦 KDP Upload</a>
+                            <a href="https://github.com/cybersecurityocean/practical-ai-healthcare/tree/main/book-03-healthy-ai-implementation-roadmap" class="card-link" target="_blank">📂 GitHub Files</a>
+                        </div>
+                    </div>
+                    <!-- Gemini Prompt Card -->
+                    <div class="upload-card" style="flex:1;min-width:280px;">
+                        <div class="upload-title">🎨 Gemini Cover Prompt (Book 4+)</div>
+                        <div class="upload-detail"><strong>Use for:</strong> Generate book covers via Gemini, then resize with generate_covers.py</div>
+                        <div class="prompt-box">
+                            <button class="copy-prompt-btn" onclick="copyGeminiPrompt()">📋 Copy Prompt</button>
+                            <pre id="geminiPrompt">Create a premium ebook cover, portrait 1600x2400 pixels, photorealism with a subtle cinematic-digital finish (NOT cartoon, NOT illustration — a realistic, high-quality rendered look).
+
+COMPOSITION:
+- Background: deep navy #0B2447 with a soft glowing gradient, plus a delicate grid-dot technology pattern and faint bokeh light particles for depth.
+- A graceful, glowing ECG/heartbeat line in teal #4FD1C5 and sky blue #38BDF8 sweeps across the lower half in a smooth pulse.
+- A small, elegant medical-cross merged with a circuit node sits in the top-right corner as a subtle brand mark.
+
+PERSON (realistic photo):
+- Use the person from the uploaded reference photo — realistic, professional, approachable, wearing a smart blazer/shirt, confident warm smile, natural skin texture, soft studio lighting. Place them on the RIGHT side of the lower third, slightly overlapping into the cover, so they look like a real author portrait.
+
+TEXT (single-line, spelled EXACTLY — do NOT wrap onto two lines):
+- Top-center, one line only, small, letterspaced, teal: PRACTICAL AI IN HEALTHCARE
+- Center, ONE single bold white line only, clearly readable: [BOOK TITLE]
+- Below it, one line, medium, teal: [SUBTITLE]
+- Bottom, one line, medium, white: MOHAMMED IMTHIYAZ A
+
+DESIGN RULES:
+- Leave clean, uncluttered dark space behind all text so it is fully readable.
+- Balanced, symmetrical, attractive, high-end professional book cover.
+- No other words, watermarks, or logos. Cold, trustworthy, "no hype" mood.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" data-section="urls">
                 <div class="section-title">🔗 PROJECT URLS</div>
                 <div class="url-tracker" id="urlTracker">
                     <div class="url-list" id="urlList"></div>
@@ -580,11 +657,25 @@
             { name: 'Rumble Podcast', repo: 'imthi92/rumble-podcast-automation', channel: 'Rumble', type: 'rumble' },
         ];
 
+        function toIST(utcDate) {
+            const d = new Date(utcDate);
+            const istOffset = 5.5 * 60 * 60 * 1000;
+            const ist = new Date(d.getTime() + istOffset);
+            const h = ist.getUTCHours();
+            const m = String(ist.getUTCMinutes()).padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const h12 = h % 12 || 12;
+            const day = ist.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+            return `${day} ${h12}:${m} ${ampm}`;
+        }
+
         async function checkYouTubeStatus() {
             const container = document.getElementById('yt-status');
             container.innerHTML = '<div class="card" style="max-width:100%;padding:8px;"><div class="card-desc" style="margin:0;">Checking...</div></div>';
 
             let rows = [];
+            let hasFailed = false;
+            let hasBlocked = false;
             for (const ch of YT_REPOS) {
                 try {
                     const resp = await fetch(`https://api.github.com/repos/${ch.repo}/actions/runs?per_page=5`);
@@ -594,6 +685,20 @@
                     const lastSuccess = runs.find(r => r.conclusion === 'success');
                     const lastFail = runs.find(r => r.conclusion === 'failure');
 
+                    // Fetch schedule for next run
+                    let nextRunIST = '-';
+                    try {
+                        const wfResp = await fetch(`https://api.github.com/repos/${ch.repo}/actions/workflows`);
+                        const wfData = await wfResp.json();
+                        const workflows = wfData.workflows || [];
+                        if (workflows.length > 0) {
+                            const wf = workflows[0];
+                            if (wf.schedule) {
+                                nextRunIST = toIST(wf.schedule.next_run_at);
+                            }
+                        }
+                    } catch(e) {}
+
                     let statusBadge = 'badge-done';
                     let statusText = 'OK';
                     let sortOrder = 2;
@@ -601,12 +706,16 @@
                         statusBadge = 'badge-hold';
                         statusText = 'FAILED';
                         sortOrder = 0;
+                        hasFailed = true;
                     } else if (latest && latest.conclusion === 'success') {
                         sortOrder = 1;
                     } else {
                         statusBadge = 'badge-progress';
                         statusText = 'RUNNING';
                         sortOrder = 1;
+                    }
+                    if (ch.type === 'rumble' && (statusText === 'FAILED' || statusText === 'ERROR')) {
+                        hasBlocked = true;
                     }
 
                     const lastRun = latest ? timeAgo(new Date(latest.created_at)) : 'N/A';
@@ -626,6 +735,7 @@
                             <td style="padding:6px 8px;text-align:center;"><span class="badge ${statusBadge}" style="font-size:8px;padding:1px 6px;">${statusText}</span></td>
                             <td style="padding:6px 8px;text-align:center;font-size:10px;color:#a08060;">${lastRun}</td>
                             <td style="padding:6px 8px;text-align:center;font-size:10px;color:#a08060;">${lastSuccessTime}</td>
+                            <td style="padding:6px 8px;text-align:center;font-size:10px;color:#4FD1C5;font-weight:600;">${nextRunIST}</td>
                             <td style="padding:6px 8px;text-align:center;">${actionHtml}</td>
                         </tr>`
                     });
@@ -636,6 +746,7 @@
                             <td style="padding:6px 8px;"><span style="font-size:11px;font-weight:600;color:#ffe0c0;">${ch.name}</span></td>
                             <td style="padding:6px 8px;"><span style="font-size:10px;color:#a08060;">${ch.channel}</span></td>
                             <td style="padding:6px 8px;text-align:center;"><span class="badge badge-hold" style="font-size:8px;padding:1px 6px;">ERROR</span></td>
+                            <td style="padding:6px 8px;text-align:center;font-size:10px;color:#a08060;">-</td>
                             <td style="padding:6px 8px;text-align:center;font-size:10px;color:#a08060;">-</td>
                             <td style="padding:6px 8px;text-align:center;font-size:10px;color:#a08060;">-</td>
                             <td style="padding:6px 8px;text-align:center;font-size:10px;color:#ff6b6b;">-</td>
@@ -652,11 +763,41 @@
                         <th style="padding:6px 8px;text-align:center;color:#ffb74d;font-size:9px;font-weight:700;letter-spacing:0.5px;">STATUS</th>
                         <th style="padding:6px 8px;text-align:center;color:#ffb74d;font-size:9px;font-weight:700;letter-spacing:0.5px;">LAST RUN</th>
                         <th style="padding:6px 8px;text-align:center;color:#ffb74d;font-size:9px;font-weight:700;letter-spacing:0.5px;">LAST SUCCESS</th>
+                        <th style="padding:6px 8px;text-align:center;color:#4FD1C5;font-size:9px;font-weight:700;letter-spacing:0.5px;">NEXT RUN (IST)</th>
                         <th style="padding:6px 8px;text-align:center;color:#ffb74d;font-size:9px;font-weight:700;letter-spacing:0.5px;">ACTION</th>
                     </tr></thead>
                     <tbody>${rows.map(r => r.html).join('')}</tbody>
                 </table>
             </div>`;
+
+            // Priority sorting: move sections with issues to top
+            sortSectionsByPriority(hasFailed, hasBlocked);
+        }
+
+        function sortSectionsByPriority(hasFailed, hasBlocked) {
+            const content = document.querySelector('.content');
+            if (!content) return;
+            const sections = Array.from(content.querySelectorAll('.section[data-section]'));
+
+            // Define priority order (lower = higher priority)
+            const priorityMap = {
+                'youtube': hasFailed ? 0 : (hasBlocked ? 1 : 5),
+                'bookupload': 2,
+                'quicklinks': 3,
+                'websites': 4,
+                'infrastructure': 6,
+                'email': 7,
+                'github': 8,
+                'urls': 9
+            };
+
+            sections.sort((a, b) => {
+                const pa = priorityMap[a.dataset.section] ?? 5;
+                const pb = priorityMap[b.dataset.section] ?? 5;
+                return pa - pb;
+            });
+
+            sections.forEach(s => content.appendChild(s));
         }
 
         function timeAgo(date) {
@@ -694,7 +835,10 @@
             { name: 'Practical AI Healthcare', url: 'https://github.com/cybersecurityocean/practical-ai-healthcare' },
             { name: 'Ebook Builder', url: 'https://github.com/mohammedimthiyaz1401-ai/ebook-builder' },
             { name: 'Book 1 - Gumroad', url: 'https://cyberwave407.gumroad.com/l/ai-healthcare-dos-donts' },
-            { name: 'Book 2 - Gumroad', url: 'https://cyberwave407.gumroad.com/l/Stop-AI-From-Leaking-Patient-Data' }
+            { name: 'Book 2 - Gumroad', url: 'https://cyberwave407.gumroad.com/l/Stop-AI-From-Leaking-Patient-Data' },
+            { name: 'Book 3 - Gumroad Upload', url: 'https://gumroad.com/dashboard' },
+            { name: 'Book 3 - KDP Upload', url: 'https://kdp.amazon.com' },
+            { name: 'Book 3 - Files', url: 'https://github.com/cybersecurityocean/practical-ai-healthcare/tree/main/book-03-healthy-ai-implementation-roadmap' }
         ];
         if (projectUrls.length === 0) { projectUrls = defaultUrls; localStorage.setItem('meow-urls', JSON.stringify(projectUrls)); }
 
@@ -729,6 +873,19 @@
         function exportUrls() {
             const text = projectUrls.map(u => u.name + ': ' + u.url).join('\n');
             navigator.clipboard.writeText(text).then(() => showNotif('URLs copied!')).catch(() => showNotif('Copy failed!', true));
+        }
+
+        function copyGeminiPrompt() {
+            const prompt = document.getElementById('geminiPrompt').textContent;
+            navigator.clipboard.writeText(prompt).then(() => showNotif('Prompt copied! Paste into Gemini.')).catch(() => {
+                const ta = document.createElement('textarea');
+                ta.value = prompt;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showNotif('Prompt copied!');
+            });
         }
 
         function showNotif(msg, isError) {
@@ -987,7 +1144,7 @@
             if (l.includes('thank')) { meowAddMsg('bot', 'You\'re welcome! 🐱'); return; }
             if (l.includes('clear chat') || l === 'clear') { const c = document.getElementById('meowMessages'); if (c) c.innerHTML = ''; meowAddMsg('bot', '🗑️ Cleared!'); return; }
             if (l.includes('youtube') || l.includes('channel')) { meowAddMsg('bot', '📺 <strong>Channels:</strong><br>• AI Content Network<br>• CatHub Podcast<br>• Future Intelligence<br>• Stick Cat Academy'); return; }
-            if (l.includes('book')) { meowAddMsg('bot', '📚 <strong>Books:</strong><br>• Book 1: Do\'s & Don\'ts ✅<br>• Book 2: Stop Data Leaking ✅<br>• Book 3: Implementation 📝'); return; }
+            if (l.includes('book')) { meowAddMsg('bot', '📚 <strong>Books:</strong><br>• Book 1: Do\'s & Don\'ts ✅<br>• Book 2: Stop Data Leaking ✅<br>• Book 3: Implementation 📝 READY TO UPLOAD<br><br>🛒 <a href="https://gumroad.com/dashboard" target="_blank" style="color:#4FD1C5">Gumroad Upload</a> | <a href="https://kdp.amazon.com" target="_blank" style="color:#ffb74d">KDP Upload</a><br><br>Say <strong>"copy prompt"</strong> for the Gemini cover prompt.'); return; }
 
             if (l.includes('help') || l.includes('what can you do')) { meowAddMsg('bot', '🐱 <strong>MEOW Commands:</strong><br><br>📋 Tasks: "add/list/complete/remove task"<br>📝 Notes: "add/list/delete note"<br>⏰ Reminders: "remind me... in X min"<br>⏱️ Timer: "start/stop timer"<br>🧮 Calculator: "calculate 2+2"<br>🔄 Converter: "convert 5 km to miles"<br>🔗 URLs: "list/add/remove/open url"<br>🌤️ Weather: "weather"<br>😄 Joke: "joke"<br>💡 Quote: "quote"<br>📰 News: "news"<br>💻 System: "system info"<br>🎨 Theme: "apply [theme]"<br>📜 Scroll: "scroll to [section]"<br>👁️ Hide/Show: "hide/show [section]"<br>🔤 Font: "font small/large"<br>🔐 Encode: "encode/decode text"<br>🎲 Random: "random number/color"<br>🧹 Clear: "clear chat"'); return; }
 
