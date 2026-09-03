@@ -665,8 +665,12 @@ DESIGN RULES:
             const m = String(ist.getUTCMinutes()).padStart(2, '0');
             const ampm = h >= 12 ? 'PM' : 'AM';
             const h12 = h % 12 || 12;
-            const day = ist.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-            return `${day} ${h12}:${m} ${ampm}`;
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const day = days[ist.getUTCDay()];
+            const month = months[ist.getUTCMonth()];
+            const date = ist.getUTCDate();
+            return `${day} ${month} ${date} ${h12}:${m} ${ampm}`;
         }
 
         async function checkYouTubeStatus() {
@@ -978,7 +982,7 @@ DESIGN RULES:
             randomChoice: (a) => a[Math.floor(Math.random() * a.length)],
             encode64: (t) => btoa(t),
             decode64: (t) => { try { return atob(t); } catch { return 'Invalid base64'; } },
-            scrollTo: (s) => { const m = { header: '.header', stats: '.stats-row', email: '.email-mini', books: '.section:nth-child(2)', youtube: '.section:nth-child(3)', websites: '.section:nth-child(4)', infrastructure: '.section:nth-child(5)', github: '.section:nth-child(6)', urls: '.section:nth-child(7)', footer: '.footer' }; const el = document.querySelector(m[s]); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return true; } return false; },
+            scrollTo: (s) => { const m = { header: '.header', stats: '.stats-row', email: '.email-mini', books: '.section[data-section="bookupload"]', youtube: '.section[data-section="youtube"]', websites: '.section[data-section="websites"]', infrastructure: '.section[data-section="infrastructure"]', github: '.section[data-section="github"]', urls: '.section[data-section="urls"]', footer: '.footer' }; const el = document.querySelector(m[s]); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return true; } return false; },
             showAllSections: () => { document.querySelectorAll('.section').forEach(s => s.style.display = 'block'); },
             hideAllSections: () => { document.querySelectorAll('.section').forEach(s => s.style.display = 'none'); },
             changeCardColor: (c) => { document.querySelectorAll('.card').forEach(cd => cd.style.borderColor = c); },
