@@ -372,7 +372,6 @@
             .stat-num { font-size: 18px; }
             .meow-chat { width: calc(100% - 20px); right: 10px; bottom: 90px; height: 450px; }
             .meow-fab { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 24px; }
-            .moon { width: 50px; height: 50px; top: 30px; right: 30px; }
         }
     </style>
 </head>
@@ -638,7 +637,8 @@ DESIGN RULES:
             const target = new Date(now);
             target.setDate(now.getDate() + ((6 - dow + 7) % 7 || 7));
             target.setHours(10, 0, 0, 0);
-            const diff = target - now;
+            let diff = target - now;
+            if (diff < 0) diff += 7 * 86400000;
             document.getElementById('countDays').textContent = Math.floor(diff / 86400000);
             document.getElementById('countHours').textContent = Math.floor((diff % 86400000) / 3600000);
             document.getElementById('countMins').textContent = Math.floor((diff % 3600000) / 60000);
@@ -982,7 +982,7 @@ DESIGN RULES:
             randomChoice: (a) => a[Math.floor(Math.random() * a.length)],
             encode64: (t) => btoa(t),
             decode64: (t) => { try { return atob(t); } catch { return 'Invalid base64'; } },
-            scrollTo: (s) => { const m = { header: '.header', stats: '.stats-row', email: '.email-mini', books: '.section[data-section="bookupload"]', youtube: '.section[data-section="youtube"]', websites: '.section[data-section="websites"]', infrastructure: '.section[data-section="infrastructure"]', github: '.section[data-section="github"]', urls: '.section[data-section="urls"]', footer: '.footer' }; const el = document.querySelector(m[s]); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return true; } return false; },
+            scrollTo: (s) => { const m = { header: '.header', stats: '.stats-row', email: '.email-mini', books: '.section[data-section="bookupload"]', youtube: '.section[data-section="youtube"]', websites: '.section[data-section="websites"]', infrastructure: '.section[data-section="infrastructure"]', github: '.section[data-section="github"]', urls: '.section[data-section="urls"]', footer: '.footer', quicklinks: '.section[data-section="quicklinks"]', bookupload: '.section[data-section="bookupload"]' }; const el = document.querySelector(m[s]); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return true; } return false; },
             showAllSections: () => { document.querySelectorAll('.section').forEach(s => s.style.display = 'block'); },
             hideAllSections: () => { document.querySelectorAll('.section').forEach(s => s.style.display = 'none'); },
             changeCardColor: (c) => { document.querySelectorAll('.card').forEach(cd => cd.style.borderColor = c); },
@@ -1056,7 +1056,7 @@ DESIGN RULES:
             const l = text.toLowerCase();
 
             if (l.startsWith('scroll')) {
-                const targets = ['header', 'stats', 'email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'urls', 'footer'];
+                const targets = ['header', 'stats', 'email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'urls', 'footer', 'quicklinks', 'bookupload'];
                 for (const t of targets) { if (l.includes(t)) { websiteControl.scrollTo(t); meowAddMsg('bot', '📜 Scrolling to <strong>' + t + '</strong>!'); return; } }
                 if (l.includes('top') || l.includes('up')) { window.scrollTo({ top: 0, behavior: 'smooth' }); meowAddMsg('bot', '📜 Scrolling to top!'); return; }
                 if (l.includes('bottom') || l.includes('down')) { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); meowAddMsg('bot', '📜 Scrolling to bottom!'); return; }
@@ -1064,14 +1064,14 @@ DESIGN RULES:
 
             if (l.startsWith('hide ')) {
                 if (l.includes('all')) { websiteControl.hideAllSections(); meowAddMsg('bot', '👁️ All sections hidden!'); return; }
-                const names = ['email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'urls'];
+                const names = ['email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'urls', 'quicklinks', 'bookupload'];
                 const titles = document.querySelectorAll('.section-title');
                 for (let i = 0; i < titles.length; i++) { for (const n of names) { if (l.includes(n) && titles[i].textContent.toLowerCase().includes(n)) { titles[i].closest('.section').style.display = 'none'; meowAddMsg('bot', '👁️ ' + n + ' hidden!'); return; } } }
             }
 
             if (l.startsWith('show ')) {
                 if (l.includes('all')) { websiteControl.showAllSections(); meowAddMsg('bot', '👁️ All visible!'); return; }
-                const names = ['email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'urls'];
+                const names = ['email', 'books', 'youtube', 'websites', 'infrastructure', 'github', 'urls', 'quicklinks', 'bookupload'];
                 const titles = document.querySelectorAll('.section-title');
                 for (let i = 0; i < titles.length; i++) { for (const n of names) { if (l.includes(n) && titles[i].textContent.toLowerCase().includes(n)) { titles[i].closest('.section').style.display = 'block'; meowAddMsg('bot', '👁️ ' + n + ' visible!'); return; } } }
             }
@@ -1149,6 +1149,7 @@ DESIGN RULES:
             if (l.includes('clear chat') || l === 'clear') { const c = document.getElementById('meowMessages'); if (c) c.innerHTML = ''; meowAddMsg('bot', '🗑️ Cleared!'); return; }
             if (l.includes('youtube') || l.includes('channel')) { meowAddMsg('bot', '📺 <strong>Channels:</strong><br>• AI Content Network<br>• CatHub Podcast<br>• Future Intelligence<br>• Stick Cat Academy'); return; }
             if (l.includes('book')) { meowAddMsg('bot', '📚 <strong>Books:</strong><br>• Book 1: Do\'s & Don\'ts ✅<br>• Book 2: Stop Data Leaking ✅<br>• Book 3: Implementation 📝 READY TO UPLOAD<br><br>🛒 <a href="https://gumroad.com/dashboard" target="_blank" style="color:#4FD1C5">Gumroad Upload</a> | <a href="https://kdp.amazon.com" target="_blank" style="color:#ffb74d">KDP Upload</a><br><br>Say <strong>"copy prompt"</strong> for the Gemini cover prompt.'); return; }
+            if (l.includes('copy prompt')) { copyGeminiPrompt(); meowAddMsg('bot', '📋 Gemini cover prompt copied! Paste it into Gemini to generate book covers.'); return; }
 
             if (l.includes('help') || l.includes('what can you do')) { meowAddMsg('bot', '🐱 <strong>MEOW Commands:</strong><br><br>📋 Tasks: "add/list/complete/remove task"<br>📝 Notes: "add/list/delete note"<br>⏰ Reminders: "remind me... in X min"<br>⏱️ Timer: "start/stop timer"<br>🧮 Calculator: "calculate 2+2"<br>🔄 Converter: "convert 5 km to miles"<br>🔗 URLs: "list/add/remove/open url"<br>🌤️ Weather: "weather"<br>😄 Joke: "joke"<br>💡 Quote: "quote"<br>📰 News: "news"<br>💻 System: "system info"<br>🎨 Theme: "apply [theme]"<br>📜 Scroll: "scroll to [section]"<br>👁️ Hide/Show: "hide/show [section]"<br>🔤 Font: "font small/large"<br>🔐 Encode: "encode/decode text"<br>🎲 Random: "random number/color"<br>🧹 Clear: "clear chat"'); return; }
 
