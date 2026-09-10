@@ -411,11 +411,11 @@
 
         <div class="content">
             <div class="stats-row">
-                <div class="stat-pill"><div class="stat-num" id="repoCount">10</div><div class="stat-lbl">Repos</div></div>
-                <div class="stat-pill"><div class="stat-num" id="channelCount">4</div><div class="stat-lbl">Channels</div></div>
-                <div class="stat-pill"><div class="stat-num" id="bookCount">3</div><div class="stat-lbl">Books</div></div>
-                <div class="stat-pill"><div class="stat-num" id="websiteCount">6</div><div class="stat-lbl">Websites</div></div>
-                <div class="stat-pill"><div class="stat-num" id="emailCount">9</div><div class="stat-lbl">Emails</div></div>
+                <div class="stat-pill" onclick="scrollToSection('github')"><div class="stat-num" id="repoCount">10</div><div class="stat-lbl">Repos</div></div>
+                <div class="stat-pill" onclick="scrollToSection('youtube')"><div class="stat-num" id="channelCount">4</div><div class="stat-lbl">Channels</div></div>
+                <div class="stat-pill" onclick="scrollToSection('bookupload')"><div class="stat-num" id="bookCount">3</div><div class="stat-lbl">Books</div></div>
+                <div class="stat-pill" onclick="scrollToSection('websites')"><div class="stat-num" id="websiteCount">6</div><div class="stat-lbl">Websites</div></div>
+                <div class="stat-pill" onclick="scrollToSection('email')"><div class="stat-num" id="emailCount">9</div><div class="stat-lbl">Emails</div></div>
             </div>
 
             <div class="section" data-section="youtube">
@@ -911,6 +911,27 @@ DESIGN RULES:
                 document.body.removeChild(ta);
                 showNotif('Prompt copied!');
             });
+        }
+
+        function scrollToSection(section) {
+            const map = {
+                repos: '.section[data-section="github"]',
+                github: '.section[data-section="github"]',
+                channels: '.section[data-section="youtube"]',
+                youtube: '.section[data-section="youtube"]',
+                books: '.section[data-section="bookupload"]',
+                bookupload: '.section[data-section="bookupload"]',
+                websites: '.section[data-section="websites"]',
+                emails: '.email-mini',
+                email: '.email-mini',
+                infrastructure: '.section[data-section="infrastructure"]',
+                futuretools: '.section[data-section="futuretools"]',
+                urls: '.section[data-section="urls"]',
+                quicklinks: '.section[data-section="quicklinks"]',
+                footer: '.footer'
+            };
+            const el = document.querySelector(map[section] || map[section.toLowerCase()]);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         function copyEmail(btn, email) {
