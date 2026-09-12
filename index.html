@@ -481,6 +481,25 @@
                 </div>
             </div>
 
+            <div class="section" data-section="linkedin">
+                <div class="section-title">💼 LINKEDIN CONTENT — WEEKLY TRENDING</div>
+                <div class="cards" id="linkedinContent">
+                    <div class="card"><div class="card-head"><div class="card-name">🤖 AI Agents & Autonomy</div><span class="badge badge-done">POST NOW</span></div><div class="card-desc"><b>Trend:</b> AI agents that can browse, code, and act autonomously (Devin, OpenAI Operator, Claude Computer Use)<br><b>Post Idea:</b> "I built an AI agent that runs my YouTube channels 24/7. Here's what I learned about autonomous AI in production..."<br><b>Hashtags:</b> #AIAgents #AIAutomation #FutureOfWork</div><div class="card-links"><a href="https://www.linkedin.com/feed/" class="card-link" target="_blank">Post on LinkedIn</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">🏥 AI in Healthcare</div><span class="badge badge-done">POST NOW</span></div><div class="card-desc"><b>Trend:</b> AI diagnostics, drug discovery, patient data privacy, hospital AI adoption<br><b>Post Idea:</b> "Healthcare is the next frontier for AI. Here are 5 real-world hospital AI implementations that are saving lives today..."<br><b>Hashtags:</b> #HealthcareAI #DigitalHealth #MedTech</div><div class="card-links"><a href="https://www.linkedin.com/feed/" class="card-link" target="_blank">Post on LinkedIn</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">⚡ Edge AI & On-Device</div><span class="badge badge-hold">TRENDING</span></div><div class="card-desc"><b>Trend:</b> Running LLMs on phones (Gemma, Phi-3), Apple Intelligence, on-device inference<br><b>Post Idea:</b> "The future of AI isn't in the cloud — it's in your pocket. Here's why edge AI changes everything..."<br><b>Hashtags:</b> #EdgeAI #OnDeviceAI #MobileAI</div><div class="card-links"><a href="https://www.linkedin.com/feed/" class="card-link" target="_blank">Post on LinkedIn</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">🔒 AI Security & Prompt Injection</div><span class="badge badge-hold">TRENDING</span></div><div class="card-desc"><b>Trend:</b> Prompt injection attacks, AI red teaming, LLM vulnerabilities, jailbreaks<br><b>Post Idea:</b> "I tested 10 AI models for security vulnerabilities. Here's what I found about prompt injection attacks..."<br><b>Hashtags:</b> #AISecurity #CyberSecurity #LLMSecurity</div><div class="card-links"><a href="https://www.linkedin.com/feed/" class="card-link" target="_blank">Post on LinkedIn</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">🛠️ Vibe Coding & AI Dev Tools</div><span class="badge badge-done">POST NOW</span></div><div class="card-desc"><b>Trend:</b> Cursor, GitHub Copilot, Bolt.new, Replit Agent — building apps with natural language<br><b>Post Idea:</b> "I built 12 production apps in 3 months using AI-assisted coding. Here's my honest review of vibe coding..."<br><b>Hashtags:</b> #VibeCoding #AIDevelopment #CodingWithAI</div><div class="card-links"><a href="https://www.linkedin.com/feed/" class="card-link" target="_blank">Post on LinkedIn</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">📊 RAG & Knowledge Systems</div><span class="badge badge-hold">TRENDING</span></div><div class="card-desc"><b>Trend:</b> Retrieval-Augmented Generation, vector DBs, knowledge graphs, enterprise RAG<br><b>Post Idea:</b> "RAG is the backbone of enterprise AI. Here's how I built a knowledge system that actually works..."<br><b>Hashtags:</b> #RAG #VectorDB #EnterpriseAI</div><div class="card-links"><a href="https://www.linkedin.com/feed/" class="card-link" target="_blank">Post on LinkedIn</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">🎯 AI for Business Automation</div><span class="badge badge-done">POST NOW</span></div><div class="card-desc"><b>Trend:</b> AI workflow automation, no-code AI, business process optimization<br><b>Post Idea:</b> "I automated my entire content pipeline with AI — from script to upload. Here's the architecture..."<br><b>Hashtags:</b> #BusinessAutomation #AIStrategy #DigitalTransformation</div><div class="card-links"><a href="https://www.linkedin.com/feed/" class="card-link" target="_blank">Post on LinkedIn</a></div></div>
+                    <div class="card"><div class="card-head"><div class="card-name">💡 Open Source AI Models</div><span class="badge badge-hold">TRENDING</span></div><div class="card-desc"><b>Trend:</b> Llama 3.2, Mistral, Qwen 2.5, DeepSeek — open-source models rivaling GPT-4<br><b>Post Idea:</b> "Open-source AI just caught up with GPT-4. Here's why this changes the game for developers..."<br><b>Hashtags:</b> #OpenSource #LLM #AIModels</div><div class="card-links"><a href="https://www.linkedin.com/feed/" class="card-link" target="_blank">Post on LinkedIn</a></div></div>
+                </div>
+                <div style="margin-top:12px; padding:12px; background:rgba(255,183,77,0.08); border:1px solid rgba(255,183,77,0.2); border-radius:10px; font-size:12px; color:#ccc;">
+                    <b style="color:#ffb74d;">📅 Weekly Posting Schedule:</b><br>
+                    <span style="color:#aaa;">Mon: AI Agents | Tue: Healthcare AI | Wed: Edge AI | Thu: Security | Fri: Vibe Coding | Sat: RAG | Sun: Business AI</span><br>
+                    <span style="color:#888; font-size:11px;">Best times: 8-10 AM or 5-7 PM IST | Post 3-4x/week minimum</span>
+                </div>
+            </div>
+
             <div class="section" data-section="email">
                 <div class="section-title">📧 EMAIL ACCOUNTS</div>
                 <div class="email-mini">
@@ -926,6 +945,7 @@ DESIGN RULES:
                 email: '.email-mini',
                 infrastructure: '.section[data-section="infrastructure"]',
                 futuretools: '.section[data-section="futuretools"]',
+                linkedin: '.section[data-section="linkedin"]',
                 urls: '.section[data-section="urls"]',
                 quicklinks: '.section[data-section="quicklinks"]',
                 footer: '.footer'
@@ -1042,7 +1062,7 @@ DESIGN RULES:
             randomChoice: (a) => a[Math.floor(Math.random() * a.length)],
             encode64: (t) => btoa(t),
             decode64: (t) => { try { return atob(t); } catch { return 'Invalid base64'; } },
-            scrollTo: (s) => { const m = { header: '.header', stats: '.stats-row', email: '.email-mini', books: '.section[data-section="bookupload"]', youtube: '.section[data-section="youtube"]', websites: '.section[data-section="websites"]', infrastructure: '.section[data-section="infrastructure"]', github: '.section[data-section="github"]', urls: '.section[data-section="urls"]', footer: '.footer', quicklinks: '.section[data-section="quicklinks"]', bookupload: '.section[data-section="bookupload"]' }; const el = document.querySelector(m[s]); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return true; } return false; },
+            scrollTo: (s) => { const m = { header: '.header', stats: '.stats-row', email: '.email-mini', books: '.section[data-section="bookupload"]', youtube: '.section[data-section="youtube"]', websites: '.section[data-section="websites"]', infrastructure: '.section[data-section="infrastructure"]', github: '.section[data-section="github"]', urls: '.section[data-section="urls"]', footer: '.footer', quicklinks: '.section[data-section="quicklinks"]', bookupload: '.section[data-section="bookupload"]', linkedin: '.section[data-section="linkedin"]', futuretools: '.section[data-section="futuretools"]' }; const el = document.querySelector(m[s]); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return true; } return false; },
             showAllSections: () => { document.querySelectorAll('.section').forEach(s => s.style.display = 'block'); },
             hideAllSections: () => { document.querySelectorAll('.section').forEach(s => s.style.display = 'none'); },
             changeCardColor: (c) => { document.querySelectorAll('.card').forEach(cd => cd.style.borderColor = c); },
