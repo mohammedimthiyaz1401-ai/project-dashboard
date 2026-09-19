@@ -761,7 +761,7 @@ DESIGN RULES:
                         statusText = 'RUNNING';
                         sortOrder = 1;
                     }
-                    if (ch.type === 'rumble' && (statusText === 'FAILED' || statusText === 'ERROR')) {
+                    if (ch.type === 'rumble' && statusText === 'FAILED') {
                         hasBlocked = true;
                     }
 
@@ -1003,9 +1003,9 @@ DESIGN RULES:
             clearTimeout(meowSpeakTimeout);
             const u = new SpeechSynthesisUtterance(cleanText);
             u.rate = 1.0; u.pitch = 1.0; u.volume = 0.9;
-            const v = window.speechSynthesis.getVoices();
-            const p = v.find(v => v.name.includes('Google') || v.name.includes('Microsoft'));
-            if (p) u.voice = p;
+            const voices = window.speechSynthesis.getVoices();
+            const preferred = voices.find(voice => voice.name.includes('Google') || voice.name.includes('Microsoft'));
+            if (preferred) u.voice = preferred;
             u.onstart = () => { meowSpeaking = true; };
             u.onend = u.onerror = () => { meowSpeaking = false; meowLastSpoken = ''; };
             window.speechSynthesis.speak(u);
@@ -1169,7 +1169,7 @@ DESIGN RULES:
             if (l.includes('joke')) { try { const j = await fetch('https://official-joke-api.appspot.com/random_joke').then(r=>r.json()); meowAddMsg('bot', '😄 ' + j.setup + '<br><strong>' + j.punchline + '</strong>'); } catch { meowAddMsg('bot', '😄 Why did the cat join Instagram? To get more followers! 🐱'); } return; }
             if (l.includes('news')) { meowAddMsg('bot', '📰 <a href="https://news.ycombinator.com" target="_blank" style="color:#ffb74d">Hacker News</a> • <a href="https://www.techcrunch.com" target="_blank" style="color:#ffb74d">TechCrunch</a> • <a href="https://www.theverge.com" target="_blank" style="color:#ffb74d">The Verge</a>'); return; }
             if (l.startsWith('system') || l.startsWith('device')) { meowAddMsg('bot', '💻 ' + websiteControl.getSystemInfo()); return; }
-            if (l.startsWith('project') || l.startsWith('repo')) { meowAddMsg('bot', '📂 <strong>Projects:</strong><br>• AI Content Network<br>• Portfolio<br>• Cat Podcast<br>• Stick Cat Academy<br>• Ebook Builder<br>• Dashboard<br>• MEOW'); return; }
+            if (l.startsWith('project') || l.startsWith('repo')) { meowAddMsg('bot', '📂 <strong>Projects (14):</strong><br>• AI Content Network<br>• Portfolio<br>• Cat Podcast<br>• Stick Cat Academy<br>• AI News Bot<br>• Rumble Podcast<br>• Ebook Builder<br>• Dashboard<br>• MEOW<br>• Healthcare Updates<br>• ToolVerse<br>• JabilliCloud Kitchen<br>• Supermarket<br>• Practical AI Healthcare'); return; }
             if (l.includes('quote')) { const q = await websiteControl.getQuote(); meowAddMsg('bot', '💡 ' + q); return; }
 
             if (l.includes('list url') || l.includes('show url')) { meowAddMsg('bot', '🔗 <strong>URLs:</strong><br>' + projectUrls.map((u,i) => (i+1)+'. <strong>'+u.name+'</strong>').join('<br>')); return; }
