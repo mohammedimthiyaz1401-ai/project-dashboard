@@ -17,7 +17,7 @@ Personal project dashboard with MEOW chat assistant. Shows all project statuses,
 2. Stats Row (repos, channels, books, websites, activities, emails)
 3. YouTube & Rumble Status
 4. Quick Links
-5. Airdrop & Testnet Activities (24 clickable airdrop/testnet/mining links)
+5. Airdrop & Testnet Activities (19 clickable airdrop/testnet links)
 6. Websites & Portfolio
 7. Infrastructure
 8. Future Tools to Adopt
